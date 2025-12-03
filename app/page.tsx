@@ -1,65 +1,70 @@
 import Image from "next/image";
 
-export default function Home() {
+export default function HomeSkeleton() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <>
+      {/* Hero */}
+      <section className="relative h-screen bg-white">
+        <div className="absolute right-12 top-5 w-[480px] space-y-8 rounded-3xl bg-black p-10 shadow-2xl">
+          <h1 className="text-4xl font-bold leading-tight text-white">
+            Heading regarding to Agentic Decision Modeling
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <div className="flex items-center justify-center py-4">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src="file.svg"
+              height={100}
+              width={360}
+              alt="Hero Section Image"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Our Mission */}
+      <section className="mx-auto max-w-4xl space-y-8 px-12 py-24 text-center">
+        <h5 className="text-3xl font-semibold leading-relaxed ">
+          Our Mission is sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+          ea commodo consequat.
+        </h5>
+      </section>
+
+      {/* The Actor Concept */}
+      <section className="flex items-center justify-between gap-16 px-12 py-24">
+        <div>
+          <Image
+            src="/vercel.svg"
+            height={200}
+            width={200}
+            alt=" Image conveying Actor Concept"
+          />
+        </div>
+        <div className="w-1/2 space-y-6">
+          <h1 className="text-3xl font-bold ">Meet the actor</h1>
+          <p className="leading-relaxed">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur.
+          </p>
+          <button className="rounded-lg bg-black px-8 py-3 font-semibold text-white transition">
+            Learn More
+          </button>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="space-y-8 bg-gray-50 px-12 py-24">
+        <h2 className="text-center text-6xl font-bold text-gray-900">
+          Need a Demo?
+        </h2>
+        <p className="text-right text-lg font-medium text-gray-700">
+          Contact Us
+        </p>
+      </section>
+    </>
   );
 }
