@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Nav from "@/component/Nav";
 import Footer from "@/component/Footer";
-import { roboto } from "./font";
+import { fraunces, instrument, inter, mono } from "./font";
 
 export const metadata: Metadata = {
-  title: "Sigil — Agentic Decision Modeling",
+  title: "Sigil — Issue No. 04",
   description:
-    "Sigil deploys autonomous AI agents into high-fidelity simulated environments. Train your army, stress-test your models, rehearse your strategy — before the real world ever sees it.",
+    "A field manual for things that haven't happened yet. Sigil deploys autonomous AI actors into high-fidelity simulated environments — so strategy, doctrine, and operators are battle-tested before contact with reality.",
 };
 
 export default function RootLayout({
@@ -16,9 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${fraunces.variable} ${instrument.variable} ${inter.variable} ${mono.variable}`}
+    >
       <body
-        className={`${roboto.className} antialiased bg-background text-foreground min-h-screen`}
+        className={`${inter.className} antialiased bg-paper text-ink min-h-screen paper-grain`}
       >
         <Nav />
         <main>{children}</main>
