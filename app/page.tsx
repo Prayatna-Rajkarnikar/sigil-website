@@ -1,117 +1,137 @@
 import Image from "next/image";
 import Link from "next/link";
-import HeroField from "@/component/HeroField";
-import Reveal from "@/component/Reveal";
-
-/* ─────────────────────────────────────────────────────────────
-   ISSUE NO. 04 — A FIELD MANUAL FOR THINGS THAT
-   HAVEN'T HAPPENED YET.
-   Editorial layout. Big serif type. One living motif.
-   ───────────────────────────────────────────────────────────── */
+import { exo } from "./font";
+import HeroReadout from "@/component/HeroReadout";
+import LiveSpecPanel from "@/component/LiveSpecPanel";
+import ScenarioGenerator from "@/component/ScenarioGenerator";
+import ActorSwarm from "@/component/ActorSwarmClient";
+import Actor3D from "@/component/Actor3DClient";
+import HeroAgent3D from "@/component/HeroAgent3DClient";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Thesis />
-      <Numbers />
-      <TheActor />
-      <Roster />
-      <Quote />
-      <Field />
-      <Colophon />
+      <Ticker />
+      <Mission />
+      <ActorConcept />
+      <TrainArmy />
+      <AIModels />
+      <UseCaseTeaser />
+      <ScenarioGenerator />
+      <SalesCTA />
     </>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   HERO — masthead, headline, living field
+   HERO — full-bleed video + WebGL swarm, classified terminal overlay
    ───────────────────────────────────────────────────────────── */
 function Hero() {
   return (
-    <section className="relative min-h-[100svh] w-full overflow-hidden">
-      {/* Living field — quiet flock of "actors" drifting beneath the type */}
-      <div className="absolute inset-0">
-        <HeroField />
+    <section className="relative min-h-screen overflow-hidden bg-background scanlines">
+      {/* Video backdrop */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover opacity-20"
+      >
+        <source src="/video.mp4" type="video/mp4" />
+      </video>
+
+      {/* WebGL actor swarm */}
+      <ActorSwarm />
+
+      {/* Layered overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background"></div>
+      <div className="absolute inset-0 bg-tactical-grid opacity-60"></div>
+      <div className="absolute inset-0 bg-spotlight"></div>
+
+      {/* 3D agent — right-side floating specimen, lg+ only */}
+      <div
+        aria-hidden
+        className="hidden lg:block absolute z-[5] right-0 top-1/2 -translate-y-1/2 w-[42%] xl:w-[40%] h-[78%] pointer-events-none"
+      >
+        {/* faint frame so the agent reads as a contained "specimen" */}
+        <div className="absolute inset-x-8 inset-y-4 border border-primary/15"></div>
+        <span className="absolute top-4 right-12 text-[10px] font-bold uppercase tracking-[0.3em] text-primary/70 z-10">
+          AGENT.04 · SPECIMEN
+        </span>
+        <span className="absolute bottom-4 left-12 text-[10px] font-bold uppercase tracking-[0.3em] text-muted z-10">
+          ACTIVE · IDLE LOOP
+        </span>
+        <HeroAgent3D />
       </div>
 
-      {/* Soft vignette so the type stays the focus */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 60% at 50% 45%, transparent 0%, rgba(10,9,8,0.55) 100%)",
-        }}
-      />
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-between px-6 pt-28 pb-12 lg:px-10">
+        {/* Top tactical readout — live clock */}
+        <HeroReadout />
 
-      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col px-6 pt-10 pb-12 lg:px-12">
-        {/* Masthead row */}
-        <div className="hairline-b flex flex-wrap items-baseline justify-between gap-4 pb-4">
-          <span className="kicker">Sigil Quarterly</span>
-          <span className="label-meta">
-            Issue No. <span data-num>04</span> · Spring <span data-num>2026</span>
-          </span>
-          <span className="label-meta hidden sm:inline">
-            A field manual for things that haven&apos;t happened yet
-          </span>
-        </div>
-
-        {/* Editorial headline — asymmetric, serif, breathing */}
-        <div className="my-auto py-16 lg:py-24">
-          <p className="kicker mb-8 inline-flex items-center gap-3">
-            <span className="dot-live" aria-hidden />
-            Vol. I — Rehearsal
-          </p>
-
-          <h1 className="font-display display-tight text-[16vw] sm:text-[13vw] lg:text-[11rem] xl:text-[13rem] font-light text-ink">
-            Every war
-            <br />
-            is a war
-            <br />
-            <span className="font-italic-display display-italic text-seal">you&apos;ve never</span>
-            <br />
-            fought.
-          </h1>
-
-          <div className="mt-12 grid max-w-4xl grid-cols-1 gap-10 md:grid-cols-12">
-            <p className="md:col-span-7 prose-editorial">
-              <span className="kicker block mb-3">Premise</span>
-              Sigil populates simulated environments with autonomous AI{" "}
-              <em>actors</em> — agents that perceive, reason, and act with
-              purpose — so that doctrine, operators, and strategy are tested
-              against opponents that learn, in worlds that bite back<sup className="foot">1</sup>.
+        {/* Center hero block */}
+        <div className="my-auto py-16">
+          <div className="max-w-5xl">
+            <p className="mb-6 inline-flex items-center gap-3 border border-primary/40 bg-primary/5 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+              <span className="h-1.5 w-1.5 bg-primary"></span>
+              Strategic Simulation Systems
             </p>
-            <div className="md:col-span-5 flex flex-col items-start justify-end gap-4">
+
+            <h1
+              className={`${exo.className} text-5xl font-black leading-[0.95] tracking-tight text-foreground sm:text-7xl lg:text-[7.5rem]`}
+            >
+              Rehearse
+              <br />
+              <span className="text-glow-primary text-primary">
+                the future
+              </span>
+              <span className="animate-blink text-primary">_</span>
+            </h1>
+
+            <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+              Sigil deploys autonomous AI{" "}
+              <span className="text-foreground">actors</span> into high-fidelity
+              simulated environments — so your operators, your models, and
+              your strategy are battle-tested{" "}
+              <span className="text-foreground">before</span> the real world
+              ever sees them.
+            </p>
+
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <Link
+                href="#rehearse"
+                className="btn-tactical group relative inline-flex items-center justify-center gap-3 border border-primary bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90"
+              >
+                Run a Live Rehearsal
+                <span className="transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+              </Link>
               <Link
                 href="/contact"
-                className="font-display text-2xl tracking-tight text-ink link-editorial"
+                className="btn-tactical group inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:bg-primary/10"
               >
-                Read the brief
-                <span className="ml-2 text-seal">→</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
+                Request Briefing
               </Link>
-              <p className="label-meta">
-                Or speak privately ·{" "}
-                <a
-                  href="mailto:command@sigil.ai"
-                  className="link-editorial text-aged"
-                >
-                  command@sigil.ai
-                </a>
-              </p>
             </div>
           </div>
         </div>
 
-        {/* Bottom rule + footnote */}
-        <div className="hairline-t flex flex-wrap items-baseline justify-between gap-4 pt-4 mt-auto">
-          <span className="label-meta">
-            <sup className="foot">1</sup> See &ldquo;On the rehearsal of futures,&rdquo; p.{" "}
-            <span data-num>12</span>.
-          </span>
-          <span className="label-meta">
-            <span className="text-live mr-2" aria-hidden>●</span>
-            <span data-num>78</span> actors live · field stable
-          </span>
+        {/* Bottom system panel — live telemetry */}
+        <div className="corner-brackets relative border border-primary/40 bg-background/60 p-6 backdrop-blur-sm">
+          <span className="corner-bl"></span>
+          <span className="corner-br"></span>
+
+          <div className="absolute -top-2.5 left-6 flex items-center gap-2 bg-background px-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+            <span className="h-1.5 w-1.5 bg-primary animate-pulse"></span>
+            System Active
+          </div>
+          <div className="absolute -top-2.5 right-6 bg-background px-3 text-[10px] font-bold uppercase tracking-[0.3em] text-muted">
+            Classified // 04
+          </div>
+
+          <LiveSpecPanel />
         </div>
       </div>
     </section>
@@ -119,541 +139,643 @@ function Hero() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   THESIS — the opening essay, drop-capped
+   TICKER — scrolling status bar
    ───────────────────────────────────────────────────────────── */
-function Thesis() {
-  return (
-    <section id="mission" className="relative px-6 py-32 lg:px-12 lg:py-44">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
-          <div className="hairline-b flex items-baseline justify-between gap-4 pb-3 mb-16">
-            <span className="kicker">§ 01 — The Thesis</span>
-            <span className="label-meta">
-              Pages <span data-num>02</span>–<span data-num>09</span>
-            </span>
-          </div>
-        </Reveal>
-
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
-          <Reveal className="lg:col-span-5">
-            <h2 className="font-display display-tight text-5xl sm:text-6xl lg:text-7xl font-light leading-[0.95] text-ink">
-              We don&apos;t
-              <br />
-              predict the
-              <br />
-              future.
-              <br />
-              <span className="font-italic-display display-italic text-seal">
-                We rehearse it.
-              </span>
-            </h2>
-          </Reveal>
-
-          <Reveal className="lg:col-span-7" delay={120}>
-            <div className="prose-editorial drop-cap text-lg lg:text-[1.1875rem]">
-              <p>
-                The cost of being wrong has rarely been higher. Combat doctrine,
-                supply chains, financial systems, and critical infrastructure
-                evolve faster than any human committee can review them. The
-                briefing room, however excellent, is a poor substitute for a
-                world that can fight back.
-              </p>
-              <p>
-                Sigil compresses years of contingency planning into hours of
-                high-fidelity simulation — populating each scenario with
-                autonomous actors that pursue goals, negotiate, deceive, and
-                adapt. They are the opposition. They are the allies. They are
-                the variables you forgot to model.
-              </p>
-              <p>
-                When the real world finally arrives, your team has already
-                fought it.{" "}
-                <em className="font-italic-display text-ink not-italic">
-                  A thousand times.
-                </em>
-              </p>
-            </div>
-          </Reveal>
-        </div>
-
-        <Reveal>
-          <div className="asterism mt-24" aria-hidden>* * *</div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────
-   NUMBERS — three full-bleed editorial spreads, one per number
-   ───────────────────────────────────────────────────────────── */
-function Numbers() {
-  const stats: { figure: string; label: string; gloss: string; small: string }[] = [
-    {
-      figure: "10⁶",
-      label: "Scenarios per cycle",
-      gloss: "Parallel actor populations explore branching futures, in concert.",
-      small: "001",
-    },
-    {
-      figure: "40×",
-      label: "Decision velocity",
-      gloss: "Strategic reviews compressed from quarters to days.",
-      small: "002",
-    },
-    {
-      figure: "Zero",
-      label: "Real-world cost",
-      gloss: "Fail in simulation. Win in the field.",
-      small: "003",
-    },
+function Ticker() {
+  const items = [
+    "AGENTIC DECISION MODELING",
+    "MULTI-DOMAIN SIMULATION",
+    "ADVERSARIAL RED TEAMING",
+    "DOCTRINE STRESS-TEST",
+    "STRATEGIC FORESIGHT",
+    "AUTONOMOUS ACTOR NETWORKS",
   ];
-
+  const stream = [...items, ...items];
   return (
-    <section className="relative bg-paper-2">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <Reveal>
-          <div className="hairline-b flex items-baseline justify-between gap-4 py-6">
-            <span className="kicker">§ 02 — By the Numbers</span>
-            <span className="label-meta">A measured argument</span>
-          </div>
-        </Reveal>
-
-        {stats.map((s, i) => (
-          <Reveal key={s.figure}>
-            <div className={`grid grid-cols-12 items-end gap-6 py-24 lg:py-36 ${i < stats.length - 1 ? "hairline-b" : ""}`}>
-              <div className="col-span-12 lg:col-span-2">
-                <span className="label-meta">No. <span data-num>{s.small}</span></span>
-              </div>
-              <div className="col-span-12 lg:col-span-7">
-                <div
-                  className="font-display display-tight text-[26vw] lg:text-[18rem] font-light leading-[0.82] text-ink select-none"
-                  data-num
-                >
-                  {s.figure}
-                </div>
-              </div>
-              <div className="col-span-12 lg:col-span-3">
-                <p className="kicker mb-2">{s.label}</p>
-                <p className="prose-editorial text-[1.0625rem]">{s.gloss}</p>
-              </div>
-            </div>
-          </Reveal>
+    <div className="relative overflow-hidden border-y border-primary/30 bg-primary/5 py-4">
+      <div className="flex w-max animate-marquee gap-12 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.4em] text-primary">
+        {stream.map((item, i) => (
+          <span key={i} className="flex items-center gap-12">
+            <span>{item}</span>
+            <span className="text-foreground/30">◆</span>
+          </span>
         ))}
       </div>
-    </section>
+    </div>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   THE ACTOR — anatomy diagram with hairline labels
+   MISSION
    ───────────────────────────────────────────────────────────── */
-function TheActor() {
+function Mission() {
   return (
-    <section id="actor" className="relative px-6 py-32 lg:px-12 lg:py-44">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
-          <div className="hairline-b flex items-baseline justify-between gap-4 pb-3 mb-16">
-            <span className="kicker">§ 03 — The Actor</span>
-            <span className="label-meta">An anatomy</span>
-          </div>
-        </Reveal>
+    <section
+      id="mission"
+      className="relative border-b border-white/5 px-6 py-32 lg:px-10"
+    >
+      <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
+      <div className="relative mx-auto max-w-7xl">
+        <SectionLabel index="01" label="Our Mission" />
 
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-20 lg:items-center">
-          <Reveal className="order-2 lg:order-1 lg:col-span-5">
-            <h2 className="font-display display-tight text-5xl sm:text-6xl lg:text-7xl font-light leading-[0.95] text-ink">
-              An actor is a
+        <div className="mt-12 grid gap-16 lg:grid-cols-12 lg:gap-24">
+          <div className="lg:col-span-7">
+            <h2
+              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl lg:text-6xl`}
+            >
+              We don&apos;t predict
               <br />
-              <span className="font-italic-display display-italic text-seal">
-                small, stubborn
+              the future.
+              <br />
+              <span className="text-primary">
+                We let you rehearse it.
               </span>
-              <br />
-              hypothesis.
             </h2>
-            <p className="mt-10 prose-editorial">
-              The atomic unit of the platform — an autonomous agent with goals,
-              memory, sensory input, and a policy for action. Drop one into an
-              environment, it pursues an objective. Drop a thousand in, they
-              form an economy, an army, a city.
+            <p className="mt-10 max-w-2xl text-lg leading-relaxed text-muted">
+              The cost of being wrong is rising. Combat doctrine, supply
+              chains, financial systems, and critical infrastructure now
+              evolve faster than any human committee can review. Sigil
+              compresses years of contingency planning into hours of
+              high-fidelity simulation — populating scenarios with autonomous
+              actors that perceive, reason, and act with purpose.
             </p>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+              When the real world finally arrives, your team has already
+              fought it.{" "}
+              <span className="text-foreground">A thousand times.</span>
+            </p>
+          </div>
+
+          <div className="lg:col-span-5">
+            <div className="corner-brackets relative space-y-0 border border-primary/30 bg-white/[0.02] p-8 backdrop-blur-sm">
+              <span className="corner-bl"></span>
+              <span className="corner-br"></span>
+
+              <MissionStat
+                value="10⁶"
+                label="Scenarios per cycle"
+                desc="Parallel actor populations explore branching futures."
+              />
+              <div className="my-6 h-px w-full bg-white/10"></div>
+              <MissionStat
+                value="40×"
+                label="Decision velocity"
+                desc="Compress strategic review from quarters to days."
+              />
+              <div className="my-6 h-px w-full bg-white/10"></div>
+              <MissionStat
+                value="Zero"
+                label="Real-world cost"
+                desc="Fail in simulation. Win in the field."
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MissionStat({
+  value,
+  label,
+  desc,
+}: {
+  value: string;
+  label: string;
+  desc: string;
+}) {
+  return (
+    <div>
+      <div className="flex items-baseline gap-4">
+        <span
+          className={`${exo.className} text-5xl font-black text-primary`}
+        >
+          {value}
+        </span>
+        <span className="text-xs font-bold uppercase tracking-[0.25em] text-foreground">
+          {label}
+        </span>
+      </div>
+      <p className="mt-3 text-sm leading-relaxed text-muted">{desc}</p>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ACTOR CONCEPT — now with 3D actor diagram
+   ───────────────────────────────────────────────────────────── */
+function ActorConcept() {
+  return (
+    <section
+      id="actor"
+      className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10"
+    >
+      <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-spotlight"></div>
+
+      <div className="relative mx-auto max-w-7xl">
+        <SectionLabel index="02" label="The Actor" />
+
+        <div className="mt-12 grid gap-16 lg:grid-cols-12 lg:items-center lg:gap-24">
+          <div className="lg:col-span-6 order-2 lg:order-1">
+            <h2
+              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl lg:text-6xl`}
+            >
+              Meet the
+              <br />
+              <span className="text-primary">Actor.</span>
+            </h2>
+            <p className="mt-8 text-lg leading-relaxed text-muted">
+              An <span className="text-foreground">Actor</span> is the atomic
+              unit of the Sigil platform — an autonomous AI agent with goals,
+              memory, sensory input, and a policy for action. Drop one into
+              an environment, it pursues an objective. Drop a thousand in,
+              they form an economy, an army, a city.
+            </p>
+
+            <div className="mt-10 grid grid-cols-2 gap-4">
+              {[
+                { name: "Perceives", desc: "Multi-modal sensory input" },
+                { name: "Remembers", desc: "Episodic + semantic memory" },
+                { name: "Reasons", desc: "Goal-directed planning" },
+                { name: "Acts", desc: "Tool use & coordination" },
+              ].map((trait) => (
+                <div
+                  key={trait.name}
+                  className="border border-white/10 bg-white/[0.02] p-4 transition hover:border-primary/50 hover:bg-primary/5"
+                >
+                  <div className="mb-1 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-primary">
+                    <span className="h-1 w-1 bg-primary"></span>
+                    {trait.name}
+                  </div>
+                  <div className="text-xs text-muted">{trait.desc}</div>
+                </div>
+              ))}
+            </div>
+
             <Link
               href="/actors"
-              className="mt-10 inline-block font-display text-xl tracking-tight text-ink link-editorial"
+              className="btn-tactical group mt-10 inline-flex items-center gap-3 border border-white/20 px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:text-primary"
             >
-              Inspect the actor
-              <span className="ml-2 text-seal">→</span>
+              Inspect the Actor
+              <span className="transition-transform group-hover:translate-x-1">
+                →
+              </span>
             </Link>
-          </Reveal>
+          </div>
 
-          <Reveal className="order-1 lg:order-2 lg:col-span-7" delay={120}>
-            <ActorAnatomy />
-          </Reveal>
+          {/* 3D actor diagram */}
+          <div className="lg:col-span-6 order-1 lg:order-2">
+            <Actor3D />
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function ActorAnatomy() {
-  /* Five faculties laid out around a single mark. */
-  const labels = [
-    { n: "i.",    name: "Perception",  hint: "Multi-modal sensory input",      pos: "top-[6%]   left-[8%]"   },
-    { n: "ii.",   name: "Memory",      hint: "Episodic + semantic recall",     pos: "top-[10%]  right-[6%]"  },
-    { n: "iii.",  name: "Goals",       hint: "Objectives & sub-objectives",    pos: "top-[52%]  right-[2%]"  },
-    { n: "iv.",   name: "Policy",      hint: "What to do, given the world",    pos: "bottom-[6%] right-[18%]" },
-    { n: "v.",    name: "Action",      hint: "Tool use & coordination",        pos: "bottom-[8%] left-[10%]" },
-  ];
-  return (
-    <div className="relative aspect-square w-full max-w-2xl mx-auto">
-      {/* Center mark — a deliberate, non-tech illustration */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="relative">
-          <div
-            className="font-display display-loose text-[14rem] lg:text-[18rem] font-light leading-none text-ink"
-            aria-hidden
-          >
-            ∗
-          </div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-mono text-[10px] tracking-[0.3em] text-aged uppercase">
-              Actor.<span className="text-seal">04</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Hairline labels with leader lines */}
-      {labels.map((l) => (
-        <div key={l.name} className={`absolute ${l.pos} max-w-[180px]`}>
-          <div className="hairline-b pb-1">
-            <span className="font-italic-display italic text-seal mr-2">{l.n}</span>
-            <span className="font-display text-ink text-base lg:text-lg">{l.name}</span>
-          </div>
-          <p className="mt-2 label-meta normal-case tracking-[0.04em] text-[11px] text-aged">
-            {l.hint}
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 /* ─────────────────────────────────────────────────────────────
-   THE ROSTER — agent profiles as collectible spreads
+   TRAIN YOUR ARMY
    ───────────────────────────────────────────────────────────── */
-function Roster() {
-  const cards: {
-    no: string;
-    codename: string;
-    role: string;
-    desc: string;
-    spec: string;
-    glyph: "asterisk" | "diamond" | "wedge" | "bullseye";
-    accent?: "seal" | "live";
-  }[] = [
+function TrainArmy() {
+  const capabilities = [
     {
-      no: "I",
-      codename: "Stratagem",
-      role: "Strategic Planner",
-      desc: "Long-horizon planning across multi-domain operations. Hierarchical goal decomposition with sub-actor delegation.",
-      spec: "Horizon · 180 d",
-      glyph: "asterisk",
+      tag: "DOCTRINE",
+      title: "Stress-test command doctrine",
+      desc: "Run blue-vs-red engagements with thousands of autonomous actors. Identify breakage in chain-of-command, comms latency, and rules of engagement before live exercise.",
     },
     {
-      no: "II",
-      codename: "Shadow",
-      role: "Adversarial Engine",
-      desc: "Adaptive opponent that learns your tactics in real time. Trained on declassified doctrine and open-source threat intel.",
-      spec: "Adapts · in 2 turns",
-      glyph: "wedge",
-      accent: "seal",
+      tag: "LOGISTICS",
+      title: "Pre-position for the real fight",
+      desc: "Simulate supply chains under contested conditions. Surface single points of failure across fuel, ammunition, medical, and information flow.",
     },
     {
-      no: "III",
-      codename: "Cascade",
-      role: "Logistics Coordinator",
-      desc: "Multi-actor resource allocation under contested, degraded, and intermittent conditions. Optimal under uncertainty.",
-      spec: "Nodes · 65,000+",
-      glyph: "diamond",
-    },
-    {
-      no: "IV",
-      codename: "Warden",
-      role: "Reconnaissance",
-      desc: "Sensor fusion and pattern-of-life analysis. Builds high-fidelity environment state from sparse, noisy observations.",
-      spec: "Recall · 94.1%",
-      glyph: "bullseye",
-      accent: "live",
+      tag: "OPERATORS",
+      title: "Train operators against adversarial AI",
+      desc: "Each Sigil actor adapts to your team's tactics in real time. Operators face an opponent that learns — not a script.",
     },
   ];
 
   return (
-    <section id="models" className="relative px-6 py-32 lg:px-12 lg:py-44 bg-paper-2">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
-          <div className="hairline-b flex items-baseline justify-between gap-4 pb-3 mb-16">
-            <span className="kicker">§ 04 — The Roster</span>
-            <span className="label-meta">Four characters in search of a war</span>
+    <section
+      id="train"
+      className="relative border-b border-white/5 px-6 py-32 lg:px-10"
+    >
+      <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
+
+      <div className="relative mx-auto max-w-7xl">
+        <SectionLabel index="03" label="Train Your Army" />
+
+        <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <h2
+              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl lg:text-6xl`}
+            >
+              Sweat in
+              <br />
+              simulation.
+              <br />
+              <span className="text-primary">Bleed less in war.</span>
+            </h2>
+            <p className="mt-8 text-lg leading-relaxed text-muted">
+              Sigil environments are physics-grounded, sensor-accurate, and
+              populated by adversarial actors that don&apos;t care about your
+              feelings. Every drill ends with a forensic readout: what
+              decisions were made, by whom, and why they failed.
+            </p>
+
+            <div className="mt-10 flex flex-wrap gap-3">
+              {[
+                "Air & Space",
+                "Maritime",
+                "Land",
+                "Cyber",
+                "Information",
+                "Logistics",
+              ].map((domain) => (
+                <span
+                  key={domain}
+                  className="border border-white/15 bg-white/5 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground"
+                >
+                  {domain}
+                </span>
+              ))}
+            </div>
           </div>
-        </Reveal>
 
-        <Reveal>
-          <h2 className="font-display display-tight text-5xl sm:text-6xl lg:text-7xl font-light leading-[0.95] text-ink mb-16 max-w-4xl">
-            Each character
-            <br />
-            arrives <span className="font-italic-display display-italic text-seal">
-              already in flight
-            </span>.
-          </h2>
-        </Reveal>
-
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          {cards.map((c, i) => (
-            <Reveal key={c.codename} delay={i * 80}>
-              <article className="card-tilt relative h-full border border-hairline bg-paper p-7 transition-colors hover:border-ink/30">
-                <div className="flex items-start justify-between">
-                  <span className="label-meta">No. <span data-num>{c.no}</span></span>
-                  <span className="font-italic-display italic text-aged text-sm">
-                    {c.role}
-                  </span>
-                </div>
-
-                <div className="mt-12 mb-12 flex items-center justify-center">
-                  <Glyph kind={c.glyph} accent={c.accent} />
-                </div>
-
-                <h3 className="font-display display-loose text-3xl lg:text-4xl text-ink leading-none">
-                  {c.codename}
-                  <span className="font-italic-display italic text-seal text-2xl">.</span>
-                </h3>
-
-                <p className="mt-3 prose-editorial text-[15px] text-ink-soft">{c.desc}</p>
-
-                <div className="mt-8 hairline-t pt-3 flex items-baseline justify-between">
-                  <span className="label-meta">Specimen</span>
-                  <span className="font-display text-ink text-base" data-num>
-                    {c.spec}
-                  </span>
+          <div className="lg:col-span-7 space-y-4">
+            {capabilities.map((c, i) => (
+              <article
+                key={c.tag}
+                className="group corner-brackets relative border border-white/10 bg-white/[0.02] p-8 transition hover:border-primary/50 hover:bg-primary/[0.04]"
+              >
+                <span className="corner-bl"></span>
+                <span className="corner-br"></span>
+                <div className="grid grid-cols-12 items-start gap-6">
+                  <div className="col-span-2">
+                    <div
+                      className={`${exo.className} text-5xl font-black text-primary/30 group-hover:text-primary/60 transition`}
+                    >
+                      0{i + 1}
+                    </div>
+                  </div>
+                  <div className="col-span-10">
+                    <div className="mb-3 inline-block border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-primary">
+                      {c.tag}
+                    </div>
+                    <h3
+                      className={`${exo.className} text-2xl font-black leading-tight text-foreground`}
+                    >
+                      {c.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-muted">
+                      {c.desc}
+                    </p>
+                  </div>
                 </div>
               </article>
-            </Reveal>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function Glyph({
-  kind,
-  accent,
-}: {
-  kind: "asterisk" | "diamond" | "wedge" | "bullseye";
-  accent?: "seal" | "live";
-}) {
-  const color =
-    accent === "seal"
-      ? "text-seal"
-      : accent === "live"
-      ? "text-live"
-      : "text-ink";
-  const cls = `glyph-spin font-display display-loose font-light leading-none ${color}`;
-  if (kind === "asterisk") return <span className={`${cls} text-8xl`}>∗</span>;
-  if (kind === "diamond")
-    return (
-      <svg width="92" height="92" viewBox="0 0 100 100" className={`glyph-spin ${color}`} aria-hidden>
-        <path d="M50 6 L94 50 L50 94 L6 50 Z" fill="none" stroke="currentColor" strokeWidth="1.4" />
-        <path d="M50 26 L74 50 L50 74 L26 50 Z" fill="currentColor" opacity="0.15" />
-      </svg>
-    );
-  if (kind === "wedge")
-    return (
-      <svg width="92" height="92" viewBox="0 0 100 100" className={`glyph-spin ${color}`} aria-hidden>
-        <path d="M50 8 L92 88 L8 88 Z" fill="none" stroke="currentColor" strokeWidth="1.4" />
-        <path d="M50 30 L78 80 L22 80 Z" fill="currentColor" opacity="0.18" />
-      </svg>
-    );
-  if (kind === "bullseye")
-    return (
-      <svg width="92" height="92" viewBox="0 0 100 100" className={`glyph-spin ${color}`} aria-hidden>
-        <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" strokeWidth="1.2" />
-        <circle cx="50" cy="50" r="28" fill="none" stroke="currentColor" strokeWidth="1.2" />
-        <circle cx="50" cy="50" r="12" fill="currentColor" opacity="0.7" />
-        <line x1="50" y1="2"  x2="50" y2="14" stroke="currentColor" strokeWidth="1" />
-        <line x1="50" y1="86" x2="50" y2="98" stroke="currentColor" strokeWidth="1" />
-        <line x1="2"  y1="50" x2="14" y2="50" stroke="currentColor" strokeWidth="1" />
-        <line x1="86" y1="50" x2="98" y2="50" stroke="currentColor" strokeWidth="1" />
-      </svg>
-    );
-  return null;
-}
-
 /* ─────────────────────────────────────────────────────────────
-   PULL QUOTE — massive italic, the editorial centerpiece
+   AI MODELS
    ───────────────────────────────────────────────────────────── */
-function Quote() {
+function AIModels() {
+  const models = [
+    {
+      codename: "STRATAGEM-7",
+      role: "Strategic Planner",
+      desc: "Long-horizon planning across multi-domain operations. Hierarchical goal decomposition with sub-actor delegation.",
+      stats: [
+        ["Horizon", "180 d"],
+        ["Branching", "10⁵"],
+      ],
+    },
+    {
+      codename: "SHADOW-RED",
+      role: "Adversarial Engine",
+      desc: "Adaptive opponent that learns your tactics in real time. Trained on declassified doctrine and open-source threat intel.",
+      stats: [
+        ["Adapt", "<2 turns"],
+        ["Modes", "12"],
+      ],
+    },
+    {
+      codename: "CASCADE-3",
+      role: "Logistics Coordinator",
+      desc: "Multi-actor resource allocation under contested, degraded, and intermittent conditions. Optimal under uncertainty.",
+      stats: [
+        ["Nodes", "65k+"],
+        ["Latency", "12 ms"],
+      ],
+    },
+    {
+      codename: "WARDEN-9",
+      role: "Reconnaissance",
+      desc: "Sensor fusion and pattern-of-life analysis. Builds high-fidelity environment state from sparse, noisy observations.",
+      stats: [
+        ["Sensors", "ALL-DOMAIN"],
+        ["Recall", "94.1%"],
+      ],
+    },
+  ];
+
   return (
-    <section className="relative px-6 py-40 lg:px-12 lg:py-56">
-      <div className="mx-auto max-w-6xl">
-        <Reveal>
-          <p className="kicker mb-10">§ 05 — Marginalia</p>
-          <blockquote className="font-italic-display display-italic text-[10vw] sm:text-[7.5vw] lg:text-[6.5rem] xl:text-[7.5rem] leading-[1.02] text-ink">
-            <span className="text-seal">&ldquo;</span>The simulation is not a
-            forecast. It is a place where you are allowed to be{" "}
-            <span className="text-seal">wrong</span> until you are{" "}
-            <span className="text-ink">right</span>.<span className="text-seal">&rdquo;</span>
-          </blockquote>
-          <div className="mt-10 flex items-baseline justify-between hairline-t pt-4">
-            <span className="font-display italic text-ink-soft">
-              — From the editor&apos;s desk
-            </span>
-            <span className="label-meta">p. <span data-num>14</span></span>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
+    <section
+      id="models"
+      className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10"
+    >
+      <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
 
-/* ─────────────────────────────────────────────────────────────
-   FIELD — full-bleed photo essay with editorial caption
-   ───────────────────────────────────────────────────────────── */
-function Field() {
-  return (
-    <section className="relative px-6 py-32 lg:px-12 lg:py-44">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
-          <div className="hairline-b flex items-baseline justify-between gap-4 pb-3 mb-16">
-            <span className="kicker">§ 06 — Field Footage</span>
-            <span className="label-meta">Operation Northstar — recovered</span>
-          </div>
-        </Reveal>
+      <div className="relative mx-auto max-w-7xl">
+        <SectionLabel index="04" label="AI Models" />
 
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
-          <Reveal className="lg:col-span-8">
-            <figure className="relative">
-              <div className="relative overflow-hidden border border-hairline">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-auto block"
-                  style={{ filter: "grayscale(0.6) sepia(0.15) contrast(1.05) brightness(0.85)" }}
-                >
-                  <source src="/video.mp4" type="video/mp4" />
-                </video>
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, transparent 50%, rgba(10,9,8,0.6) 100%)",
-                  }}
-                />
-                <figcaption className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4">
-                  <p className="font-italic-display italic text-ink text-base lg:text-lg max-w-md leading-snug">
-                    A 72-hour engagement, recovered and replayed in four.
-                  </p>
-                  <span className="label-meta text-ink-soft">
-                    Plate <span data-num>VII</span>
-                  </span>
-                </figcaption>
-              </div>
-              <p className="mt-3 label-meta">
-                Stillgrabs from the Northstar replay, decimated to 1/8 framerate for clarity.
-              </p>
-            </figure>
-          </Reveal>
-
-          <Reveal className="lg:col-span-4 flex flex-col justify-center" delay={120}>
-            <h3 className="font-display display-tight text-3xl lg:text-4xl text-ink leading-tight">
-              When the brief becomes{" "}
-              <span className="font-italic-display display-italic text-seal">
-                the after-action.
-              </span>
-            </h3>
-            <p className="mt-6 prose-editorial">
-              Every Sigil engagement is fully replayable, frame-for-frame, with
-              attribution for every decision an actor made. Argue with the
-              past. Find the inflection. Train the next generation on the
-              actual fight, not the polished briefing deck.
+        <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-4">
+            <h2
+              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
+            >
+              Purpose-built
+              <br />
+              <span className="text-primary">for the mission.</span>
+            </h2>
+            <p className="mt-8 text-base leading-relaxed text-muted">
+              Sigil ships a curated arsenal of foundation models, each
+              specialized for a role inside the actor stack. Compose them.
+              Replace them. Train your own on top.
             </p>
-            <div className="mt-8 grid grid-cols-3 gap-4">
-              <FieldStat n="4.2×" label="Faster AAR" />
-              <FieldStat n="−68%" label="Live-ex cost" />
-              <FieldStat n="+35%" label="Decisions" />
+          </div>
+
+          <div className="lg:col-span-8">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {models.map((m) => (
+                <article
+                  key={m.codename}
+                  className="corner-brackets group relative border border-white/10 bg-white/[0.02] p-6 transition hover:border-primary/50"
+                >
+                  <span className="corner-bl"></span>
+                  <span className="corner-br"></span>
+
+                  <div className="mb-4 flex items-center justify-between">
+                    <div
+                      className={`${exo.className} text-xl font-black tracking-wider text-primary`}
+                    >
+                      {m.codename}
+                    </div>
+                    <div className="h-2 w-2 rounded-full bg-primary animate-pulse"></div>
+                  </div>
+
+                  <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-foreground">
+                    {m.role}
+                  </div>
+                  <p className="mb-6 text-sm leading-relaxed text-muted">
+                    {m.desc}
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-3 border-t border-white/10 pt-4">
+                    {m.stats.map(([k, v]) => (
+                      <div key={k}>
+                        <div className="text-[9px] uppercase tracking-[0.2em] text-muted">
+                          {k}
+                        </div>
+                        <div
+                          className={`${exo.className} text-lg font-black text-foreground`}
+                        >
+                          {v}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </article>
+              ))}
             </div>
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function FieldStat({ n, label }: { n: string; label: string }) {
+/* ─────────────────────────────────────────────────────────────
+   USE CASE TEASER
+   ───────────────────────────────────────────────────────────── */
+function UseCaseTeaser() {
   return (
-    <div className="hairline-t pt-2">
-      <div className="font-display display-loose text-2xl text-ink" data-num>
-        {n}
+    <section className="relative border-b border-white/5 px-6 py-32 lg:px-10">
+      <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
+
+      <div className="relative mx-auto max-w-7xl">
+        <SectionLabel index="05" label="In the Field" />
+
+        <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
+          <div className="relative">
+            <div className="corner-brackets relative overflow-hidden border border-primary/30 bg-background/60 p-2 backdrop-blur-sm">
+              <span className="corner-bl"></span>
+              <span className="corner-br"></span>
+              <Image
+                src="/pic.png"
+                width={800}
+                height={600}
+                alt="Strategic simulation visualisation"
+                className="w-full opacity-80"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                <div>
+                  <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+                    REPLAY · Operation Northstar
+                  </div>
+                  <div
+                    className={`${exo.className} text-2xl font-black text-foreground`}
+                  >
+                    72-hour engagement, recovered in 4 hours.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-center">
+            <h2
+              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
+            >
+              When the brief
+              <br />
+              becomes <span className="text-primary">the after-action.</span>
+            </h2>
+            <p className="mt-8 text-lg leading-relaxed text-muted">
+              Every Sigil engagement is fully replayable, frame-for-frame,
+              with attribution for every decision an actor made. Argue with
+              the past. Find the inflection. Train the next generation on
+              the actual fight, not the polished briefing deck.
+            </p>
+
+            <div className="mt-10 grid grid-cols-3 gap-6">
+              <ResultStat value="4.2×" label="Faster AAR" />
+              <ResultStat value="−68%" label="Live-ex cost" />
+              <ResultStat value="+35%" label="Decision speed" />
+            </div>
+
+            <Link
+              href="/use-case"
+              className="btn-tactical group mt-10 inline-flex w-fit items-center gap-3 border border-primary bg-primary/10 px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:bg-primary hover:text-background"
+            >
+              Read the Use Case
+              <span className="transition-transform group-hover:translate-x-1">
+                →
+              </span>
+            </Link>
+          </div>
+        </div>
       </div>
-      <div className="label-meta mt-1 text-[10px]">{label}</div>
+    </section>
+  );
+}
+
+function ResultStat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="border-l-2 border-primary pl-4">
+      <div
+        className={`${exo.className} text-3xl font-black text-foreground`}
+      >
+        {value}
+      </div>
+      <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-muted">
+        {label}
+      </div>
     </div>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   COLOPHON — the "back cover": a single bold address, signed.
+   SALES CTA
    ───────────────────────────────────────────────────────────── */
-function Colophon() {
+function SalesCTA() {
   return (
-    <section className="relative px-6 py-32 lg:px-12 lg:py-44 bg-paper-2 hairline-t">
-      <div className="mx-auto max-w-6xl text-center">
-        <Reveal>
-          <p className="kicker mb-10 inline-flex items-center gap-3 justify-center">
-            <span className="dot-live" aria-hidden /> § 07 — Engage
+    <section className="relative overflow-hidden bg-background px-6 py-32 lg:px-10">
+      <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-spotlight"></div>
+
+      <div className="relative mx-auto max-w-5xl">
+        <div className="corner-brackets relative border border-primary/40 bg-background/60 p-10 backdrop-blur-sm sm:p-16">
+          <span className="corner-bl"></span>
+          <span className="corner-br"></span>
+
+          <div className="absolute -top-3 left-10 flex items-center gap-2 bg-background px-4 text-[11px] font-bold uppercase tracking-[0.3em] text-primary">
+            <span className="h-1.5 w-1.5 bg-primary animate-pulse"></span>
+            Open Channel
+          </div>
+
+          <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.3em] text-muted">
+            // 06 · Engage Command
           </p>
-          <h2 className="font-display display-tight text-6xl sm:text-7xl lg:text-[8rem] font-light leading-[0.94] text-ink">
+
+          <h2
+            className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-6xl lg:text-7xl`}
+          >
             Stop guessing.
             <br />
-            <span className="font-italic-display display-italic text-seal">
-              Start rehearsing.
-            </span>
+            <span className="text-primary">Start rehearsing.</span>
           </h2>
-          <p className="mt-12 mx-auto max-w-2xl prose-editorial text-lg">
-            A thirty-minute briefing is the fastest way to see if it&apos;s
-            real. Bring your hardest scenario; we&apos;ll bring the actors.
+
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
+            Most platforms sell you another dashboard. Sigil sells you the
+            time you would have spent learning the hard way. A 30-minute
+            briefing with our team is the fastest way to see if it&apos;s
+            real.
           </p>
 
-          <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-x-10 gap-y-4">
+          <div className="mt-12 grid gap-6 sm:grid-cols-2">
+            <Link
+              href="#rehearse"
+              className="btn-tactical group corner-brackets relative border border-primary bg-primary p-6 transition hover:bg-primary/90"
+            >
+              <span className="corner-bl"></span>
+              <span className="corner-br"></span>
+              <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-background/70">
+                Live demo · in-page
+              </div>
+              <div
+                className={`${exo.className} mt-2 text-3xl font-black text-background`}
+              >
+                Run a Rehearsal
+              </div>
+              <div className="mt-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.25em] text-background/80">
+                Try it now
+                <span className="transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+              </div>
+            </Link>
+
             <Link
               href="/contact"
-              className="font-display text-3xl lg:text-4xl tracking-tight text-ink link-editorial"
+              className="btn-tactical group corner-brackets relative border border-white/20 bg-white/[0.02] p-6 transition hover:border-primary"
             >
-              Schedule a briefing
-              <span className="ml-3 text-seal">→</span>
+              <span className="corner-bl"></span>
+              <span className="corner-br"></span>
+              <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+                Schedule a Briefing
+              </div>
+              <div
+                className={`${exo.className} mt-2 text-3xl font-black text-foreground`}
+              >
+                30-min · NDA-ready
+              </div>
+              <div className="mt-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.25em] text-muted group-hover:text-foreground transition">
+                Open the Form
+                <span className="transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+              </div>
             </Link>
-            <span className="label-meta">or</span>
-            <a
-              href="mailto:command@sigil.ai"
-              className="font-display italic text-2xl lg:text-3xl text-ink-soft link-editorial"
-            >
-              command@sigil.ai
-            </a>
           </div>
 
-          <div className="mt-24 hairline-t pt-6 flex flex-wrap items-baseline justify-between gap-4 text-left">
-            <span className="font-italic-display italic text-aged text-base">
-              Compiled in Arlington, VA · Q2 <span data-num>2026</span>
+          <div className="mt-10 flex flex-wrap items-center gap-6 border-t border-white/10 pt-6 text-[10px] uppercase tracking-[0.25em] text-muted">
+            <span className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
+              SOC 2
             </span>
-            <span className="label-meta">
-              SOC 2 · ITAR-aware · FedRAMP track · Air-gap deployable
+            <span className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
+              ITAR-aware
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
+              FedRAMP track
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
+              Air-gap deploy
             </span>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
 }
 
-/* Re-export so unused-import warnings don't trip on Image */
-void Image;
+/* ─────────────────────────────────────────────────────────────
+   Shared
+   ───────────────────────────────────────────────────────────── */
+function SectionLabel({ index, label }: { index: string; label: string }) {
+  return (
+    <div className="flex items-center gap-4">
+      <div
+        className={`${exo.className} text-sm font-black tracking-[0.3em] text-primary`}
+      >
+        // {index}
+      </div>
+      <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-primary to-transparent"></div>
+      <div className="text-[11px] font-bold uppercase tracking-[0.35em] text-muted">
+        {label}
+      </div>
+    </div>
+  );
+}

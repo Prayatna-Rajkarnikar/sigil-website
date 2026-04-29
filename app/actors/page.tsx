@@ -1,359 +1,415 @@
-import Image from "next/image";
+import Link from "next/link";
+import { exo } from "@/app/font";
+import Actor3D from "@/component/Actor3DClient";
 
 export default function ActorsPage() {
   return (
     <>
-      {/* Hero - Introduction to Actors */}
-      <section className="relative h-[70vh] bg-white">
-        <div className="absolute left-12 top-1/3 w-[500px] space-y-8 rounded-3xl bg-black p-10 shadow-2xl">
-          <h1 className="text-5xl font-bold leading-tight text-white">
-            Autonomous AI Actors
-          </h1>
-          <p className="text-xl text-gray-300">
-            Intelligent agents that perceive, decide, and act independently to achieve complex goals.
-          </p>
-          <div className="flex items-center justify-center py-4">
-            <div className="h-48 w-full bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl flex items-center justify-center">
-              <div className="relative">
-                <div className="h-32 w-32 rounded-full border-4 border-gray-600"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div className="h-20 w-20 rounded-full border-2 border-gray-500"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 1: What Are AI Actors? */}
-      <section className="mx-auto max-w-6xl px-12 py-24">
-        <div className="text-center space-y-8 mb-16">
-          <h2 className="text-4xl font-bold text-gray-900">
-            Understanding AI Actors
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Autonomous entities capable of independent decision-making, learning from environments, 
-            and collaborating with other agents to solve complex problems.
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Card 1: Autonomous */}
-          <div className="space-y-6 p-8 bg-white rounded-2xl border border-gray-300 shadow-lg">
-            <div className="h-12 w-12 rounded-full bg-black flex items-center justify-center">
-              <div className="h-6 w-6 bg-white"></div>
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900">Autonomous Agents</h3>
-            <p className="text-gray-600">
-              Self-directed entities that operate without continuous human intervention, 
-              making decisions based on their programming and environmental feedback.
-            </p>
-          </div>
-          
-          {/* Card 2: Learning */}
-          <div className="space-y-6 p-8 bg-white rounded-2xl border border-gray-300 shadow-lg">
-            <div className="h-12 w-12 rounded-full bg-black flex items-center justify-center">
-              <div className="h-6 w-6 bg-white"></div>
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900">Continuous Learning</h3>
-            <p className="text-gray-600">
-              Agents that improve over time through experience, adapting to new scenarios 
-              and optimizing their decision-making processes.
-            </p>
-          </div>
-          
-          {/* Card 3: Collaborative */}
-          <div className="space-y-6 p-8 bg-white rounded-2xl border border-gray-300 shadow-lg">
-            <div className="h-12 w-12 rounded-full bg-black flex items-center justify-center">
-              <div className="h-6 w-6 bg-white"></div>
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900">Multi-Agent Systems</h3>
-            <p className="text-gray-600">
-              Networks of agents that collaborate, communicate, and coordinate to achieve 
-              objectives beyond individual capabilities.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 2: The Agentic Decision Cycle */}
-      <section className="bg-gray-50 py-24">
-        <div className="mx-auto max-w-6xl px-12">
-          <div className="text-center space-y-8 mb-16">
-            <h2 className="text-4xl font-bold text-gray-900">
-              The Decision-Making Cycle
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              How AI actors process information and make intelligent decisions
-            </p>
-          </div>
-          
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
-            <div className="lg:w-1/2 space-y-8">
-              {/* Step 1: Perception */}
-              <div className="space-y-4 p-6 bg-white rounded-xl border border-gray-300">
-                <div className="flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-full bg-black text-white flex items-center justify-center font-bold">1</div>
-                  <h3 className="text-xl font-bold text-gray-900">Perception</h3>
-                </div>
-                <p className="text-gray-600">
-                  Agents gather data from their environment through sensors, APIs, or inputs, 
-                  creating a comprehensive understanding of the current state.
-                </p>
-              </div>
-              
-              {/* Step 2: Analysis */}
-              <div className="space-y-4 p-6 bg-white rounded-xl border border-gray-300">
-                <div className="flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-full bg-black text-white flex items-center justify-center font-bold">2</div>
-                  <h3 className="text-xl font-bold text-gray-900">Analysis & Reasoning</h3>
-                </div>
-                <p className="text-gray-600">
-                  Process information using ML models, rules, or neural networks to 
-                  understand patterns, predict outcomes, and evaluate options.
-                </p>
-              </div>
-              
-              {/* Step 3: Decision */}
-              <div className="space-y-4 p-6 bg-white rounded-xl border border-gray-300">
-                <div className="flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-full bg-black text-white flex items-center justify-center font-bold">3</div>
-                  <h3 className="text-xl font-bold text-gray-900">Decision Making</h3>
-                </div>
-                <p className="text-gray-600">
-                  Select optimal actions from available choices based on goals, 
-                  constraints, and predicted outcomes.
-                </p>
-              </div>
-              
-              {/* Step 4: Action */}
-              <div className="space-y-4 p-6 bg-white rounded-xl border border-gray-300">
-                <div className="flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-full bg-black text-white flex items-center justify-center font-bold">4</div>
-                  <h3 className="text-xl font-bold text-gray-900">Action & Feedback</h3>
-                </div>
-                <p className="text-gray-600">
-                  Execute decisions and observe results, using feedback to learn 
-                  and improve future decision-making.
-                </p>
-              </div>
-            </div>
-            
-            <div className="lg:w-1/2">
-              <div className="h-[500px] w-full bg-gradient-to-br from-gray-900 to-black rounded-2xl flex items-center justify-center">
-                {/* Circular diagram of the cycle */}
-                <div className="relative h-80 w-80">
-                  <div className="absolute inset-0 rounded-full border-4 border-gray-700"></div>
-                  
-                  {/* Perception node */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="h-16 w-16 rounded-full bg-white flex items-center justify-center">
-                      <div className="h-8 w-8 bg-black rounded-full"></div>
-                    </div>
-                    <div className="text-white text-center mt-2">Perception</div>
-                  </div>
-                  
-                  {/* Analysis node */}
-                  <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2">
-                    <div className="h-16 w-16 rounded-full bg-white flex items-center justify-center">
-                      <div className="h-8 w-8 bg-black rounded-full"></div>
-                    </div>
-                    <div className="text-white text-center mt-2">Analysis</div>
-                  </div>
-                  
-                  {/* Decision node */}
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
-                    <div className="h-16 w-16 rounded-full bg-white flex items-center justify-center">
-                      <div className="h-8 w-8 bg-black rounded-full"></div>
-                    </div>
-                    <div className="text-white text-center mt-2">Decision</div>
-                  </div>
-                  
-                  {/* Action node */}
-                  <div className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="h-16 w-16 rounded-full bg-white flex items-center justify-center">
-                      <div className="h-8 w-8 bg-black rounded-full"></div>
-                    </div>
-                    <div className="text-white text-center mt-2">Action</div>
-                  </div>
-                  
-                  {/* Arrows */}
-                  <div className="absolute top-1/4 right-1/4 h-1 w-1/4 bg-gray-600 rotate-45"></div>
-                  <div className="absolute bottom-1/4 right-1/4 h-1 w-1/4 bg-gray-600 -rotate-45"></div>
-                  <div className="absolute bottom-1/4 left-1/4 h-1 w-1/4 bg-gray-600 rotate-45"></div>
-                  <div className="absolute top-1/4 left-1/4 h-1 w-1/4 bg-gray-600 -rotate-45"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 3: Core Capabilities */}
-      <section className="py-24">
-        <div className="mx-auto max-w-6xl px-12">
-          <div className="text-center space-y-8 mb-16">
-            <h2 className="text-4xl font-bold text-gray-900">
-              Core Capabilities of AI Actors
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Advanced functionalities that enable intelligent agent behavior
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Capability 1: Learning */}
-            <div className="space-y-6 p-8 bg-white rounded-2xl border border-gray-300">
-              <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-bold text-gray-900">Adaptive Learning</h3>
-                <div className="h-10 w-10 rounded-full bg-black"></div>
-              </div>
-              <p className="text-gray-600">
-                Agents continuously improve performance through reinforcement learning, 
-                updating strategies based on outcomes and environmental changes.
-              </p>
-              <div className="pt-4">
-                <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-                  <div className="h-full w-3/4 bg-black"></div>
-                </div>
-                <div className="text-sm text-gray-500 mt-2">Learning Progress</div>
-              </div>
-            </div>
-            
-            {/* Capability 2: Collaboration */}
-            <div className="space-y-6 p-8 bg-white rounded-2xl border border-gray-300">
-              <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-bold text-gray-900">Multi-Agent Coordination</h3>
-                <div className="h-10 w-10 rounded-full bg-black"></div>
-              </div>
-              <p className="text-gray-600">
-                Multiple agents work together using communication protocols, 
-                sharing information and distributing tasks for collective goals.
-              </p>
-              <div className="pt-4">
-                <div className="flex -space-x-4">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="h-10 w-10 rounded-full bg-gray-800 border-2 border-white"></div>
-                  ))}
-                </div>
-                <div className="text-sm text-gray-500 mt-2">Agent Network</div>
-              </div>
-            </div>
-            
-            {/* Capability 3: Reasoning */}
-            <div className="space-y-6 p-8 bg-white rounded-2xl border border-gray-300">
-              <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-bold text-gray-900">Causal Reasoning</h3>
-                <div className="h-10 w-10 rounded-full bg-black"></div>
-              </div>
-              <p className="text-gray-600">
-                Understand cause-effect relationships, predict consequences of actions, 
-                and make decisions based on logical inference chains.
-              </p>
-              <div className="pt-4">
-                <div className="space-y-2">
-                  <div className="h-2 w-full bg-gray-200 rounded-full"></div>
-                  <div className="h-2 w-3/4 bg-gray-200 rounded-full"></div>
-                  <div className="h-2 w-1/2 bg-gray-200 rounded-full"></div>
-                </div>
-                <div className="text-sm text-gray-500 mt-2">Reasoning Depth</div>
-              </div>
-            </div>
-            
-            {/* Capability 4: Autonomy */}
-            <div className="space-y-6 p-8 bg-white rounded-2xl border border-gray-300">
-              <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-bold text-gray-900">Goal-Oriented Autonomy</h3>
-                <div className="h-10 w-10 rounded-full bg-black"></div>
-              </div>
-              <p className="text-gray-600">
-                Operate independently toward objectives, making real-time adjustments 
-                without human intervention while staying within defined constraints.
-              </p>
-              <div className="pt-4">
-                <div className="h-8 w-8 rounded-full border-4 border-black animate-spin-slow mx-auto"></div>
-                <div className="text-sm text-gray-500 mt-2 text-center">Autonomous Operation</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 4: Use Cases */}
-      <section className="bg-black text-white py-24">
-        <div className="mx-auto max-w-6xl px-12">
-          <div className="text-center space-y-8 mb-16">
-            <h2 className="text-4xl font-bold">
-              Real-World Applications
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              How autonomous agents transform industries and solve complex problems
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Use Case 1 */}
-            <div className="space-y-6 p-8 bg-gray-900 rounded-2xl">
-              <h3 className="text-2xl font-bold">Supply Chain Optimization</h3>
-              <p className="text-gray-300">
-                Autonomous agents manage inventory, predict demand, and optimize 
-                logistics routes in real-time, reducing costs and improving efficiency.
-              </p>
-              <div className="h-32 bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl"></div>
-            </div>
-            
-            {/* Use Case 2 */}
-            <div className="space-y-6 p-8 bg-gray-900 rounded-2xl">
-              <h3 className="text-2xl font-bold">Financial Trading</h3>
-              <p className="text-gray-300">
-                AI agents analyze market data, execute trades, and manage portfolios 
-                autonomously, adapting to market conditions and minimizing risks.
-              </p>
-              <div className="h-32 bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl"></div>
-            </div>
-            
-            {/* Use Case 3 */}
-            <div className="space-y-6 p-8 bg-gray-900 rounded-2xl">
-              <h3 className="text-2xl font-bold">Smart Infrastructure</h3>
-              <p className="text-gray-300">
-                Coordinated agents manage energy grids, traffic systems, and 
-                environmental controls, optimizing resource allocation dynamically.
-              </p>
-              <div className="h-32 bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-24 bg-white">
-        <div className="mx-auto max-w-4xl text-center space-y-12 px-12">
-          <div className="space-y-8">
-            <h2 className="text-5xl font-bold text-gray-900">
-              Start Building with AI Actors
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Implement autonomous decision-making systems in your organization 
-              with our agentic modeling platform.
-            </p>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="rounded-lg bg-black px-10 py-4 text-xl font-semibold text-white transition hover:bg-gray-900">
-              Get Started Free
-            </button>
-            <button className="rounded-lg border-2 border-black px-10 py-4 text-xl font-semibold transition hover:bg-black hover:text-white">
-              Schedule Demo
-            </button>
-          </div>
-          
-          <div className="pt-12 border-t border-gray-200">
-            <p className="text-gray-500">
-              Already have agents? <span className="text-black font-semibold">Explore advanced features →</span>
-            </p>
-          </div>
-        </div>
-      </section>
+      <ActorHero />
+      <ActorAnatomy />
+      <DecisionLoop />
+      <Capabilities />
+      <Variants />
+      <ActorCTA />
     </>
+  );
+}
+
+function ActorHero() {
+  return (
+    <section className="relative min-h-[80vh] overflow-hidden border-b border-white/5 bg-background scanlines">
+      <div className="absolute inset-0 bg-tactical-grid opacity-60"></div>
+      <div className="absolute inset-0 bg-spotlight"></div>
+
+      <div className="relative z-10 mx-auto grid min-h-[80vh] max-w-7xl gap-16 px-6 pt-32 pb-16 lg:grid-cols-12 lg:items-center lg:px-10">
+        <div className="lg:col-span-7">
+          <div className="mb-6 inline-flex items-center gap-3 border border-primary/40 bg-primary/5 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+            <span className="h-1.5 w-1.5 bg-primary"></span>
+            Actor.Schema / v4
+          </div>
+          <h1
+            className={`${exo.className} text-5xl font-black leading-[0.95] tracking-tight text-foreground sm:text-7xl lg:text-[6rem]`}
+          >
+            One Actor.
+            <br />
+            <span className="text-glow-primary text-primary">Ten thousand</span>
+            <br />
+            outcomes.
+          </h1>
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted">
+            The atomic unit of the Sigil platform. An autonomous AI agent
+            with goals, memory, sensory input, and a policy for action — drop
+            it into any environment and it pursues an objective.
+          </p>
+
+          <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {[
+              ["Goals", "Hierarchical"],
+              ["Memory", "Episodic + Semantic"],
+              ["Sensors", "All-Domain"],
+              ["Policy", "Adaptive"],
+            ].map(([k, v]) => (
+              <div
+                key={k}
+                className="border border-white/10 bg-white/[0.02] p-3"
+              >
+                <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-muted">
+                  {k}
+                </div>
+                <div className="mt-1 text-xs font-bold text-foreground">
+                  {v}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="lg:col-span-5">
+          <Actor3D />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ActorAnatomy() {
+  const blocks = [
+    {
+      tag: "PERCEPTION",
+      title: "Multi-modal sensory ingestion",
+      desc: "Visual, acoustic, textual, telemetric. The actor builds a unified situational picture from sparse, contradictory, and intermittent signals.",
+    },
+    {
+      tag: "MEMORY",
+      title: "Episodic and semantic recall",
+      desc: "Long-term memory of past engagements plus structured world knowledge. Actors learn from every cycle, individually and across the swarm.",
+    },
+    {
+      tag: "GOALS",
+      title: "Hierarchical objective decomposition",
+      desc: "Strategic intent flows downward. The actor breaks high-level mission goals into sub-tasks it can actually execute against its environment.",
+    },
+    {
+      tag: "POLICY",
+      title: "Goal-directed planning",
+      desc: "The decision engine. Plans, simulates outcomes, hedges, and commits — under uncertainty, partial information, and adversarial pressure.",
+    },
+    {
+      tag: "ACTION",
+      title: "Tool use and inter-actor coordination",
+      desc: "From single tool calls to coordinated swarm maneuvers. Actions are auditable, attributable, and tied back to the goal that produced them.",
+    },
+  ];
+
+  return (
+    <section className="relative border-b border-white/5 px-6 py-32 lg:px-10">
+      <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
+
+      <div className="relative mx-auto max-w-7xl">
+        <SectionLabel index="01" label="Anatomy of an Actor" />
+
+        <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-4">
+            <h2
+              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
+            >
+              Five subsystems.
+              <br />
+              <span className="text-primary">One operator.</span>
+            </h2>
+            <p className="mt-8 text-base leading-relaxed text-muted">
+              Every Sigil actor is built from five composable subsystems.
+              Replace any one of them with your own model — or drop in ours
+              and start running cycles in minutes.
+            </p>
+          </div>
+
+          <div className="lg:col-span-8 space-y-4">
+            {blocks.map((b, i) => (
+              <article
+                key={b.tag}
+                className="group corner-brackets relative border border-white/10 bg-white/[0.02] p-6 transition hover:border-primary/50 hover:bg-primary/[0.04]"
+              >
+                <span className="corner-bl"></span>
+                <span className="corner-br"></span>
+                <div className="grid grid-cols-12 items-start gap-6">
+                  <div className="col-span-2">
+                    <div
+                      className={`${exo.className} text-4xl font-black text-primary/30 group-hover:text-primary/60 transition`}
+                    >
+                      0{i + 1}
+                    </div>
+                  </div>
+                  <div className="col-span-10">
+                    <div className="mb-2 inline-block border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-primary">
+                      {b.tag}
+                    </div>
+                    <h3
+                      className={`${exo.className} text-xl font-black leading-tight text-foreground`}
+                    >
+                      {b.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {b.desc}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DecisionLoop() {
+  const steps = [
+    {
+      n: "T+0.0s",
+      label: "PERCEIVE",
+      body: "Sensors stream in. Actor refreshes its world model with the freshest observations available, weighted by source confidence.",
+    },
+    {
+      n: "T+0.2s",
+      label: "RECALL",
+      body: "Working memory pulls the last N relevant frames; long-term memory surfaces priors from past engagements with similar topology.",
+    },
+    {
+      n: "T+0.6s",
+      label: "PLAN",
+      body: "Policy generates candidate courses of action. Each is forward-simulated against the current world model to estimate yield and risk.",
+    },
+    {
+      n: "T+0.9s",
+      label: "DECIDE",
+      body: "The actor commits to a course of action — or escalates to a coordinator actor if the decision exceeds its authority envelope.",
+    },
+    {
+      n: "T+1.0s",
+      label: "ACT",
+      body: "Action emitted into the environment. Outcome captured. The cycle restarts with the new observed state.",
+    },
+  ];
+
+  return (
+    <section className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10">
+      <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-spotlight"></div>
+
+      <div className="relative mx-auto max-w-7xl">
+        <SectionLabel index="02" label="The Decision Loop" />
+
+        <div className="mt-12 max-w-3xl">
+          <h2
+            className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
+          >
+            One second.
+            <br />
+            <span className="text-primary">Five subsystems firing in sequence.</span>
+          </h2>
+        </div>
+
+        <div className="mt-16 grid gap-4 lg:grid-cols-5">
+          {steps.map((s, i) => (
+            <div
+              key={s.label}
+              className="corner-brackets relative border border-white/10 bg-white/[0.02] p-6"
+            >
+              <span className="corner-bl"></span>
+              <span className="corner-br"></span>
+
+              <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+                {s.n}
+              </div>
+              <div
+                className={`${exo.className} mt-2 text-2xl font-black text-foreground`}
+              >
+                {s.label}
+              </div>
+              <p className="mt-3 text-xs leading-relaxed text-muted">{s.body}</p>
+
+              <div className="mt-5 flex items-center gap-2">
+                <div className="h-px flex-1 bg-primary/30"></div>
+                <div className="text-[10px] font-bold text-primary">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Capabilities() {
+  const caps = [
+    {
+      tag: "ADAPTATION",
+      title: "Real-time policy adaptation",
+      desc: "Actors update their decision policy mid-engagement. By the third turn, the adversary you trained against is not the adversary you face.",
+    },
+    {
+      tag: "COORDINATION",
+      title: "Hierarchical multi-actor coordination",
+      desc: "Squads, platoons, fleets. Actors negotiate, delegate, and form ad-hoc command structures without a centralized scheduler.",
+    },
+    {
+      tag: "EXPLAINABILITY",
+      title: "Attribution-grade decision logs",
+      desc: "Every action is traceable to the goals, observations, and counterfactuals that produced it. Audit-ready by default.",
+    },
+    {
+      tag: "RESILIENCE",
+      title: "Degraded-mode operations",
+      desc: "Actors gracefully shed capability under sensor loss, comms outage, or policy contamination — never silent-failing.",
+    },
+  ];
+
+  return (
+    <section className="relative border-b border-white/5 px-6 py-32 lg:px-10">
+      <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
+
+      <div className="relative mx-auto max-w-7xl">
+        <SectionLabel index="03" label="Core Capabilities" />
+
+        <div className="mt-12 grid gap-4 sm:grid-cols-2">
+          {caps.map((c) => (
+            <article
+              key={c.tag}
+              className="corner-brackets relative border border-white/10 bg-white/[0.02] p-8 transition hover:border-primary/50"
+            >
+              <span className="corner-bl"></span>
+              <span className="corner-br"></span>
+              <div className="mb-3 inline-block border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-primary">
+                {c.tag}
+              </div>
+              <h3
+                className={`${exo.className} text-2xl font-black leading-tight text-foreground`}
+              >
+                {c.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted">
+                {c.desc}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Variants() {
+  const v = [
+    { name: "RECON", role: "Scout / Pattern-of-life" },
+    { name: "STRIKE", role: "Effects / Engagement" },
+    { name: "LOGI", role: "Resource flow" },
+    { name: "SENTINEL", role: "Defensive posture" },
+    { name: "ANALYST", role: "Decision support" },
+    { name: "MEDIC", role: "Casualty triage" },
+    { name: "COMMS", role: "Network relay" },
+    { name: "COMMAND", role: "Coordination" },
+  ];
+
+  return (
+    <section className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10">
+      <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
+
+      <div className="relative mx-auto max-w-7xl">
+        <SectionLabel index="04" label="Actor Variants" />
+
+        <div className="mt-12 max-w-3xl">
+          <h2
+            className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
+          >
+            Drop-in roles.
+            <br />
+            <span className="text-primary">Tuned for the mission.</span>
+          </h2>
+          <p className="mt-6 text-base leading-relaxed text-muted">
+            Each variant is a pre-trained policy shell with role-specific
+            sensors, tools, and reward shaping. Compose them, swap them, or
+            train your own.
+          </p>
+        </div>
+
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {v.map((x) => (
+            <div
+              key={x.name}
+              className="corner-brackets relative border border-white/10 bg-white/[0.02] p-5 transition hover:border-primary/50"
+            >
+              <span className="corner-bl"></span>
+              <span className="corner-br"></span>
+              <div
+                className={`${exo.className} text-xl font-black tracking-wider text-primary`}
+              >
+                {x.name}
+              </div>
+              <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.2em] text-muted">
+                {x.role}
+              </div>
+              <div className="mt-4 h-px w-full bg-gradient-to-r from-primary/60 via-primary/20 to-transparent"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ActorCTA() {
+  return (
+    <section className="relative px-6 py-32 lg:px-10">
+      <div className="absolute inset-0 bg-spotlight"></div>
+      <div className="relative mx-auto max-w-4xl text-center">
+        <h2
+          className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-6xl`}
+        >
+          Inspect the Actor.
+          <br />
+          <span className="text-primary">Then deploy a thousand.</span>
+        </h2>
+        <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-muted">
+          Spin up a sandbox in your environment. We&apos;ll seed it with the
+          base actor library and a starter scenario.
+        </p>
+        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <Link
+            href="/contact"
+            className="btn-tactical group relative inline-flex items-center justify-center gap-3 border border-primary bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90"
+          >
+            Request Sandbox Access
+            <span className="transition-transform group-hover:translate-x-1">
+              →
+            </span>
+          </Link>
+          <Link
+            href="/#rehearse"
+            className="btn-tactical group inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary"
+          >
+            Run a Live Rehearsal
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SectionLabel({ index, label }: { index: string; label: string }) {
+  return (
+    <div className="flex items-center gap-4">
+      <div
+        className={`${exo.className} text-sm font-black tracking-[0.3em] text-primary`}
+      >
+        // {index}
+      </div>
+      <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-primary to-transparent"></div>
+      <div className="text-[11px] font-bold uppercase tracking-[0.35em] text-muted">
+        {label}
+      </div>
+    </div>
   );
 }
