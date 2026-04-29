@@ -165,6 +165,36 @@ html, body {
   transform: translateX(100%);
 }
 
+/* Tactical cursor */
+.tactical-cursor svg {
+  filter: drop-shadow(0 0 6px rgba(255, 121, 27, 0.45));
+  transition: transform 0.15s ease;
+  transform-origin: center;
+}
+.tactical-cursor.cursor-hover svg {
+  transform: scale(1.35);
+}
+.tactical-cursor.cursor-active svg {
+  transform: scale(0.85);
+}
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html.tactical-cursor-on,
+  html.tactical-cursor-on * {
+    cursor: none !important;
+  }
+}
+
+/* Briefing console scrollbars */
+.briefing-output::-webkit-scrollbar {
+  width: 6px;
+}
+.briefing-output::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+.briefing-output::-webkit-scrollbar-thumb {
+  background: rgba(255, 121, 27, 0.4);
+}
+
 /* Reduce motion */
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,

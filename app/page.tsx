@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { exo } from "./font";
+import HeroReadout from "@/component/HeroReadout";
+import LiveSpecPanel from "@/component/LiveSpecPanel";
+import ScenarioGenerator from "@/component/ScenarioGenerator";
+import ActorSwarm from "@/component/ActorSwarmClient";
+import Actor3D from "@/component/Actor3DClient";
 
 export default function Home() {
   return (
@@ -12,13 +17,14 @@ export default function Home() {
       <TrainArmy />
       <AIModels />
       <UseCaseTeaser />
+      <ScenarioGenerator />
       <SalesCTA />
     </>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   HERO — full-bleed video, classified terminal overlay
+   HERO — full-bleed video + WebGL swarm, classified terminal overlay
    ───────────────────────────────────────────────────────────── */
 function Hero() {
   return (
@@ -29,10 +35,13 @@ function Hero() {
         muted
         loop
         playsInline
-        className="absolute inset-0 h-full w-full object-cover opacity-30"
+        className="absolute inset-0 h-full w-full object-cover opacity-20"
       >
         <source src="/video.mp4" type="video/mp4" />
       </video>
+
+      {/* WebGL actor swarm */}
+      <ActorSwarm />
 
       {/* Layered overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background"></div>
@@ -40,19 +49,8 @@ function Hero() {
       <div className="absolute inset-0 bg-spotlight"></div>
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-between px-6 pt-28 pb-12 lg:px-10">
-        {/* Top tactical readout */}
-        <div className="flex flex-wrap items-center justify-between gap-4 text-[10px] uppercase tracking-[0.3em] text-muted">
-          <div className="flex items-center gap-3">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-ping-slow"></span>
-            <span className="text-primary">// SIGIL.OPS — LIVE</span>
-            <span className="hidden sm:inline">/ NODE 04</span>
-          </div>
-          <div className="hidden gap-6 md:flex">
-            <span>LAT 38.8951</span>
-            <span>LON -77.0364</span>
-            <span>UTC 04:28:01</span>
-          </div>
-        </div>
+        {/* Top tactical readout — live clock */}
+        <HeroReadout />
 
         {/* Center hero block */}
         <div className="my-auto py-16">
@@ -84,26 +82,26 @@ function Hero() {
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/contact"
+                href="#rehearse"
                 className="btn-tactical group relative inline-flex items-center justify-center gap-3 border border-primary bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90"
               >
-                Request Live Demo
+                Run a Live Rehearsal
                 <span className="transition-transform group-hover:translate-x-1">
                   →
                 </span>
               </Link>
-              <a
-                href="tel:+15558007445"
+              <Link
+                href="/contact"
                 className="btn-tactical group inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:bg-primary/10"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
-                Speak to Sales
-              </a>
+                Request Briefing
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* Bottom system panel */}
+        {/* Bottom system panel — live telemetry */}
         <div className="corner-brackets relative border border-primary/40 bg-background/60 p-6 backdrop-blur-sm">
           <span className="corner-bl"></span>
           <span className="corner-br"></span>
@@ -116,48 +114,10 @@ function Hero() {
             Classified // 04
           </div>
 
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            <SpecBlock label="Adaptive" value="98.4" suffix="%" pulse />
-            <SpecBlock label="Throughput" value="1.2M" suffix=" sims/h" />
-            <SpecBlock label="Autonomy" value="L4" suffix=" sovereign" />
-            <SpecBlock label="Latency" value="12" suffix=" ms p99" />
-          </div>
+          <LiveSpecPanel />
         </div>
       </div>
     </section>
-  );
-}
-
-function SpecBlock({
-  label,
-  value,
-  suffix,
-  pulse,
-}: {
-  label: string;
-  value: string;
-  suffix?: string;
-  pulse?: boolean;
-}) {
-  return (
-    <div className="group relative">
-      <div className="mb-1 text-[10px] font-bold uppercase tracking-[0.3em] text-muted">
-        {label}
-      </div>
-      <div className="flex items-baseline gap-1">
-        <span
-          className={`${exo.className} text-3xl font-black text-foreground ${pulse ? "animate-pulse" : ""}`}
-        >
-          {value}
-        </span>
-        {suffix && (
-          <span className="text-xs uppercase tracking-wider text-primary">
-            {suffix}
-          </span>
-        )}
-      </div>
-      <div className="mt-2 h-px w-full bg-gradient-to-r from-primary/60 via-primary/20 to-transparent"></div>
-    </div>
   );
 }
 
@@ -286,7 +246,7 @@ function MissionStat({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   ACTOR CONCEPT
+   ACTOR CONCEPT — now with 3D actor diagram
    ───────────────────────────────────────────────────────────── */
 function ActorConcept() {
   return (
@@ -348,90 +308,13 @@ function ActorConcept() {
             </Link>
           </div>
 
-          {/* Actor diagram */}
+          {/* 3D actor diagram */}
           <div className="lg:col-span-6 order-1 lg:order-2">
-            <ActorDiagram />
+            <Actor3D />
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function ActorDiagram() {
-  const ring = [
-    { label: "PERCEPTION", angle: 0 },
-    { label: "MEMORY", angle: 72 },
-    { label: "GOALS", angle: 144 },
-    { label: "POLICY", angle: 216 },
-    { label: "ACTION", angle: 288 },
-  ];
-  return (
-    <div className="corner-brackets relative aspect-square w-full max-w-md mx-auto border border-primary/30 bg-background/60 p-6 backdrop-blur-sm">
-      <span className="corner-bl"></span>
-      <span className="corner-br"></span>
-
-      <div className="absolute top-3 left-6 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
-        ACTOR.SCHEMA / v4
-      </div>
-      <div className="absolute top-3 right-6 text-[10px] font-bold uppercase tracking-[0.3em] text-muted">
-        ID #04-2761
-      </div>
-
-      <div className="relative flex h-full items-center justify-center">
-        {/* Outer ring */}
-        <div className="absolute inset-8 rounded-full border border-white/10 animate-spin-slow"></div>
-        <div className="absolute inset-16 rounded-full border border-primary/30"></div>
-        <div className="absolute inset-24 rounded-full border border-white/10 animate-spin-slow" style={{ animationDirection: "reverse" }}></div>
-
-        {/* Core */}
-        <div className="relative z-10 flex h-24 w-24 items-center justify-center">
-          <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping-slow"></div>
-          <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-primary bg-background">
-            <div
-              className={`${exo.className} text-2xl font-black text-primary`}
-            >
-              ACT
-            </div>
-          </div>
-        </div>
-
-        {/* Orbiting nodes */}
-        {ring.map((r) => {
-          const rad = (r.angle * Math.PI) / 180;
-          const radius = 38;
-          const x = 50 + radius * Math.cos(rad - Math.PI / 2);
-          const y = 50 + radius * Math.sin(rad - Math.PI / 2);
-          return (
-            <div
-              key={r.label}
-              className="absolute"
-              style={{
-                left: `${x}%`,
-                top: `${y}%`,
-                transform: "translate(-50%, -50%)",
-              }}
-            >
-              <div className="flex flex-col items-center gap-1.5">
-                <div className="relative h-3 w-3">
-                  <div className="absolute inset-0 rounded-full bg-primary"></div>
-                  <div className="absolute -inset-1 rounded-full border border-primary/40"></div>
-                </div>
-                <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-foreground whitespace-nowrap">
-                  {r.label}
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="absolute bottom-3 left-6 right-6 flex justify-between text-[9px] uppercase tracking-[0.3em] text-muted">
-        <span>STATUS · NOMINAL</span>
-        <span className="text-primary">●</span>
-        <span>UPLINK · OPEN</span>
-      </div>
-    </div>
   );
 }
 
@@ -792,27 +675,27 @@ function SalesCTA() {
           </p>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
-            <a
-              href="tel:+15558007445"
+            <Link
+              href="#rehearse"
               className="btn-tactical group corner-brackets relative border border-primary bg-primary p-6 transition hover:bg-primary/90"
             >
               <span className="corner-bl"></span>
               <span className="corner-br"></span>
               <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-background/70">
-                Call sales · 24/7
+                Live demo · in-page
               </div>
               <div
                 className={`${exo.className} mt-2 text-3xl font-black text-background`}
               >
-                +1 (555) 800-SIGIL
+                Run a Rehearsal
               </div>
               <div className="mt-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.25em] text-background/80">
-                Speak to a Specialist
+                Try it now
                 <span className="transition-transform group-hover:translate-x-1">
                   →
                 </span>
               </div>
-            </a>
+            </Link>
 
             <Link
               href="/contact"

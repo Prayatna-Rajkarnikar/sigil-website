@@ -1,155 +1,216 @@
-import Image from "next/image";
+import { exo } from "@/app/font";
 
-export default function Contact() {
+export default function ContactPage() {
   return (
     <>
-      {/* Hero / Header Section */}
-      <section className="relative h-[60vh] bg-white">
-        <div className="absolute left-12 top-1/3 w-[480px] space-y-8 rounded-3xl bg-black p-10 shadow-2xl">
-          <h1 className="text-4xl font-bold leading-tight text-white">
-            Get in Touch With Us
-          </h1>
-          <p className="text-lg text-gray-300">
-            Have questions about Agentic Decision Modeling? We're here to help.
-          </p>
-          <div className="flex items-center justify-center py-4">
-            <Image
-              src="contact.svg"
-              height={100}
-              width={360}
-              alt="Contact Section Image"
+      <ContactHero />
+      <ContactGrid />
+      <Compliance />
+    </>
+  );
+}
+
+function ContactHero() {
+  return (
+    <section className="relative min-h-[40vh] overflow-hidden border-b border-white/5 bg-background scanlines">
+      <div className="absolute inset-0 bg-tactical-grid opacity-60"></div>
+      <div className="absolute inset-0 bg-spotlight"></div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-32 pb-12 lg:px-10">
+        <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+          <span className="h-1.5 w-1.5 bg-primary animate-pulse"></span>
+          Open Channel · Inbound
+        </div>
+        <h1
+          className={`${exo.className} mt-6 text-5xl font-black leading-[0.95] tracking-tight text-foreground sm:text-7xl`}
+        >
+          Establish
+          <br />
+          <span className="text-glow-primary text-primary">comms.</span>
+        </h1>
+        <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+          30-minute briefings, sandbox access, and procurement conversations.
+          Tell us the mission — we&apos;ll route to the right operator.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function ContactGrid() {
+  return (
+    <section className="relative border-b border-white/5 px-6 py-24 lg:px-10">
+      <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
+
+      <div className="relative mx-auto max-w-7xl">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          {/* Briefing form */}
+          <div className="lg:col-span-7">
+            <div className="corner-brackets relative border border-primary/40 bg-background/60 p-8 backdrop-blur-sm sm:p-10">
+              <span className="corner-bl"></span>
+              <span className="corner-br"></span>
+
+              <div className="absolute -top-2.5 left-6 flex items-center gap-2 bg-background px-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+                <span className="h-1.5 w-1.5 bg-primary animate-pulse"></span>
+                Briefing Request
+              </div>
+
+              <form className="space-y-6">
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <Field label="Operator name" placeholder="Last, First" />
+                  <Field label="Org / unit" placeholder="Affiliation" />
+                </div>
+                <Field label="Secure email" placeholder="operator@org" type="email" />
+                <Field label="Theater of interest" placeholder="Indo-Pacific, EUCOM, NORTHCOM..." />
+                <div className="space-y-2">
+                  <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-muted">
+                    Mission context
+                  </label>
+                  <textarea
+                    rows={5}
+                    placeholder="Outline the scenario, threat, or capability gap you'd like to rehearse."
+                    className="w-full resize-none border border-white/15 bg-black/40 px-4 py-3 text-sm text-foreground placeholder:text-muted/60 outline-none focus:border-primary"
+                  />
+                </div>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-muted">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
+                    NDA-ready · classified-handling on request
+                  </div>
+                  <button
+                    type="submit"
+                    className="btn-tactical inline-flex items-center justify-center gap-3 border border-primary bg-primary px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90"
+                  >
+                    Transmit Request →
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          {/* Channels */}
+          <div className="lg:col-span-5 space-y-6">
+            <Channel
+              tag="Briefings"
+              title="command@sigil.ai"
+              desc="30-minute virtual briefing. Bring your scenario; we bring the actor library."
+            />
+            <Channel
+              tag="Procurement"
+              title="acquisitions@sigil.ai"
+              desc="GSA, OTA, FAR-compliant pathways. Air-gap and on-prem deployment available."
+            />
+            <Channel
+              tag="Press"
+              title="press@sigil.ai"
+              desc="Embargo-friendly. We do not background brief on classified engagements."
+            />
+            <Channel
+              tag="Recruiting"
+              title="careers@sigil.ai"
+              desc="Operators, ML researchers, simulation engineers. Cleared roles available."
             />
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      {/* Contact Form & Info Section */}
-      <section className="mx-auto max-w-6xl px-12 py-24">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
-          {/* Contact Form */}
-          <div className="space-y-8">
-            <h2 className="text-3xl font-bold ">Send us a Message</h2>
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="space-y-2">
-                  <div className="h-4 w-24 bg-gray-300 rounded"></div>
-                  <div className="h-12 w-full border border-gray-400 rounded-lg bg-white"></div>
-                </div>
-                <div className="space-y-2">
-                  <div className="h-4 w-24 bg-gray-300 rounded"></div>
-                  <div className="h-12 w-full border border-gray-400 rounded-lg bg-white"></div>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="h-4 w-24 bg-gray-300 rounded"></div>
-                <div className="h-12 w-full border border-gray-400 rounded-lg bg-white"></div>
-              </div>
-              <div className="space-y-2">
-                <div className="h-4 w-32 bg-gray-300 rounded"></div>
-                <div className="h-32 w-full border border-gray-400 rounded-lg bg-white"></div>
-              </div>
-              <button className="w-full rounded-lg bg-black px-8 py-4 font-semibold text-white transition hover:bg-gray-900">
-                Send Message
-              </button>
-            </form>
+function Field({
+  label,
+  placeholder,
+  type = "text",
+}: {
+  label: string;
+  placeholder: string;
+  type?: string;
+}) {
+  return (
+    <div className="space-y-2">
+      <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-muted">
+        {label}
+      </label>
+      <input
+        type={type}
+        placeholder={placeholder}
+        className="w-full border border-white/15 bg-black/40 px-4 py-3 text-sm text-foreground placeholder:text-muted/60 outline-none focus:border-primary"
+      />
+    </div>
+  );
+}
+
+function Channel({
+  tag,
+  title,
+  desc,
+}: {
+  tag: string;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <div className="corner-brackets relative border border-white/10 bg-white/[0.02] p-6 transition hover:border-primary/50">
+      <span className="corner-bl"></span>
+      <span className="corner-br"></span>
+      <div className="mb-2 inline-block border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-primary">
+        {tag}
+      </div>
+      <div
+        className={`${exo.className} text-xl font-black text-foreground`}
+      >
+        {title}
+      </div>
+      <p className="mt-2 text-sm leading-relaxed text-muted">{desc}</p>
+    </div>
+  );
+}
+
+function Compliance() {
+  const items = [
+    { name: "SOC 2 Type II", note: "Audited annually" },
+    { name: "ITAR-aware", note: "U.S. persons only on cleared systems" },
+    { name: "FedRAMP track", note: "In-progress authorization" },
+    { name: "Air-gap deploy", note: "On-prem and disconnected modes" },
+  ];
+
+  return (
+    <section className="relative px-6 py-24 lg:px-10">
+      <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
+      <div className="relative mx-auto max-w-7xl">
+        <div className="flex items-center gap-4">
+          <div
+            className={`${exo.className} text-sm font-black tracking-[0.3em] text-primary`}
+          >
+            // 02
           </div>
-
-          {/* Contact Information */}
-          <div className="space-y-8">
-            <h2 className="text-3xl font-bold ">Contact Information</h2>
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="h-12 w-12 rounded-full bg-black flex items-center justify-center">
-                  <div className="h-6 w-6 bg-white"></div>
-                </div>
-                <div className="space-y-2">
-                  <div className="h-5 w-32 bg-gray-800 rounded"></div>
-                  <div className="h-4 w-48 bg-gray-400 rounded"></div>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="h-12 w-12 rounded-full bg-black flex items-center justify-center">
-                  <div className="h-6 w-6 bg-white"></div>
-                </div>
-                <div className="space-y-2">
-                  <div className="h-5 w-32 bg-gray-800 rounded"></div>
-                  <div className="h-4 w-56 bg-gray-400 rounded"></div>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="h-12 w-12 rounded-full bg-black flex items-center justify-center">
-                  <div className="h-6 w-6 bg-white"></div>
-                </div>
-                <div className="space-y-2">
-                  <div className="h-5 w-32 bg-gray-800 rounded"></div>
-                  <div className="h-4 w-64 bg-gray-400 rounded"></div>
-                </div>
-              </div>
-            </div>
-
-            {/* Office Hours */}
-            <div className="space-y-4 pt-8">
-              <div className="h-6 w-40 bg-gray-900 rounded"></div>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <div className="h-4 w-24 bg-gray-400 rounded"></div>
-                  <div className="h-4 w-20 bg-gray-500 rounded"></div>
-                </div>
-                <div className="flex justify-between">
-                  <div className="h-4 w-24 bg-gray-400 rounded"></div>
-                  <div className="h-4 w-20 bg-gray-500 rounded"></div>
-                </div>
-                <div className="flex justify-between">
-                  <div className="h-4 w-24 bg-gray-400 rounded"></div>
-                  <div className="h-4 w-20 bg-gray-500 rounded"></div>
-                </div>
-              </div>
-            </div>
+          <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-primary to-transparent"></div>
+          <div className="text-[11px] font-bold uppercase tracking-[0.35em] text-muted">
+            Compliance Posture
           </div>
         </div>
-      </section>
 
-      {/* FAQ Preview Section */}
-      <section className="space-y-8 bg-gray-50 px-12 py-24">
-        <h2 className="text-center text-6xl font-bold text-gray-900">
-          Common Questions
-        </h2>
-        <div className="mx-auto max-w-4xl space-y-6">
-          {[1, 2, 3].map((item) => (
-            <div key={item} className="border-b border-gray-300 pb-6">
-              <div className="flex justify-between items-center">
-                <div className="h-6 w-3/4 bg-gray-700 rounded"></div>
-                <div className="h-6 w-6 bg-black rounded"></div>
+        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {items.map((c) => (
+            <div
+              key={c.name}
+              className="border border-white/10 bg-white/[0.02] p-5"
+            >
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
+                <span
+                  className={`${exo.className} text-sm font-black uppercase tracking-[0.15em] text-foreground`}
+                >
+                  {c.name}
+                </span>
               </div>
-              <div className="mt-4 h-4 w-full bg-gray-400 rounded"></div>
+              <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.2em] text-muted">
+                {c.note}
+              </div>
             </div>
           ))}
         </div>
-        <div className="text-center pt-8">
-          <button className="rounded-lg border-2 border-black px-8 py-3 font-semibold transition hover:bg-black hover:text-white">
-            View All FAQs
-          </button>
-        </div>
-      </section>
-
-      {/* Map/CTA Section */}
-      <section className="flex items-center justify-between gap-16 px-12 py-24">
-        <div className="w-1/2 space-y-6">
-          <h1 className="text-3xl font-bold ">Visit Our Office</h1>
-          <p className="leading-relaxed">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-          <button className="rounded-lg bg-black px-8 py-3 font-semibold text-white transition hover:bg-gray-900">
-            Get Directions
-          </button>
-        </div>
-        <div className="w-1/2">
-          <div className="h-96 w-full bg-gradient-to-br from-gray-200 to-gray-400 rounded-2xl flex items-center justify-center">
-            <div className="h-12 w-12 rounded-full bg-black border-4 border-white"></div>
-          </div>
-        </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

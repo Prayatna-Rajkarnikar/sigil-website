@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Nav from "@/component/Nav";
 import Footer from "@/component/Footer";
+import TacticalCursor from "@/component/TacticalCursor";
 import { roboto } from "./font";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body
         className={`${roboto.className} antialiased bg-background text-foreground min-h-screen`}
       >
+        <TacticalCursor />
         <Nav />
         <main>{children}</main>
         <Footer />
