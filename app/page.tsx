@@ -1,12 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { exo } from "./font";
-import HeroReadout from "@/component/HeroReadout";
-import LiveSpecPanel from "@/component/LiveSpecPanel";
-import ScenarioGenerator from "@/component/ScenarioGenerator";
-import ActorSwarm from "@/component/ActorSwarmClient";
 import Actor3D from "@/component/Actor3DClient";
 import HeroAgent3D from "@/component/HeroAgent3DClient";
+import HeroOrbitLabels from "@/component/HeroOrbitLabels";
+import MissionAgent3D from "@/component/MissionAgent3DClient";
+import Reveal from "@/component/Reveal";
 
 export default function Home() {
   return (
@@ -15,17 +14,15 @@ export default function Home() {
       <Ticker />
       <Mission />
       <ActorConcept />
-      <TrainArmy />
       <AIModels />
-      <UseCaseTeaser />
-      <ScenarioGenerator />
       <SalesCTA />
     </>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   HERO — full-bleed video + WebGL swarm, classified terminal overlay
+   HERO — centered composition: 3D agent + orbital labels above,
+   eyebrow / headline / subtitle / CTAs below
    ───────────────────────────────────────────────────────────── */
 function Hero() {
   return (
@@ -41,97 +38,65 @@ function Hero() {
         <source src="/video.mp4" type="video/mp4" />
       </video>
 
-      {/* WebGL actor swarm */}
-      <ActorSwarm />
-
       {/* Layered overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background"></div>
       <div className="absolute inset-0 bg-tactical-grid opacity-60"></div>
       <div className="absolute inset-0 bg-spotlight"></div>
 
-      {/* 3D agent — right-side floating specimen, lg+ only */}
-      <div
-        aria-hidden
-        className="hidden lg:block absolute z-[5] right-0 top-1/2 -translate-y-1/2 w-[42%] xl:w-[40%] h-[78%] pointer-events-none"
-      >
-        {/* faint frame so the agent reads as a contained "specimen" */}
-        <div className="absolute inset-x-8 inset-y-4 border border-primary/15"></div>
-        <span className="absolute top-4 right-12 text-[10px] font-bold uppercase tracking-[0.3em] text-primary/70 z-10">
-          AGENT.04 · SPECIMEN
-        </span>
-        <span className="absolute bottom-4 left-12 text-[10px] font-bold uppercase tracking-[0.3em] text-muted z-10">
-          ACTIVE · IDLE LOOP
-        </span>
-        <HeroAgent3D />
-      </div>
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center px-6 pt-6 pb-10 lg:px-10">
+        {/* ─────────────────────────────────────────────
+            3D AGENT + ORBITAL LABELS
+           ───────────────────────────────────────────── */}
+        <div className="relative w-full max-w-3xl mx-auto mt-0 h-[22vh] sm:h-[26vh] lg:h-[30vh]">
+          {/* the 3D head canvas */}
+          <HeroAgent3D />
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-between px-6 pt-28 pb-12 lg:px-10">
-        {/* Top tactical readout — live clock */}
-        <HeroReadout />
-
-        {/* Center hero block */}
-        <div className="my-auto py-16">
-          <div className="max-w-5xl">
-            <p className="mb-6 inline-flex items-center gap-3 border border-primary/40 bg-primary/5 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
-              <span className="h-1.5 w-1.5 bg-primary"></span>
-              Strategic Simulation Systems
-            </p>
-
-            <h1
-              className={`${exo.className} text-5xl font-black leading-[0.95] tracking-tight text-foreground sm:text-7xl lg:text-[7.5rem]`}
-            >
-              Rehearse
-              <br />
-              <span className="text-glow-primary text-primary">
-                the future
-              </span>
-              <span className="animate-blink text-primary">_</span>
-            </h1>
-
-            <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-              Sigil deploys autonomous AI{" "}
-              <span className="text-foreground">actors</span> into high-fidelity
-              simulated environments — so your operators, your models, and
-              your strategy are battle-tested{" "}
-              <span className="text-foreground">before</span> the real world
-              ever sees them.
-            </p>
-
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="#rehearse"
-                className="btn-tactical group relative inline-flex items-center justify-center gap-3 border border-primary bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90"
-              >
-                Run a Live Rehearsal
-                <span className="transition-transform group-hover:translate-x-1">
-                  →
-                </span>
-              </Link>
-              <Link
-                href="/contact"
-                className="btn-tactical group inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:bg-primary/10"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
-                Request Briefing
-              </Link>
-            </div>
-          </div>
+          {/* labels orbit the head along an elliptical ring */}
+          <HeroOrbitLabels />
         </div>
 
-        {/* Bottom system panel — live telemetry */}
-        <div className="corner-brackets relative border border-primary/40 bg-background/60 p-6 backdrop-blur-sm">
-          <span className="corner-bl"></span>
-          <span className="corner-br"></span>
+        {/* ─────────────────────────────────────────────
+            CENTER COPY BLOCK
+           ───────────────────────────────────────────── */}
+        <p className="mt-3 text-center text-xs font-bold uppercase tracking-[0.32em] text-muted">
+          Strategic Simulation Systems · Agentic Decision Modeling
+        </p>
 
-          <div className="absolute -top-2.5 left-6 flex items-center gap-2 bg-background px-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
-            <span className="h-1.5 w-1.5 bg-primary animate-pulse"></span>
-            System Active
-          </div>
-          <div className="absolute -top-2.5 right-6 bg-background px-3 text-[10px] font-bold uppercase tracking-[0.3em] text-muted">
-            Classified // 04
-          </div>
+        <h1
+          className={`${exo.className} mt-3 text-center text-5xl font-black leading-[0.98] tracking-tight text-foreground sm:text-6xl lg:text-7xl xl:text-[5.5rem] max-w-5xl`}
+        >
+          Rehearse{" "}
+          <span className="text-glow-primary text-primary">
+            the future
+          </span>
+        </h1>
 
-          <LiveSpecPanel />
+        <p className="mt-4 max-w-2xl text-center text-base leading-relaxed text-muted sm:text-lg">
+          Sigil deploys autonomous AI{" "}
+          <span className="text-foreground">actors</span> into high-fidelity
+          simulated environments — so your operators, your models, and your
+          strategy are battle-tested{" "}
+          <span className="text-foreground">before</span> the real world ever
+          sees them.
+        </p>
+
+        <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row">
+          <Link
+            href="/use-case"
+            className="btn-tactical group relative inline-flex items-center justify-center gap-3 border border-primary bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90"
+          >
+            Read the Use Case
+            <span className="transition-transform group-hover:translate-x-1">
+              →
+            </span>
+          </Link>
+          <Link
+            href="/contact"
+            className="btn-tactical group inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:bg-primary/10"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
+            Contact Us
+          </Link>
         </div>
       </div>
     </section>
@@ -176,22 +141,23 @@ function Mission() {
     >
       <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
       <div className="relative mx-auto max-w-7xl">
-        <SectionLabel index="01" label="Our Mission" />
+        <Reveal>
+          <SectionLabel index="01" label="Our Mission" />
+        </Reveal>
 
-        <div className="mt-12 grid gap-16 lg:grid-cols-12 lg:gap-24">
-          <div className="lg:col-span-7">
+        <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
+          {/* LEFT — headline + paragraph */}
+          <Reveal className="lg:col-span-4" delay={120}>
             <h2
-              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl lg:text-6xl`}
+              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
             >
               We don&apos;t predict
               <br />
               the future.
               <br />
-              <span className="text-primary">
-                We let you rehearse it.
-              </span>
+              <span className="text-primary">We let you rehearse it.</span>
             </h2>
-            <p className="mt-10 max-w-2xl text-lg leading-relaxed text-muted">
+            <p className="mt-8 text-base leading-relaxed text-muted">
               The cost of being wrong is rising. Combat doctrine, supply
               chains, financial systems, and critical infrastructure now
               evolve faster than any human committee can review. Sigil
@@ -199,18 +165,23 @@ function Mission() {
               high-fidelity simulation — populating scenarios with autonomous
               actors that perceive, reason, and act with purpose.
             </p>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+            <p className="mt-4 text-base leading-relaxed text-muted">
               When the real world finally arrives, your team has already
               fought it.{" "}
               <span className="text-foreground">A thousand times.</span>
             </p>
-          </div>
+          </Reveal>
 
-          <div className="lg:col-span-5">
-            <div className="corner-brackets relative space-y-0 border border-primary/30 bg-white/[0.02] p-8 backdrop-blur-sm">
-              <span className="corner-bl"></span>
-              <span className="corner-br"></span>
+          {/* CENTER — saluting robot, free-floating (no frame, no labels) */}
+          <Reveal className="lg:col-span-4" delay={200}>
+            <div className="relative aspect-square w-full max-w-sm mx-auto">
+              <MissionAgent3D />
+            </div>
+          </Reveal>
 
+          {/* RIGHT — 3 stats stacked vertically with hairline dividers */}
+          <Reveal className="lg:col-span-4" delay={280}>
+            <div className="flex flex-col">
               <MissionStat
                 value="10⁶"
                 label="Scenarios per cycle"
@@ -229,7 +200,7 @@ function Mission() {
                 desc="Fail in simulation. Win in the field."
               />
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -275,10 +246,12 @@ function ActorConcept() {
       <div className="absolute inset-0 bg-spotlight"></div>
 
       <div className="relative mx-auto max-w-7xl">
-        <SectionLabel index="02" label="The Actor" />
+        <Reveal>
+          <SectionLabel index="02" label="The Actor" />
+        </Reveal>
 
         <div className="mt-12 grid gap-16 lg:grid-cols-12 lg:items-center lg:gap-24">
-          <div className="lg:col-span-6 order-2 lg:order-1">
+          <Reveal className="lg:col-span-6 order-2 lg:order-1" delay={120}>
             <h2
               className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl lg:text-6xl`}
             >
@@ -323,120 +296,12 @@ function ActorConcept() {
                 →
               </span>
             </Link>
-          </div>
+          </Reveal>
 
           {/* 3D actor diagram */}
-          <div className="lg:col-span-6 order-1 lg:order-2">
+          <Reveal className="lg:col-span-6 order-1 lg:order-2" delay={260}>
             <Actor3D />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────
-   TRAIN YOUR ARMY
-   ───────────────────────────────────────────────────────────── */
-function TrainArmy() {
-  const capabilities = [
-    {
-      tag: "DOCTRINE",
-      title: "Stress-test command doctrine",
-      desc: "Run blue-vs-red engagements with thousands of autonomous actors. Identify breakage in chain-of-command, comms latency, and rules of engagement before live exercise.",
-    },
-    {
-      tag: "LOGISTICS",
-      title: "Pre-position for the real fight",
-      desc: "Simulate supply chains under contested conditions. Surface single points of failure across fuel, ammunition, medical, and information flow.",
-    },
-    {
-      tag: "OPERATORS",
-      title: "Train operators against adversarial AI",
-      desc: "Each Sigil actor adapts to your team's tactics in real time. Operators face an opponent that learns — not a script.",
-    },
-  ];
-
-  return (
-    <section
-      id="train"
-      className="relative border-b border-white/5 px-6 py-32 lg:px-10"
-    >
-      <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
-
-      <div className="relative mx-auto max-w-7xl">
-        <SectionLabel index="03" label="Train Your Army" />
-
-        <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-5">
-            <h2
-              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl lg:text-6xl`}
-            >
-              Sweat in
-              <br />
-              simulation.
-              <br />
-              <span className="text-primary">Bleed less in war.</span>
-            </h2>
-            <p className="mt-8 text-lg leading-relaxed text-muted">
-              Sigil environments are physics-grounded, sensor-accurate, and
-              populated by adversarial actors that don&apos;t care about your
-              feelings. Every drill ends with a forensic readout: what
-              decisions were made, by whom, and why they failed.
-            </p>
-
-            <div className="mt-10 flex flex-wrap gap-3">
-              {[
-                "Air & Space",
-                "Maritime",
-                "Land",
-                "Cyber",
-                "Information",
-                "Logistics",
-              ].map((domain) => (
-                <span
-                  key={domain}
-                  className="border border-white/15 bg-white/5 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground"
-                >
-                  {domain}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="lg:col-span-7 space-y-4">
-            {capabilities.map((c, i) => (
-              <article
-                key={c.tag}
-                className="group corner-brackets relative border border-white/10 bg-white/[0.02] p-8 transition hover:border-primary/50 hover:bg-primary/[0.04]"
-              >
-                <span className="corner-bl"></span>
-                <span className="corner-br"></span>
-                <div className="grid grid-cols-12 items-start gap-6">
-                  <div className="col-span-2">
-                    <div
-                      className={`${exo.className} text-5xl font-black text-primary/30 group-hover:text-primary/60 transition`}
-                    >
-                      0{i + 1}
-                    </div>
-                  </div>
-                  <div className="col-span-10">
-                    <div className="mb-3 inline-block border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-primary">
-                      {c.tag}
-                    </div>
-                    <h3
-                      className={`${exo.className} text-2xl font-black leading-tight text-foreground`}
-                    >
-                      {c.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-muted">
-                      {c.desc}
-                    </p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -494,10 +359,12 @@ function AIModels() {
       <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
-        <SectionLabel index="04" label="AI Models" />
+        <Reveal>
+          <SectionLabel index="04" label="AI Models" />
+        </Reveal>
 
         <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-4">
+          <Reveal className="lg:col-span-4" delay={120}>
             <h2
               className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
             >
@@ -510,146 +377,56 @@ function AIModels() {
               specialized for a role inside the actor stack. Compose them.
               Replace them. Train your own on top.
             </p>
-          </div>
+          </Reveal>
 
           <div className="lg:col-span-8">
             <div className="grid gap-4 sm:grid-cols-2">
-              {models.map((m) => (
-                <article
-                  key={m.codename}
-                  className="corner-brackets group relative border border-white/10 bg-white/[0.02] p-6 transition hover:border-primary/50"
-                >
-                  <span className="corner-bl"></span>
-                  <span className="corner-br"></span>
+              {models.map((m, i) => (
+                <Reveal key={m.codename} delay={200 + i * 90}>
+                  <article
+                    className="corner-brackets group relative border border-white/10 bg-white/[0.02] p-6 transition hover:border-primary/50"
+                  >
+                    <span className="corner-bl"></span>
+                    <span className="corner-br"></span>
 
-                  <div className="mb-4 flex items-center justify-between">
-                    <div
-                      className={`${exo.className} text-xl font-black tracking-wider text-primary`}
-                    >
-                      {m.codename}
-                    </div>
-                    <div className="h-2 w-2 rounded-full bg-primary animate-pulse"></div>
-                  </div>
-
-                  <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-foreground">
-                    {m.role}
-                  </div>
-                  <p className="mb-6 text-sm leading-relaxed text-muted">
-                    {m.desc}
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-3 border-t border-white/10 pt-4">
-                    {m.stats.map(([k, v]) => (
-                      <div key={k}>
-                        <div className="text-[9px] uppercase tracking-[0.2em] text-muted">
-                          {k}
-                        </div>
-                        <div
-                          className={`${exo.className} text-lg font-black text-foreground`}
-                        >
-                          {v}
-                        </div>
+                    <div className="mb-4 flex items-center justify-between">
+                      <div
+                        className={`${exo.className} text-xl font-black tracking-wider text-primary`}
+                      >
+                        {m.codename}
                       </div>
-                    ))}
-                  </div>
-                </article>
+                      <div className="h-2 w-2 rounded-full bg-primary animate-pulse"></div>
+                    </div>
+
+                    <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-foreground">
+                      {m.role}
+                    </div>
+                    <p className="mb-6 text-sm leading-relaxed text-muted">
+                      {m.desc}
+                    </p>
+
+                    <div className="grid grid-cols-2 gap-3 border-t border-white/10 pt-4">
+                      {m.stats.map(([k, v]) => (
+                        <div key={k}>
+                          <div className="text-[9px] uppercase tracking-[0.2em] text-muted">
+                            {k}
+                          </div>
+                          <div
+                            className={`${exo.className} text-lg font-black text-foreground`}
+                          >
+                            {v}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </article>
+                </Reveal>
               ))}
             </div>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────
-   USE CASE TEASER
-   ───────────────────────────────────────────────────────────── */
-function UseCaseTeaser() {
-  return (
-    <section className="relative border-b border-white/5 px-6 py-32 lg:px-10">
-      <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
-
-      <div className="relative mx-auto max-w-7xl">
-        <SectionLabel index="05" label="In the Field" />
-
-        <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="relative">
-            <div className="corner-brackets relative overflow-hidden border border-primary/30 bg-background/60 p-2 backdrop-blur-sm">
-              <span className="corner-bl"></span>
-              <span className="corner-br"></span>
-              <Image
-                src="/pic.png"
-                width={800}
-                height={600}
-                alt="Strategic simulation visualisation"
-                className="w-full opacity-80"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
-              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
-                <div>
-                  <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
-                    REPLAY · Operation Northstar
-                  </div>
-                  <div
-                    className={`${exo.className} text-2xl font-black text-foreground`}
-                  >
-                    72-hour engagement, recovered in 4 hours.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-center">
-            <h2
-              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
-            >
-              When the brief
-              <br />
-              becomes <span className="text-primary">the after-action.</span>
-            </h2>
-            <p className="mt-8 text-lg leading-relaxed text-muted">
-              Every Sigil engagement is fully replayable, frame-for-frame,
-              with attribution for every decision an actor made. Argue with
-              the past. Find the inflection. Train the next generation on
-              the actual fight, not the polished briefing deck.
-            </p>
-
-            <div className="mt-10 grid grid-cols-3 gap-6">
-              <ResultStat value="4.2×" label="Faster AAR" />
-              <ResultStat value="−68%" label="Live-ex cost" />
-              <ResultStat value="+35%" label="Decision speed" />
-            </div>
-
-            <Link
-              href="/use-case"
-              className="btn-tactical group mt-10 inline-flex w-fit items-center gap-3 border border-primary bg-primary/10 px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:bg-primary hover:text-background"
-            >
-              Read the Use Case
-              <span className="transition-transform group-hover:translate-x-1">
-                →
-              </span>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ResultStat({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="border-l-2 border-primary pl-4">
-      <div
-        className={`${exo.className} text-3xl font-black text-foreground`}
-      >
-        {value}
-      </div>
-      <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-muted">
-        {label}
-      </div>
-    </div>
   );
 }
 
@@ -662,7 +439,7 @@ function SalesCTA() {
       <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight"></div>
 
-      <div className="relative mx-auto max-w-5xl">
+      <Reveal className="relative mx-auto max-w-5xl">
         <div className="corner-brackets relative border border-primary/40 bg-background/60 p-10 backdrop-blur-sm sm:p-16">
           <span className="corner-bl"></span>
           <span className="corner-br"></span>
@@ -693,21 +470,21 @@ function SalesCTA() {
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             <Link
-              href="#rehearse"
+              href="/use-case"
               className="btn-tactical group corner-brackets relative border border-primary bg-primary p-6 transition hover:bg-primary/90"
             >
               <span className="corner-bl"></span>
               <span className="corner-br"></span>
               <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-background/70">
-                Live demo · in-page
+                Field-tested · Operation Northstar
               </div>
               <div
                 className={`${exo.className} mt-2 text-3xl font-black text-background`}
               >
-                Run a Rehearsal
+                Read the Use Case
               </div>
               <div className="mt-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.25em] text-background/80">
-                Try it now
+                Open the brief
                 <span className="transition-transform group-hover:translate-x-1">
                   →
                 </span>
@@ -756,7 +533,7 @@ function SalesCTA() {
             </span>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

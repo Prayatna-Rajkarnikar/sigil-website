@@ -9,16 +9,14 @@ export default function Nav() {
             Sigil
             <span className="text-seal italic font-italic-display">.</span>
           </span>
-          <span className="hidden sm:inline label-meta">
-            Iss. <span data-num>04</span>
-          </span>
         </Link>
 
         <div className="hidden items-baseline gap-7 md:flex">
-          <NavLink href="/#mission">Thesis</NavLink>
+          <NavLink href="/#mission">Mission</NavLink>
           <NavLink href="/actors">Actor</NavLink>
-          <NavLink href="/#models">Roster</NavLink>
-          <NavLink href="/use-case">Field</NavLink>
+          <NavLink href="/#models">Models</NavLink>
+          <NavLink href="/use-case">Use Case</NavLink>
+          <NavLink href="/contact">Contact</NavLink>
         </div>
 
         <Link
@@ -26,7 +24,7 @@ export default function Nav() {
           className="hidden md:inline-flex items-baseline gap-2 font-display italic text-base text-ink link-editorial"
         >
           <span className="dot-live mr-1 self-center" aria-hidden />
-          Schedule briefing
+          Request Briefing
           <span className="text-seal">→</span>
         </Link>
 

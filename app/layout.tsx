@@ -3,6 +3,7 @@ import "./globals.css";
 import Nav from "@/component/Nav";
 import Footer from "@/component/Footer";
 import TacticalCursor from "@/component/TacticalCursor";
+import ScrollProgress from "@/component/ScrollProgress";
 import { roboto } from "./font";
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body
         className={`${roboto.className} antialiased bg-background text-foreground min-h-screen`}
       >
+        <ScrollProgress />
         <TacticalCursor />
         <Nav />
         <main>{children}</main>

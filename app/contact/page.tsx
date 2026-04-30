@@ -19,18 +19,18 @@ function ContactHero() {
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-32 pb-12 lg:px-10">
         <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
           <span className="h-1.5 w-1.5 bg-primary animate-pulse"></span>
-          Open Channel · Inbound
+          Contact
         </div>
         <h1
           className={`${exo.className} mt-6 text-5xl font-black leading-[0.95] tracking-tight text-foreground sm:text-7xl`}
         >
-          Establish
+          Get in
           <br />
-          <span className="text-glow-primary text-primary">comms.</span>
+          <span className="text-glow-primary text-primary">touch.</span>
         </h1>
         <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-          30-minute briefings, sandbox access, and procurement conversations.
-          Tell us the mission — we&apos;ll route to the right operator.
+          Demos, questions, partnerships — drop us a note and we&apos;ll route
+          it to the right person.
         </p>
       </div>
     </section>
@@ -44,7 +44,7 @@ function ContactGrid() {
 
       <div className="relative mx-auto max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          {/* Briefing form */}
+          {/* Form */}
           <div className="lg:col-span-7">
             <div className="corner-brackets relative border border-primary/40 bg-background/60 p-8 backdrop-blur-sm sm:p-10">
               <span className="corner-bl"></span>
@@ -52,63 +52,56 @@ function ContactGrid() {
 
               <div className="absolute -top-2.5 left-6 flex items-center gap-2 bg-background px-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
                 <span className="h-1.5 w-1.5 bg-primary animate-pulse"></span>
-                Briefing Request
+                Send a message
               </div>
 
               <form className="space-y-6">
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <Field label="Operator name" placeholder="Last, First" />
-                  <Field label="Org / unit" placeholder="Affiliation" />
-                </div>
-                <Field label="Secure email" placeholder="operator@org" type="email" />
-                <Field label="Theater of interest" placeholder="Indo-Pacific, EUCOM, NORTHCOM..." />
+                <Field label="Name" placeholder="Jane Doe" />
+                <Field label="Email" placeholder="you@company.com" type="email" />
+                <Field label="Subject" placeholder="What can we help with?" />
                 <div className="space-y-2">
                   <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-muted">
-                    Mission context
+                    Message
                   </label>
                   <textarea
                     rows={5}
-                    placeholder="Outline the scenario, threat, or capability gap you'd like to rehearse."
+                    placeholder="Tell us a bit about what you're looking for."
                     className="w-full resize-none border border-white/15 bg-black/40 px-4 py-3 text-sm text-foreground placeholder:text-muted/60 outline-none focus:border-primary"
                   />
                 </div>
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-muted">
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
-                    NDA-ready · classified-handling on request
-                  </div>
+                <div className="flex justify-end">
                   <button
                     type="submit"
                     className="btn-tactical inline-flex items-center justify-center gap-3 border border-primary bg-primary px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90"
                   >
-                    Transmit Request →
+                    Send Message →
                   </button>
                 </div>
               </form>
             </div>
           </div>
 
-          {/* Channels */}
+          {/* Direct channels */}
           <div className="lg:col-span-5 space-y-6">
             <Channel
-              tag="Briefings"
-              title="command@sigil.ai"
-              desc="30-minute virtual briefing. Bring your scenario; we bring the actor library."
+              tag="General"
+              email="hello@sigil.ai"
+              desc="Questions, intros, anything else."
             />
             <Channel
-              tag="Procurement"
-              title="acquisitions@sigil.ai"
-              desc="GSA, OTA, FAR-compliant pathways. Air-gap and on-prem deployment available."
+              tag="Sales"
+              email="sales@sigil.ai"
+              desc="Demo a 30-minute walk-through with our team."
             />
             <Channel
               tag="Press"
-              title="press@sigil.ai"
-              desc="Embargo-friendly. We do not background brief on classified engagements."
+              email="press@sigil.ai"
+              desc="Media inquiries and interviews."
             />
             <Channel
-              tag="Recruiting"
-              title="careers@sigil.ai"
-              desc="Operators, ML researchers, simulation engineers. Cleared roles available."
+              tag="Careers"
+              email="careers@sigil.ai"
+              desc="Open roles across engineering, research, and design."
             />
           </div>
         </div>
@@ -142,11 +135,11 @@ function Field({
 
 function Channel({
   tag,
-  title,
+  email,
   desc,
 }: {
   tag: string;
-  title: string;
+  email: string;
   desc: string;
 }) {
   return (
@@ -156,11 +149,12 @@ function Channel({
       <div className="mb-2 inline-block border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-primary">
         {tag}
       </div>
-      <div
-        className={`${exo.className} text-xl font-black text-foreground`}
+      <a
+        href={`mailto:${email}`}
+        className={`${exo.className} block text-xl font-black text-foreground hover:text-primary transition`}
       >
-        {title}
-      </div>
+        {email}
+      </a>
       <p className="mt-2 text-sm leading-relaxed text-muted">{desc}</p>
     </div>
   );
@@ -186,7 +180,7 @@ function Compliance() {
           </div>
           <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-primary to-transparent"></div>
           <div className="text-[11px] font-bold uppercase tracking-[0.35em] text-muted">
-            Compliance Posture
+            Compliance
           </div>
         </div>
 

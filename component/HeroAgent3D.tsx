@@ -37,10 +37,25 @@ function Head() {
   const headRef = useRef<THREE.Group>(null);
   const eyeL = useRef<THREE.Mesh>(null);
   const eyeR = useRef<THREE.Mesh>(null);
+  /* angle-bracket arms for the > < laugh face */
+  const laughL_top = useRef<THREE.Mesh>(null);
+  const laughL_bot = useRef<THREE.Mesh>(null);
+  const laughR_top = useRef<THREE.Mesh>(null);
+  const laughR_bot = useRef<THREE.Mesh>(null);
+  /* toothy smile group — appears during laugh */
+  const smileRef = useRef<THREE.Group>(null);
   const chinDot = useRef<THREE.Mesh>(null);
   const earL = useRef<THREE.Mesh>(null);
   const earR = useRef<THREE.Mesh>(null);
   const visorBar = useRef<THREE.Mesh>(null);
+
+  /* expression scheduler — blink frequently, laugh frequently */
+  const nextBlink = useRef(2 + Math.random() * 2);
+  const blinkUntil = useRef(0);
+  const nextLaugh = useRef(3 + Math.random() * 3);
+  const laughUntil = useRef(0);
+
+  const LAUGH_DURATION = 1.5;
 
   useFrame(({ clock }) => {
     const t = clock.elapsedTime;
@@ -49,9 +64,81 @@ function Head() {
       headRef.current.rotation.x = Math.sin(t * 0.7) * 0.04;
       headRef.current.position.y = Math.sin(t * 1.1) * 0.04;
     }
-    const flicker = 1.4 + Math.sin(t * 3.6) * 0.4 + Math.random() * 0.04;
-    if (eyeL.current) (eyeL.current.material as THREE.MeshStandardMaterial).emissiveIntensity = flicker;
-    if (eyeR.current) (eyeR.current.material as THREE.MeshStandardMaterial).emissiveIntensity = flicker;
+
+    /* trigger LAUGH — eyes become >< for ~1.5s */
+    if (t >= nextLaugh.current && t > blinkUntil.current && t > laughUntil.current) {
+      laughUntil.current = t + LAUGH_DURATION;
+      nextLaugh.current = t + 5 + Math.random() * 4;
+      nextBlink.current = Math.max(nextBlink.current, laughUntil.current + 0.6);
+    }
+
+    /* trigger BLINK — only when not laughing */
+    if (t >= nextBlink.current && t > blinkUntil.current && t > laughUntil.current) {
+      const isDouble = Math.random() < 0.18;
+      blinkUntil.current = t + (isDouble ? 0.34 : 0.13);
+      nextBlink.current = t + 2.4 + Math.random() * 3;
+    }
+
+    const laughing = t < laughUntil.current;
+    const blinking = !laughing && t < blinkUntil.current;
+
+    /* === LAUGH expression (>< shape + toothy smile) === */
+    if (laughing) {
+      if (eyeL.current) eyeL.current.visible = false;
+      if (eyeR.current) eyeR.current.visible = false;
+
+      const phase = (t - (laughUntil.current - LAUGH_DURATION)) / LAUGH_DURATION;
+      const pulse = 1 + Math.sin(phase * Math.PI * 6) * 0.08;
+
+      [laughL_top, laughL_bot, laughR_top, laughR_bot].forEach((armRef) => {
+        if (armRef.current) {
+          armRef.current.visible = true;
+          armRef.current.scale.x = pulse;
+        }
+      });
+
+      /* show toothy smile and let it pulse with the laugh */
+      if (smileRef.current) {
+        smileRef.current.visible = true;
+        const smilePulse = 1 + Math.sin(phase * Math.PI * 6) * 0.06;
+        smileRef.current.scale.x = smilePulse;
+        smileRef.current.scale.y = smilePulse;
+      }
+
+      /* head bobs while laughing */
+      if (headRef.current) {
+        headRef.current.position.y += Math.sin(phase * Math.PI * 6) * 0.04;
+      }
+    } else {
+      /* hide laugh arms + smile */
+      [laughL_top, laughL_bot, laughR_top, laughR_bot].forEach((armRef) => {
+        if (armRef.current) armRef.current.visible = false;
+      });
+      if (smileRef.current) smileRef.current.visible = false;
+
+      /* show eye spheres + handle blink scaling */
+      const flicker = 1.4 + Math.sin(t * 3.6) * 0.4 + Math.random() * 0.04;
+      let scaleY = 1;
+      if (blinking) {
+        const remaining = blinkUntil.current - t;
+        const within = blinkUntil.current - remaining;
+        const wasDouble = (blinkUntil.current - t) > 0.13 && remaining > 0.13;
+        scaleY = wasDouble && within > 0.13 && within < 0.21 ? 1 : 0.05;
+      }
+      if (eyeL.current) {
+        eyeL.current.visible = true;
+        eyeL.current.scale.y = scaleY;
+        eyeL.current.rotation.z = 0;
+        (eyeL.current.material as THREE.MeshStandardMaterial).emissiveIntensity = flicker;
+      }
+      if (eyeR.current) {
+        eyeR.current.visible = true;
+        eyeR.current.scale.y = scaleY;
+        eyeR.current.rotation.z = 0;
+        (eyeR.current.material as THREE.MeshStandardMaterial).emissiveIntensity = flicker;
+      }
+    }
+
     const chinP = 1.1 + Math.sin(t * 2.0) * 0.4;
     if (chinDot.current) (chinDot.current.material as THREE.MeshStandardMaterial).emissiveIntensity = chinP;
     const earP = 1.5 + Math.sin(t * 2.4) * 0.5;
@@ -74,9 +161,8 @@ function Head() {
 
   return (
     <group ref={headRef}>
-      {/* ── HEAD SUBASSEMBLY — wrapped in a sub-group and scaled down so the
-            head reads small relative to the shoulders/chest below. */}
-      <group scale={0.68} position={[0, 0.18, 0]}>
+      {/* ── HEAD SUBASSEMBLY — fills the canvas tightly */}
+      <group scale={0.95} position={[0, 0, 0]}>
         {/* skull */}
         <mesh>
           <sphereGeometry args={[0.85, 48, 48]} />
@@ -122,15 +208,61 @@ function Head() {
           <meshStandardMaterial color={CYAN} emissive={CYAN} emissiveIntensity={1.0} />
         </mesh>
 
-        {/* eye dots */}
-        <mesh ref={eyeL} position={[-0.22, 0.08, 0.83]}>
-          <sphereGeometry args={[0.062, 18, 18]} />
-          <meshStandardMaterial color={CYAN_HOT} emissive={CYAN} emissiveIntensity={1.6} />
-        </mesh>
-        <mesh ref={eyeR} position={[0.22, 0.08, 0.83]}>
-          <sphereGeometry args={[0.062, 18, 18]} />
-          <meshStandardMaterial color={CYAN_HOT} emissive={CYAN} emissiveIntensity={1.6} />
-        </mesh>
+        {/* LEFT eye group — sphere when normal, > arms when laughing */}
+        <group position={[-0.22, 0.08, 0.83]}>
+          <mesh ref={eyeL}>
+            <sphereGeometry args={[0.085, 22, 22]} />
+            <meshStandardMaterial color={CYAN_HOT} emissive={CYAN} emissiveIntensity={1.6} />
+          </mesh>
+          {/* > shape: top arm \ slants down to right vertex */}
+          <mesh
+            ref={laughL_top}
+            position={[-0.016, 0.045, 0]}
+            rotation={[0, 0, -0.6]}
+            visible={false}
+          >
+            <boxGeometry args={[0.16, 0.028, 0.028]} />
+            <meshStandardMaterial color={CYAN_HOT} emissive={CYAN} emissiveIntensity={1.7} />
+          </mesh>
+          {/* > shape: bottom arm / slants up to right vertex */}
+          <mesh
+            ref={laughL_bot}
+            position={[-0.016, -0.045, 0]}
+            rotation={[0, 0, 0.6]}
+            visible={false}
+          >
+            <boxGeometry args={[0.16, 0.028, 0.028]} />
+            <meshStandardMaterial color={CYAN_HOT} emissive={CYAN} emissiveIntensity={1.7} />
+          </mesh>
+        </group>
+
+        {/* RIGHT eye group — sphere when normal, < arms when laughing */}
+        <group position={[0.22, 0.08, 0.83]}>
+          <mesh ref={eyeR}>
+            <sphereGeometry args={[0.085, 22, 22]} />
+            <meshStandardMaterial color={CYAN_HOT} emissive={CYAN} emissiveIntensity={1.6} />
+          </mesh>
+          {/* < shape: top arm / slants down to left vertex */}
+          <mesh
+            ref={laughR_top}
+            position={[0.016, 0.045, 0]}
+            rotation={[0, 0, 0.6]}
+            visible={false}
+          >
+            <boxGeometry args={[0.16, 0.028, 0.028]} />
+            <meshStandardMaterial color={CYAN_HOT} emissive={CYAN} emissiveIntensity={1.7} />
+          </mesh>
+          {/* < shape: bottom arm \ slants up to left vertex */}
+          <mesh
+            ref={laughR_bot}
+            position={[0.016, -0.045, 0]}
+            rotation={[0, 0, -0.6]}
+            visible={false}
+          >
+            <boxGeometry args={[0.16, 0.028, 0.028]} />
+            <meshStandardMaterial color={CYAN_HOT} emissive={CYAN} emissiveIntensity={1.7} />
+          </mesh>
+        </group>
 
         {/* chin sensor */}
         <mesh position={[0, -0.45, 0.7]}>
@@ -141,6 +273,27 @@ function Head() {
           <sphereGeometry args={[0.045, 16, 16]} />
           <meshStandardMaterial color={CYAN_HOT} emissive={CYAN} emissiveIntensity={1.4} />
         </mesh>
+
+        {/* TOOTHY SMILE — only visible during laugh */}
+        <group ref={smileRef} position={[0, -0.30, 0.83]} visible={false}>
+          {/* dark mouth interior — lower semicircle */}
+          <mesh>
+            <circleGeometry args={[0.13, 28, Math.PI, Math.PI]} />
+            <meshStandardMaterial color={DARK} metalness={0.9} roughness={0.3} side={THREE.DoubleSide} />
+          </mesh>
+          {/* teeth — 5 small white rectangles */}
+          {[-0.07, -0.035, 0, 0.035, 0.07].map((x, i) => (
+            <mesh key={i} position={[x, -0.04, 0.008]}>
+              <boxGeometry args={[0.022, 0.055, 0.012]} />
+              <meshStandardMaterial color={SHELL} metalness={0.05} roughness={0.4} />
+            </mesh>
+          ))}
+          {/* smile arc — dark rim defining the lower lip */}
+          <mesh position={[0, 0, 0.012]} rotation={[0, 0, Math.PI]}>
+            <torusGeometry args={[0.13, 0.014, 8, 24, Math.PI]} />
+            <meshStandardMaterial color={DARK} metalness={0.92} roughness={0.3} />
+          </mesh>
+        </group>
 
         {/* ear discs — outside the head sphere */}
         {[-1, 1].map((s) => {
@@ -181,7 +334,7 @@ function Head() {
 export default function HeroAgent3D() {
   return (
     <Canvas
-      camera={{ position: [0.4, 0.0, 4.6], fov: 32 }}
+      camera={{ position: [0.2, 0.05, 3.6], fov: 30 }}
       dpr={[1, 1.5]}
       gl={{ alpha: true, antialias: true }}
     >
