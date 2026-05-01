@@ -1,14 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { exo } from "./font";
-import Actor3D from "@/component/Actor3DClient";
 import HeroAgent3D from "@/component/HeroAgent3DClient";
 import HeroOrbitLabels from "@/component/HeroOrbitLabels";
 import MissionAgent3D from "@/component/MissionAgent3DClient";
+import ActorDemoRobot from "@/component/ActorDemoRobotClient";
+import TraitCard, { type TraitKind } from "@/component/TraitCard";
 import Reveal from "@/component/Reveal";
 import MagneticButton from "@/component/MagneticButton";
 import CycleHeadline from "@/component/CycleHeadline";
 import CountUp from "@/component/CountUp";
+import CTAAgent3D from "@/component/CTAAgent3DClient";
 
 export default function Home() {
   return (
@@ -73,12 +75,11 @@ function Hero() {
         </h1>
 
         <p className="mt-4 max-w-2xl text-center text-base leading-relaxed text-muted sm:text-lg">
-          Sigil deploys autonomous AI{" "}
-          <span className="text-foreground">actors</span> into high-fidelity
-          simulated environments — so your operators, your models, and your
-          strategy are battle-tested{" "}
-          <span className="text-foreground">before</span> the real world ever
-          sees them.
+          Sigil sets up autonomous AI{" "}
+          <span className="text-foreground">actors</span> in realistic
+          simulations, so you can try out plans, train your team, and see
+          what actually works —{" "}
+          <span className="text-foreground">before</span> it really matters.
         </p>
 
         <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row">
@@ -113,12 +114,12 @@ function Hero() {
    ───────────────────────────────────────────────────────────── */
 function Ticker() {
   const items = [
-    "AGENTIC DECISION MODELING",
-    "MULTI-DOMAIN SIMULATION",
-    "ADVERSARIAL RED TEAMING",
-    "DOCTRINE STRESS-TEST",
-    "STRATEGIC FORESIGHT",
-    "AUTONOMOUS ACTOR NETWORKS",
+    "AGENTIC AI",
+    "REALISTIC SIMULATION",
+    "SCENARIO PLANNING",
+    "WHAT-IF MODELING",
+    "DECISION SUPPORT",
+    "AUTONOMOUS AGENTS",
   ];
   const stream = [...items, ...items];
   return (
@@ -156,23 +157,22 @@ function Mission() {
             <h2
               className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
             >
-              We don&apos;t predict
+              We don&apos;t try to predict
               <br />
               the future.
               <br />
-              <span className="text-primary">We let you rehearse it.</span>
+              <span className="text-primary">We help you practice it.</span>
             </h2>
             <p className="mt-8 text-base leading-relaxed text-muted">
-              The cost of being wrong is rising. Combat doctrine, supply
-              chains, financial systems, and critical infrastructure now
-              evolve faster than any human committee can review. Sigil
-              compresses years of contingency planning into hours of
-              high-fidelity simulation — populating scenarios with autonomous
-              actors that perceive, reason, and act with purpose.
+              Things move fast now. Strategy, supply chains, even the
+              systems we depend on every day change quicker than any team
+              can keep up with. Sigil turns months of planning into hours
+              of realistic simulation — letting autonomous actors
+              perceive, reason, and act on your behalf.
             </p>
             <p className="mt-4 text-base leading-relaxed text-muted">
-              When the real world finally arrives, your team has already
-              fought it.{" "}
+              By the time the real situation shows up, your team has
+              already worked through it.{" "}
               <span className="text-foreground">A thousand times.</span>
             </p>
           </Reveal>
@@ -189,20 +189,20 @@ function Mission() {
             <div className="flex flex-col">
               <MissionStat
                 value="10⁶"
-                label="Scenarios per cycle"
-                desc="Parallel actor populations explore branching futures."
+                label="Scenarios per run"
+                desc="Thousands of agents explore what-ifs in parallel."
               />
               <div className="my-6 h-px w-full bg-white/10"></div>
               <MissionStat
                 value="40×"
-                label="Decision velocity"
-                desc="Compress strategic review from quarters to days."
+                label="Faster decisions"
+                desc="From months of review to a few days."
               />
               <div className="my-6 h-px w-full bg-white/10"></div>
               <MissionStat
                 value="Zero"
-                label="Real-world cost"
-                desc="Fail in simulation. Win in the field."
+                label="Real-world risk"
+                desc="Try things safely. Keep what works."
               />
             </div>
           </Reveal>
@@ -238,9 +238,19 @@ function MissionStat({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   ACTOR CONCEPT — now with 3D actor diagram
+   ACTOR CONCEPT — asymmetric editorial: free-floating robot on
+   the LEFT (no frame), big headline on the right with a 2×2
+   trait matrix beneath, CTA at the bottom. Distinct from the
+   Mission section's symmetric 3-column composition.
    ───────────────────────────────────────────────────────────── */
 function ActorConcept() {
+  const traits = [
+    { kind: "perceive", name: "Perceives", desc: "Multi-modal sensory input — vision, audio, telemetry, intent." },
+    { kind: "remember", name: "Remembers", desc: "Episodic + semantic memory — recall, reflect, learn." },
+    { kind: "reason",   name: "Reasons",   desc: "Goal-directed planning under uncertainty and time pressure." },
+    { kind: "act",      name: "Acts",      desc: "Tool use and multi-actor coordination across domains." },
+  ] as { kind: TraitKind; name: string; desc: string }[];
+
   return (
     <section
       id="actor"
@@ -254,58 +264,52 @@ function ActorConcept() {
           <SectionLabel index="02" label="The Actor" />
         </Reveal>
 
-        <div className="mt-12 grid gap-16 lg:grid-cols-12 lg:items-center lg:gap-24">
-          <Reveal className="lg:col-span-6 order-2 lg:order-1" delay={120}>
-            <h2
-              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl lg:text-6xl`}
-            >
-              Meet the
-              <br />
-              <span className="text-primary">Actor.</span>
-            </h2>
-            <p className="mt-8 text-lg leading-relaxed text-muted">
-              An <span className="text-foreground">Actor</span> is the atomic
-              unit of the Sigil platform — an autonomous AI agent with goals,
-              memory, sensory input, and a policy for action. Drop one into
-              an environment, it pursues an objective. Drop a thousand in,
-              they form an economy, an army, a city.
-            </p>
+        <div className="mt-14 grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-16">
+          {/* ROBOT — free-floating on the left, no frame */}
+          <Reveal
+            dir="left"
+            delay={160}
+            className="order-2 lg:order-1 lg:col-span-5"
+          >
+            <div className="relative">
+              <ActorDemoRobot />
+              {/* faint horizontal podium line under the robot */}
+              <div className="mx-auto mt-2 h-px w-2/3 bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
+            </div>
+          </Reveal>
 
-            <div className="mt-10 grid grid-cols-2 gap-4">
-              {[
-                { name: "Perceives", desc: "Multi-modal sensory input" },
-                { name: "Remembers", desc: "Episodic + semantic memory" },
-                { name: "Reasons", desc: "Goal-directed planning" },
-                { name: "Acts", desc: "Tool use & coordination" },
-              ].map((trait) => (
-                <div
-                  key={trait.name}
-                  className="border border-white/10 bg-white/[0.02] p-4 transition hover:border-primary/50 hover:bg-primary/5"
-                >
-                  <div className="mb-1 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-primary">
-                    <span className="h-1 w-1 bg-primary"></span>
-                    {trait.name}
-                  </div>
-                  <div className="text-xs text-muted">{trait.desc}</div>
-                </div>
+          {/* RIGHT — headline + 2x2 trait matrix + CTA */}
+          <div className="order-1 lg:order-2 lg:col-span-7">
+            <Reveal delay={120}>
+              <h2
+                className={`${exo.className} text-5xl font-black leading-[0.98] sm:text-6xl lg:text-7xl`}
+              >
+                Meet the
+                <br />
+                <span className="text-primary">Actor.</span>
+              </h2>
+            </Reveal>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              {traits.map((trait, i) => (
+                <Reveal key={trait.kind} delay={240 + i * 90}>
+                  <TraitCard kind={trait.kind} name={trait.name} desc={trait.desc} />
+                </Reveal>
               ))}
             </div>
 
-            <Link
-              href="/actors"
-              className="btn-tactical group mt-10 inline-flex items-center gap-3 border border-white/20 px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:text-primary"
-            >
-              Inspect the Actor
-              <span className="transition-transform group-hover:translate-x-1">
-                →
-              </span>
-            </Link>
-          </Reveal>
-
-          {/* 3D actor diagram */}
-          <Reveal className="lg:col-span-6 order-1 lg:order-2" delay={260}>
-            <Actor3D />
-          </Reveal>
+            <Reveal delay={620}>
+              <Link
+                href="/actors"
+                className="btn-tactical group mt-10 inline-flex items-center gap-3 border border-primary/60 bg-primary/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:bg-primary/10"
+              >
+                Inspect the Actor
+                <span className="transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+              </Link>
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>
@@ -328,8 +332,8 @@ function AIModels() {
     },
     {
       codename: "SHADOW-RED",
-      role: "Adversarial Engine",
-      desc: "Adaptive opponent that learns your tactics in real time. Trained on declassified doctrine and open-source threat intel.",
+      role: "Stress-Test Engine",
+      desc: "An adaptive counter-actor that learns your decisions in real time. Surfaces blind spots before they become costly.",
       stats: [
         ["Adapt", "<2 turns"],
         ["Modes", "12"],
@@ -372,14 +376,14 @@ function AIModels() {
             <h2
               className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
             >
-              Purpose-built
+              Built
               <br />
-              <span className="text-primary">for the mission.</span>
+              <span className="text-primary">for the job.</span>
             </h2>
             <p className="mt-8 text-base leading-relaxed text-muted">
-              Sigil ships a curated arsenal of foundation models, each
-              specialized for a role inside the actor stack. Compose them.
-              Replace them. Train your own on top.
+              Sigil comes with a small set of foundation models, each
+              tuned for a role inside the actor stack. Mix them, swap
+              them, or train your own on top.
             </p>
           </Reveal>
 
@@ -450,27 +454,37 @@ function SalesCTA() {
 
           <div className="absolute -top-3 left-10 flex items-center gap-2 bg-background px-4 text-[11px] font-bold uppercase tracking-[0.3em] text-primary">
             <span className="h-1.5 w-1.5 bg-primary animate-pulse"></span>
-            Open Channel
+            Get in touch
           </div>
 
           <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.3em] text-muted">
-            // 06 · Engage Command
+            // 06 · Talk to us
           </p>
 
-          <h2
-            className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-6xl lg:text-7xl`}
-          >
-            Stop guessing.
-            <br />
-            <span className="text-primary">Start rehearsing.</span>
-          </h2>
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-10">
+            {/* LEFT — title + paragraph */}
+            <div className="lg:col-span-8">
+              <h2
+                className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-6xl lg:text-7xl`}
+              >
+                Stop guessing.
+                <br />
+                <span className="text-primary">Start practicing.</span>
+              </h2>
 
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
-            Most platforms sell you another dashboard. Sigil sells you the
-            time you would have spent learning the hard way. A 30-minute
-            briefing with our team is the fastest way to see if it&apos;s
-            real.
-          </p>
+              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
+                Most platforms give you another dashboard. We give you
+                back the time you&apos;d have spent learning the hard
+                way. A 30-minute call with our team is the easiest way
+                to see if it&apos;s a fit.
+              </p>
+            </div>
+
+            {/* RIGHT — waving robot, signaling "let's chat" */}
+            <div className="relative aspect-square w-full max-w-[280px] mx-auto lg:col-span-4 lg:max-w-none">
+              <CTAAgent3D />
+            </div>
+          </div>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             <Link
@@ -480,7 +494,7 @@ function SalesCTA() {
               <span className="corner-bl"></span>
               <span className="corner-br"></span>
               <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-background/70">
-                Field-tested · Operation Northstar
+                Real example · Dynamic Pricing
               </div>
               <div
                 className={`${exo.className} mt-2 text-3xl font-black text-background`}
@@ -502,15 +516,15 @@ function SalesCTA() {
               <span className="corner-bl"></span>
               <span className="corner-br"></span>
               <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
-                Schedule a Briefing
+                Book a 30-min call
               </div>
               <div
                 className={`${exo.className} mt-2 text-3xl font-black text-foreground`}
               >
-                30-min · NDA-ready
+                Talk to a human
               </div>
               <div className="mt-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.25em] text-muted group-hover:text-foreground transition">
-                Open the Form
+                Get in touch
                 <span className="transition-transform group-hover:translate-x-1">
                   →
                 </span>
@@ -525,15 +539,15 @@ function SalesCTA() {
             </span>
             <span className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
-              ITAR-aware
+              GDPR-compliant
             </span>
             <span className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
-              FedRAMP track
+              SSO ready
             </span>
             <span className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
-              Air-gap deploy
+              On-prem available
             </span>
           </div>
         </div>

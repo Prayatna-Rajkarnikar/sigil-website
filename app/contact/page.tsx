@@ -5,7 +5,6 @@ export default function ContactPage() {
     <>
       <ContactHero />
       <ContactGrid />
-      <Compliance />
     </>
   );
 }

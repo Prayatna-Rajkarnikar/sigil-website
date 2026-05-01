@@ -10,10 +10,10 @@ import { useEffect, useState } from "react";
 export default function CycleHeadline({
   words = [
     "the future",
-    "the doctrine",
-    "the operation",
-    "the campaign",
-    "the threat",
+    "the launch",
+    "the rollout",
+    "the next move",
+    "tomorrow",
   ],
   intervalMs = 2600,
   className = "",
