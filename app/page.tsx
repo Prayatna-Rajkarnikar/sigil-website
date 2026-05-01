@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { exo } from "./font";
-import Actor3D from "@/component/Actor3DClient";
 import HeroAgent3D from "@/component/HeroAgent3DClient";
 import HeroOrbitLabels from "@/component/HeroOrbitLabels";
 import MissionAgent3D from "@/component/MissionAgent3DClient";
+import ActorDemoRobot from "@/component/ActorDemoRobotClient";
+import TraitCard, { type TraitKind } from "@/component/TraitCard";
 import Reveal from "@/component/Reveal";
 
 export default function Home() {
@@ -234,9 +235,19 @@ function MissionStat({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   ACTOR CONCEPT — now with 3D actor diagram
+   ACTOR CONCEPT — asymmetric editorial: free-floating robot on
+   the LEFT (no frame), big headline on the right with a 2×2
+   trait matrix beneath, CTA at the bottom. Distinct from the
+   Mission section's symmetric 3-column composition.
    ───────────────────────────────────────────────────────────── */
 function ActorConcept() {
+  const traits = [
+    { kind: "perceive", name: "Perceives", desc: "Multi-modal sensory input — vision, audio, telemetry, intent." },
+    { kind: "remember", name: "Remembers", desc: "Episodic + semantic memory — recall, reflect, learn." },
+    { kind: "reason",   name: "Reasons",   desc: "Goal-directed planning under uncertainty and time pressure." },
+    { kind: "act",      name: "Acts",      desc: "Tool use and multi-actor coordination across domains." },
+  ] as { kind: TraitKind; name: string; desc: string }[];
+
   return (
     <section
       id="actor"
@@ -250,58 +261,52 @@ function ActorConcept() {
           <SectionLabel index="02" label="The Actor" />
         </Reveal>
 
-        <div className="mt-12 grid gap-16 lg:grid-cols-12 lg:items-center lg:gap-24">
-          <Reveal className="lg:col-span-6 order-2 lg:order-1" delay={120}>
-            <h2
-              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl lg:text-6xl`}
-            >
-              Meet the
-              <br />
-              <span className="text-primary">Actor.</span>
-            </h2>
-            <p className="mt-8 text-lg leading-relaxed text-muted">
-              An <span className="text-foreground">Actor</span> is the atomic
-              unit of the Sigil platform — an autonomous AI agent with goals,
-              memory, sensory input, and a policy for action. Drop one into
-              an environment, it pursues an objective. Drop a thousand in,
-              they form an economy, an army, a city.
-            </p>
+        <div className="mt-14 grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-16">
+          {/* ROBOT — free-floating on the left, no frame */}
+          <Reveal
+            dir="left"
+            delay={160}
+            className="order-2 lg:order-1 lg:col-span-5"
+          >
+            <div className="relative">
+              <ActorDemoRobot />
+              {/* faint horizontal podium line under the robot */}
+              <div className="mx-auto mt-2 h-px w-2/3 bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
+            </div>
+          </Reveal>
 
-            <div className="mt-10 grid grid-cols-2 gap-4">
-              {[
-                { name: "Perceives", desc: "Multi-modal sensory input" },
-                { name: "Remembers", desc: "Episodic + semantic memory" },
-                { name: "Reasons", desc: "Goal-directed planning" },
-                { name: "Acts", desc: "Tool use & coordination" },
-              ].map((trait) => (
-                <div
-                  key={trait.name}
-                  className="border border-white/10 bg-white/[0.02] p-4 transition hover:border-primary/50 hover:bg-primary/5"
-                >
-                  <div className="mb-1 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-primary">
-                    <span className="h-1 w-1 bg-primary"></span>
-                    {trait.name}
-                  </div>
-                  <div className="text-xs text-muted">{trait.desc}</div>
-                </div>
+          {/* RIGHT — headline + 2x2 trait matrix + CTA */}
+          <div className="order-1 lg:order-2 lg:col-span-7">
+            <Reveal delay={120}>
+              <h2
+                className={`${exo.className} text-5xl font-black leading-[0.98] sm:text-6xl lg:text-7xl`}
+              >
+                Meet the
+                <br />
+                <span className="text-primary">Actor.</span>
+              </h2>
+            </Reveal>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              {traits.map((trait, i) => (
+                <Reveal key={trait.kind} delay={240 + i * 90}>
+                  <TraitCard kind={trait.kind} name={trait.name} desc={trait.desc} />
+                </Reveal>
               ))}
             </div>
 
-            <Link
-              href="/actors"
-              className="btn-tactical group mt-10 inline-flex items-center gap-3 border border-white/20 px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:text-primary"
-            >
-              Inspect the Actor
-              <span className="transition-transform group-hover:translate-x-1">
-                →
-              </span>
-            </Link>
-          </Reveal>
-
-          {/* 3D actor diagram */}
-          <Reveal className="lg:col-span-6 order-1 lg:order-2" delay={260}>
-            <Actor3D />
-          </Reveal>
+            <Reveal delay={620}>
+              <Link
+                href="/actors"
+                className="btn-tactical group mt-10 inline-flex items-center gap-3 border border-primary/60 bg-primary/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:bg-primary/10"
+              >
+                Inspect the Actor
+                <span className="transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+              </Link>
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>
