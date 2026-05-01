@@ -50,6 +50,7 @@ function Robot() {
   /* right-arm pivots — animate during salute */
   const rShoulder = useRef<THREE.Group>(null);
   const rElbow = useRef<THREE.Group>(null);
+  const rWrist = useRef<THREE.Group>(null);
 
   const nextSalute = useRef(2 + Math.random() * 2);
   const saluteUntil = useRef(0);
@@ -78,20 +79,33 @@ function Robot() {
     /* head — sways idle, locks + tilts up slightly while saluting */
     if (headRef.current) {
       const targetY = saluting ? 0 : Math.sin(t * 0.4) * 0.15;
-      const targetX = saluting ? -0.06 : Math.sin(t * 0.6) * 0.04;
+      const targetX = saluting ? -0.18 : Math.sin(t * 0.6) * 0.04;
       headRef.current.rotation.y = THREE.MathUtils.lerp(headRef.current.rotation.y, targetY, 0.12);
       headRef.current.rotation.x = THREE.MathUtils.lerp(headRef.current.rotation.x, targetX, 0.12);
     }
 
-    /* apply salute pose to right arm — hand lands at right temple, not in it */
-    if (rShoulder.current && rElbow.current) {
-      /* Shoulder: raise outward+slightly forward — keeps elbow off the chest */
-      rShoulder.current.rotation.z = 1.1 * progress;
-      rShoulder.current.rotation.x = -0.85 * progress;
-      /* Elbow: moderate fold + small inward swing so hand stops at the temple
-         rather than continuing into the head. */
-      rElbow.current.rotation.x = -2.0 * progress;
-      rElbow.current.rotation.y = -0.2 * progress;
+    /* apply salute pose to right arm.
+       Reference is the classic salute: upper arm out to the side, elbow
+       bent so the forearm angles up to the temple, hand pressed flat
+       against the side of the head with fingers pointing up. The hand
+       follows the forearm naturally — no wrist flex.
+         shoulder.z (2.0) → raise upper arm to ~115° (out and slightly up)
+         shoulder.x (+0.15) → minimal forward tilt so the arm stays near
+           the body's coronal plane
+         elbow.z (1.7) → strong fold so the forearm angles steeply up
+           and inward, ending the hand at the brow on the side of the head
+         wrist (0) → hand follows the forearm; fingers point up-inward,
+           palm faces outward (matching the reference). */
+    if (rShoulder.current && rElbow.current && rWrist.current) {
+      rShoulder.current.rotation.z = 2.0 * progress;
+      rShoulder.current.rotation.x = 0.15 * progress;
+      rShoulder.current.rotation.y = 0;
+      rElbow.current.rotation.x = 0;
+      rElbow.current.rotation.y = 0;
+      rElbow.current.rotation.z = 1.85 * progress;
+      rWrist.current.rotation.x = 0;
+      rWrist.current.rotation.y = 0;
+      rWrist.current.rotation.z = 0;
     }
 
     /* SERIOUS expression — eyes stay round, eyebrows appear and slant down
@@ -304,7 +318,7 @@ function Robot() {
       <Arm side={-1} />
 
       {/* ── RIGHT ARM — animates to salute ── */}
-      <ArmAnimated rShoulder={rShoulder} rElbow={rElbow} />
+      <ArmAnimated rShoulder={rShoulder} rElbow={rElbow} rWrist={rWrist} />
     </group>
   );
 }
@@ -334,7 +348,11 @@ function ArmSegments() {
   );
 }
 
-function ForearmAndHand() {
+function ForearmAndHand({
+  wristRef,
+}: {
+  wristRef?: React.RefObject<THREE.Group | null>;
+}) {
   return (
     <>
       {/* elbow ball */}
@@ -357,20 +375,22 @@ function ForearmAndHand() {
         <cylinderGeometry args={[0.105, 0.105, 0.04, 22]} />
         <meshStandardMaterial color={DARK} metalness={0.9} roughness={0.3} />
       </mesh>
-      {/* wrist ball */}
-      <mesh position={[0, -0.66, 0]}>
-        <sphereGeometry args={[0.085, 18, 18]} />
-        <meshStandardMaterial color={JOINT} metalness={0.78} roughness={0.4} />
-      </mesh>
-      {/* HAND */}
-      <Hand />
+      {/* wrist ball — also serves as the wrist pivot for the hand */}
+      <group ref={wristRef} position={[0, -0.66, 0]}>
+        <mesh>
+          <sphereGeometry args={[0.085, 18, 18]} />
+          <meshStandardMaterial color={JOINT} metalness={0.78} roughness={0.4} />
+        </mesh>
+        {/* HAND — offset by -0.12 from wrist pivot (was -0.78 from elbow) */}
+        <Hand />
+      </group>
     </>
   );
 }
 
 function Hand() {
   return (
-    <group position={[0, -0.78, 0]}>
+    <group position={[0, -0.12, 0]}>
       {/* palm */}
       <RoundedBox
         args={[0.15, 0.18, 0.1]}
@@ -425,15 +445,17 @@ function Arm({ side }: { side: -1 | 1 }) {
 function ArmAnimated({
   rShoulder,
   rElbow,
+  rWrist,
 }: {
   rShoulder: React.RefObject<THREE.Group | null>;
   rElbow: React.RefObject<THREE.Group | null>;
+  rWrist: React.RefObject<THREE.Group | null>;
 }) {
   return (
     <group ref={rShoulder} position={[0.42, 0.4, 0]}>
       <ArmSegments />
       <group ref={rElbow} position={[0, -0.62, 0]}>
-        <ForearmAndHand />
+        <ForearmAndHand wristRef={rWrist} />
       </group>
     </group>
   );

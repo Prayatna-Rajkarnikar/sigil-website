@@ -6,6 +6,9 @@ import HeroAgent3D from "@/component/HeroAgent3DClient";
 import HeroOrbitLabels from "@/component/HeroOrbitLabels";
 import MissionAgent3D from "@/component/MissionAgent3DClient";
 import Reveal from "@/component/Reveal";
+import MagneticButton from "@/component/MagneticButton";
+import CycleHeadline from "@/component/CycleHeadline";
+import CountUp from "@/component/CountUp";
 
 export default function Home() {
   return (
@@ -66,9 +69,7 @@ function Hero() {
           className={`${exo.className} mt-3 text-center text-5xl font-black leading-[0.98] tracking-tight text-foreground sm:text-6xl lg:text-7xl xl:text-[5.5rem] max-w-5xl`}
         >
           Rehearse{" "}
-          <span className="text-glow-primary text-primary">
-            the future
-          </span>
+          <CycleHeadline className="text-glow-primary text-primary" />
         </h1>
 
         <p className="mt-4 max-w-2xl text-center text-base leading-relaxed text-muted sm:text-lg">
@@ -81,22 +82,26 @@ function Hero() {
         </p>
 
         <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row">
-          <Link
-            href="/use-case"
-            className="btn-tactical group relative inline-flex items-center justify-center gap-3 border border-primary bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90"
-          >
-            Read the Use Case
-            <span className="transition-transform group-hover:translate-x-1">
-              →
-            </span>
-          </Link>
-          <Link
-            href="/contact"
-            className="btn-tactical group inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:bg-primary/10"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
-            Contact Us
-          </Link>
+          <MagneticButton>
+            <Link
+              href="/use-case"
+              className="btn-tactical group relative inline-flex items-center justify-center gap-3 border border-primary bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90"
+            >
+              Read the Use Case
+              <span className="transition-transform group-hover:translate-x-1">
+                →
+              </span>
+            </Link>
+          </MagneticButton>
+          <MagneticButton>
+            <Link
+              href="/contact"
+              className="btn-tactical group inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:bg-primary/10"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
+              Contact Us
+            </Link>
+          </MagneticButton>
         </div>
       </div>
     </section>
@@ -219,11 +224,10 @@ function MissionStat({
   return (
     <div>
       <div className="flex items-baseline gap-4">
-        <span
+        <CountUp
+          target={value}
           className={`${exo.className} text-5xl font-black text-primary`}
-        >
-          {value}
-        </span>
+        />
         <span className="text-xs font-bold uppercase tracking-[0.25em] text-foreground">
           {label}
         </span>
