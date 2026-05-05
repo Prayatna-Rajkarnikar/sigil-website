@@ -1,4 +1,5 @@
 import { exo } from "@/app/font";
+import ContactForm from "./contact-form";
 
 export default function ContactPage() {
   return (
@@ -54,29 +55,7 @@ function ContactGrid() {
                 Send a message
               </div>
 
-              <form className="space-y-6">
-                <Field label="Name" placeholder="Jane Doe" />
-                <Field label="Email" placeholder="you@company.com" type="email" />
-                <Field label="Subject" placeholder="What can we help with?" />
-                <div className="space-y-2">
-                  <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-muted">
-                    Message
-                  </label>
-                  <textarea
-                    rows={5}
-                    placeholder="Tell us a bit about what you're looking for."
-                    className="w-full resize-none border border-white/15 bg-black/40 px-4 py-3 text-sm text-foreground placeholder:text-muted/60 outline-none focus:border-primary"
-                  />
-                </div>
-                <div className="flex justify-end">
-                  <button
-                    type="submit"
-                    className="btn-tactical inline-flex items-center justify-center gap-3 border border-primary bg-primary px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90"
-                  >
-                    Send Message →
-                  </button>
-                </div>
-              </form>
+              <ContactForm />
             </div>
           </div>
 
@@ -106,29 +85,6 @@ function ContactGrid() {
         </div>
       </div>
     </section>
-  );
-}
-
-function Field({
-  label,
-  placeholder,
-  type = "text",
-}: {
-  label: string;
-  placeholder: string;
-  type?: string;
-}) {
-  return (
-    <div className="space-y-2">
-      <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-muted">
-        {label}
-      </label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        className="w-full border border-white/15 bg-black/40 px-4 py-3 text-sm text-foreground placeholder:text-muted/60 outline-none focus:border-primary"
-      />
-    </div>
   );
 }
 
