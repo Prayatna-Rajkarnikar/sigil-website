@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Nav from "@/component/Nav";
 import Footer from "@/component/Footer";
-import TacticalCursor from "@/component/TacticalCursor";
 import ScrollProgress from "@/component/ScrollProgress";
 import MouseSpotlight from "@/component/MouseSpotlight";
-import PageTransition from "@/component/PageTransition";
-import { roboto } from "./font";
+import { caveat, dmSerifDisplay, roboto } from "./font";
 
 export const metadata: Metadata = {
   title: "Sigil — Agentic Decision Modeling",
@@ -22,12 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} antialiased bg-background text-foreground min-h-screen`}
+        className={`${roboto.className} ${caveat.variable} ${dmSerifDisplay.variable} antialiased bg-background text-foreground min-h-screen`}
       >
         <ScrollProgress />
-        <TacticalCursor />
         <MouseSpotlight />
-        <PageTransition />
         <Nav />
         <main>{children}</main>
         <Footer />

@@ -277,6 +277,38 @@ html, body {
   }
 }
 
+/* Page transition — kerning-collapse / type-breath enter animation.
+   Letter-spacing inherits, so any text without an explicit tracking-*
+   class will visibly contract → expand. Headlines with explicit tracking
+   are untouched, which keeps the effect subtle and editorial. */
+@keyframes kerning-enter {
+  0% {
+    letter-spacing: -0.12em;
+    opacity: 0;
+    transform: translateY(18px) scaleX(0.96);
+    filter: blur(2px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    letter-spacing: normal;
+    opacity: 1;
+    transform: translateY(0) scaleX(1);
+    filter: blur(0);
+  }
+}
+.kerning-enter {
+  animation: kerning-enter 800ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  transform-origin: center top;
+}
+@media (prefers-reduced-motion: reduce) {
+  .kerning-enter {
+    animation: none !important;
+  }
+}
+
 /* Briefing console scrollbars */
 .briefing-output::-webkit-scrollbar {
   width: 6px;

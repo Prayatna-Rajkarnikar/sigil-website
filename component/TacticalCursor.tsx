@@ -9,8 +9,10 @@ export default function TacticalCursor() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+    if (!isFinePointer) return;
+
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!isFinePointer || reduceMotion) return;
+    const ease = reduceMotion ? 1 : 0.35;
 
     setEnabled(true);
 
@@ -26,8 +28,8 @@ export default function TacticalCursor() {
     };
 
     const tick = () => {
-      curX += (targetX - curX) * 0.35;
-      curY += (targetY - curY) * 0.35;
+      curX += (targetX - curX) * ease;
+      curY += (targetY - curY) * ease;
       if (ref.current) {
         ref.current.style.transform = `translate3d(${curX}px, ${curY}px, 0) translate(-50%, -50%)`;
       }

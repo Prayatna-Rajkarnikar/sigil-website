@@ -78,11 +78,23 @@ export default function Nav() {
   return (
     <nav className="sticky top-0 z-50 hairline-b bg-paper/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-baseline justify-between gap-6 px-6 py-5 lg:px-12">
-        <Link href="/" className="flex items-baseline gap-3 group">
-          <span className="font-display display-loose text-2xl font-light tracking-tight text-ink leading-none">
-            Sigil
-            <span className="text-seal italic font-italic-display">.</span>
+        <Link href="/" className="flex items-baseline group">
+          <span
+            className="text-5xl leading-none text-primary -mr-0.5"
+            style={{ fontFamily: "var(--font-script), cursive" }}
+          >
+            S
           </span>
+          <span
+            className="text-2xl uppercase text-ink leading-none"
+            style={{
+              fontFamily: "var(--font-serif-sharp), serif",
+              letterSpacing: "0.08em",
+            }}
+          >
+            igil
+          </span>
+          <span className="sr-only">Sigil</span>
         </Link>
 
         <div className="hidden items-baseline gap-7 md:flex">

@@ -1,4 +1,19 @@
-import { Fraunces, Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
+import { Caveat, DM_Serif_Display, Fraunces, Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
+
+/* Handwriting script — used for the monogram logo */
+export const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-script",
+  weight: ["400", "500", "600"],
+});
+
+/* Sharp display serif — high-contrast Didone, used for the wordmark */
+export const dmSerifDisplay = DM_Serif_Display({
+  subsets: ["latin"],
+  variable: "--font-serif-sharp",
+  weight: "400",
+  style: ["normal", "italic"],
+});
 
 /* Display & body serif — variable font with optical sizes + SOFT/WONK axes.
    When `axes` is set, omit `weight` (or use "variable") so all weights resolve. */
