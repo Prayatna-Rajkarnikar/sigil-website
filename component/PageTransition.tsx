@@ -1,51 +1,32 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
 
 /**
- * PageTransition — fires a left→right orange wipe on every route change.
- * Uses pathname change as the trigger. The wipe runs in front of the
- * newly-mounted page; total duration ~700ms.
+ * Tracer-bullet page transition. On every route change the wrapper is
+ * remounted (keyed by pathname), so the CSS animations on both layers
+ * fire fresh:
  *
- * Honors prefers-reduced-motion (no animation).
+ *   1. .bullet-streak  — a glowing horizontal tracer streaks across the
+ *                        viewport left → right (~350ms, linear). White-hot
+ *                        head with an orange tail.
+ *   2. .bullet-content — the new page fades in with a small upward drift
+ *                        (~500ms, ease-out, slight delay so the bullet
+ *                        leads the reveal).
+ *
+ * No state, no effects — the keyed remount is the trigger. Honors
+ * prefers-reduced-motion via the CSS rules in globals.css.
  */
-export default function PageTransition() {
+export default function PageTransition({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
-  const [animKey, setAnimKey] = useState(0);
-  const firstRender = useRef(true);
-  const reduce = useRef(false);
-
-  useEffect(() => {
-    reduce.current = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-  }, []);
-
-  useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
-    if (reduce.current) return;
-    setAnimKey((k) => k + 1);
-  }, [pathname]);
-
-  if (animKey === 0) return null;
-
   return (
-    <div
-      key={animKey}
-      aria-hidden
-      className="page-transition pointer-events-none fixed inset-0 z-[9998]"
-    >
-      {/* Sweep band — thick vertical bar with grid texture inside.
-          The CSS animation runs once on mount and the element auto-removes
-          itself by being unmounted on the next render. We force re-mount
-          by changing the React key. */}
-      <div className="page-transition-band" />
-      {/* Leading edge — bright thin orange line that arrives first */}
-      <div className="page-transition-edge" />
+    <div key={pathname} className="bullet-wrap">
+      <span className="bullet-streak" aria-hidden="true" />
+      <div className="bullet-content">{children}</div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import Nav from "@/component/Nav";
 import Footer from "@/component/Footer";
 import ScrollProgress from "@/component/ScrollProgress";
 import MouseSpotlight from "@/component/MouseSpotlight";
+import PageTransition from "@/component/PageTransition";
 import { caveat, dmSerifDisplay, roboto } from "./font";
 
 export const metadata: Metadata = {
@@ -25,7 +26,9 @@ export default function RootLayout({
         <ScrollProgress />
         <MouseSpotlight />
         <Nav />
-        <main>{children}</main>
+        <main>
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
       </body>
     </html>
