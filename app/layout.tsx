@@ -5,6 +5,7 @@ import Footer from "@/component/Footer";
 import TacticalCursor from "@/component/TacticalCursor";
 import ScrollProgress from "@/component/ScrollProgress";
 import MouseSpotlight from "@/component/MouseSpotlight";
+import PageTransition from "@/component/PageTransition";
 import { roboto } from "./font";
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function RootLayout({
         <ScrollProgress />
         <TacticalCursor />
         <MouseSpotlight />
+        <PageTransition />
         <Nav />
         <main>{children}</main>
         <Footer />

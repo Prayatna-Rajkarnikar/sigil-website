@@ -54,9 +54,19 @@ function Robot() {
 
   const nextSalute = useRef(2 + Math.random() * 2);
   const saluteUntil = useRef(0);
+  /* Set true when the user clicks the robot — triggers an immediate salute
+     on the next frame regardless of where the schedule is. */
+  const forceSalute = useRef(false);
 
   useFrame(({ clock }) => {
     const t = clock.elapsedTime;
+
+    /* user-triggered salute (Easter egg) — fires NOW, overrides schedule */
+    if (forceSalute.current) {
+      forceSalute.current = false;
+      saluteUntil.current = t + SALUTE_DURATION;
+      nextSalute.current = saluteUntil.current + 5 + Math.random() * 3;
+    }
 
     /* schedule a new salute */
     if (t >= nextSalute.current && t > saluteUntil.current) {
@@ -146,7 +156,21 @@ function Robot() {
   const visorThetaLen = 0.78;
 
   return (
-    <group position={[0, -0.45, 0]}>
+    <group
+      position={[0, -0.45, 0]}
+      onClick={(e) => {
+        e.stopPropagation();
+        forceSalute.current = true;
+      }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        document.body.style.cursor = "pointer";
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        document.body.style.cursor = "";
+      }}
+    >
       {/* HEAD */}
       <group ref={headRef} position={[0, 1.05, 0]}>
         <group scale={0.55}>
