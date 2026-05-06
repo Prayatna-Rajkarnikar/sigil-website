@@ -189,6 +189,16 @@ html, body {
   animation: spin-slow 18s linear infinite;
 }
 
+/* Sigil rotations (used by ActorSigil and other sigil variants) */
+@keyframes sigil-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes sigil-spin-rev {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
 /* Tactical button hover */
 .btn-tactical {
   position: relative;
@@ -315,6 +325,28 @@ html, body {
   .kerning-enter {
     animation: none !important;
   }
+}
+
+/* Tactical video — scan sweep line, sweeps top→bottom over the feed */
+@keyframes scan-sweep {
+  0%   { top: 0%;    opacity: 0; }
+  8%   { opacity: 0.7; }
+  92%  { opacity: 0.7; }
+  100% { top: 100%;  opacity: 0; }
+}
+.animate-scan-sweep {
+  animation: scan-sweep 3.6s linear infinite;
+}
+
+/* Tactical video — soft target-box jitter so trackers feel "live" */
+@keyframes target-jitter {
+  0%, 100% { transform: translate(-50%, -50%) translate(0, 0); }
+  25%      { transform: translate(-50%, -50%) translate(2px, -1px); }
+  50%      { transform: translate(-50%, -50%) translate(-1px, 2px); }
+  75%      { transform: translate(-50%, -50%) translate(1px, 1px); }
+}
+.animate-target-jitter {
+  animation: target-jitter 1.6s steps(8) infinite;
 }
 
 /* Briefing console scrollbars */

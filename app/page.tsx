@@ -1,16 +1,15 @@
-import Image from "next/image";
 import Link from "next/link";
 import { exo } from "./font";
 import HeroAgent3D from "@/component/HeroAgent3DClient";
 import HeroOrbitLabels from "@/component/HeroOrbitLabels";
 import MissionAgent3D from "@/component/MissionAgent3DClient";
 import ActorDemoRobot from "@/component/ActorDemoRobotClient";
+import CTAAgent3D from "@/component/CTAAgent3DClient";
 import TraitCard, { type TraitKind } from "@/component/TraitCard";
 import Reveal from "@/component/Reveal";
 import MagneticButton from "@/component/MagneticButton";
 import CycleHeadline from "@/component/CycleHeadline";
 import CountUp from "@/component/CountUp";
-import CTAAgent3D from "@/component/CTAAgent3DClient";
 
 export default function Home() {
   return (
@@ -265,7 +264,7 @@ function ActorConcept() {
         </Reveal>
 
         <div className="mt-14 grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-16">
-          {/* ROBOT — free-floating on the left, no frame */}
+          {/* LEFT — tactical actor feed */}
           <Reveal
             dir="left"
             delay={160}
@@ -273,7 +272,7 @@ function ActorConcept() {
           >
             <div className="relative">
               <ActorDemoRobot />
-              {/* faint horizontal podium line under the robot */}
+              {/* faint horizontal podium line under the stage */}
               <div className="mx-auto mt-2 h-px w-2/3 bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
             </div>
           </Reveal>

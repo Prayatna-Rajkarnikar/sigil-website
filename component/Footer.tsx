@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
@@ -7,10 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Brand & short tagline */}
           <div className="lg:col-span-5">
-            <h3 className="font-display display-loose text-5xl lg:text-6xl font-light leading-none text-ink">
-              Sigil
-              <span className="text-seal italic font-italic-display">.</span>
-            </h3>
+            <Logo className="h-14 w-auto text-foreground" />
             <p className="mt-5 font-italic-display italic text-aged text-base lg:text-lg leading-snug max-w-md">
               Agentic decision modeling for teams that need to think ahead.
             </p>
