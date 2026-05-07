@@ -36,8 +36,7 @@ type Props = {
   playbackRate?: number;
 };
 
-const CYAN = "#5fe9ee";
-const ORANGE = "#ff791b";
+import { PRIMARY as BLUE, PRIMARY_RGB, CYAN } from "@/lib/theme";
 
 export default function TacticalVideo({
   src = "/video.mp4",
@@ -67,7 +66,7 @@ export default function TacticalVideo({
   return (
     <div
       className={`relative ${aspectClassName} w-full overflow-hidden border bg-black ${className}`}
-      style={{ borderColor: "rgba(255, 121, 27, 0.45)" }}
+      style={{ borderColor: `rgba(${PRIMARY_RGB}, 0.45)` }}
     >
       {/* Video layer */}
       <video
@@ -131,11 +130,11 @@ export default function TacticalVideo({
           />
           {eyebrow}
         </div>
-        <div className="flex items-center gap-3" style={{ color: ORANGE }}>
+        <div className="flex items-center gap-3" style={{ color: BLUE }}>
           <span className="hidden sm:inline opacity-70">{tStr}</span>
           <span
             className="h-1 w-1 animate-pulse"
-            style={{ background: ORANGE }}
+            style={{ background: BLUE }}
           />
           {status}
         </div>
@@ -143,11 +142,11 @@ export default function TacticalVideo({
 
       {/* Bottom bar — frame label + coords */}
       <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2 text-[10px] font-bold uppercase tracking-[0.3em]">
-        <div className="flex items-center gap-2" style={{ color: ORANGE }}>
+        <div className="flex items-center gap-2" style={{ color: BLUE }}>
           <span
             className="inline-block h-2 w-2"
             style={{
-              background: ORANGE,
+              background: BLUE,
               clipPath: "polygon(50% 0, 100% 100%, 0 100%)",
             }}
           />
@@ -184,7 +183,7 @@ export default function TacticalVideo({
         }}
       >
         <span>SIG</span>
-        <span style={{ color: ORANGE }}>OK</span>
+        <span style={{ color: BLUE }}>OK</span>
         <span className="opacity-60">·</span>
         <span>LAT 12ms</span>
         <span className="opacity-60">·</span>
@@ -207,7 +206,7 @@ function Bracket({ pos }: { pos: "tl" | "tr" | "bl" | "br" }) {
   return (
     <span
       className={`${base} ${map[pos]}`}
-      style={{ borderColor: ORANGE }}
+      style={{ borderColor: BLUE }}
     />
   );
 }

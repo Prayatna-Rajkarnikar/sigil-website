@@ -3,6 +3,7 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
+import { PRIMARY, CYAN, CYAN_DIM } from "@/lib/theme";
 
 /**
  * ActorSwarm — narrative replacement for the placeholder robot.
@@ -15,10 +16,6 @@ import * as THREE from "three";
 const FIELD = 5;            // half-extent of the operations grid
 const COUNT = 110;          // number of agents
 const SPEED = 0.7;          // base movement speed (units/sec)
-
-const CYAN = "#5fe9ee";
-const CYAN_DIM = "#3ccfd6";
-const PRIMARY = "#ff791b";
 
 const OBJECTIVES: [number, number, number][] = [
   [-3.2, 0.05, 2.4],

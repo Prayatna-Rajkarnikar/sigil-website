@@ -6,6 +6,7 @@ import ScrollProgress from "@/component/ScrollProgress";
 import MouseSpotlight from "@/component/MouseSpotlight";
 import PageTransition from "@/component/PageTransition";
 import { caveat, dmSerifDisplay, roboto } from "./font";
+import { PRIMARY, PRIMARY_RGB } from "@/lib/theme";
 
 export const metadata: Metadata = {
   title: "Sigil — Agentic Decision Modeling",
@@ -20,6 +21,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `:root{--primary:${PRIMARY};--primary-rgb:${PRIMARY_RGB};}`,
+          }}
+        />
+      </head>
       <body
         className={`${roboto.className} ${caveat.variable} ${dmSerifDisplay.variable} antialiased bg-background text-foreground min-h-screen`}
       >

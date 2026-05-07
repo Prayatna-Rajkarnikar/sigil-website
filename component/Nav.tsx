@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
+import { PRIMARY_RGB } from "@/lib/theme";
 
 /**
  * useActiveSection — observes a list of section IDs in the DOM and returns
@@ -148,7 +149,7 @@ function NavLink({
           <span
             aria-hidden
             className="absolute -bottom-1.5 left-0 right-0 h-px bg-seal"
-            style={{ boxShadow: "0 0 6px rgba(255, 121, 27, 0.5)" }}
+            style={{ boxShadow: `0 0 6px rgba(${PRIMARY_RGB}, 0.5)` }}
           />
         )}
       </span>

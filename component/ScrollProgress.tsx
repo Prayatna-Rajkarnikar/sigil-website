@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { PRIMARY_RGB } from "@/lib/theme";
 
 /**
  * ScrollProgress — thin primary-color bar pinned to the top of the page
@@ -34,7 +35,8 @@ export default function ScrollProgress() {
         style={{
           width: `${progress}%`,
           transition: "width 80ms linear",
-          boxShadow: progress > 0.5 ? "0 0 8px rgba(255, 121, 27, 0.55)" : "none",
+          boxShadow:
+            progress > 0.5 ? `0 0 8px rgba(${PRIMARY_RGB}, 0.55)` : "none",
         }}
       />
     </div>

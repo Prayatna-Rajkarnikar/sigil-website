@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { PRIMARY_RGB } from "@/lib/theme";
 
 /**
  * MouseSpotlight — fixed full-viewport overlay that renders a soft orange
@@ -43,7 +44,7 @@ export default function MouseSpotlight({
     const tick = () => {
       curX += (targetX - curX) * 0.08;
       curY += (targetY - curY) * 0.08;
-      el.style.background = `radial-gradient(${size}px circle at ${curX}px ${curY}px, rgba(255, 121, 27, ${intensity}), transparent 70%)`;
+      el.style.background = `radial-gradient(${size}px circle at ${curX}px ${curY}px, rgba(${PRIMARY_RGB}, ${intensity}), transparent 70%)`;
       raf = requestAnimationFrame(tick);
     };
 

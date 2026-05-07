@@ -4,6 +4,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
+import { PRIMARY, CYAN, CYAN_DIM } from "@/lib/theme";
 
 /**
  * Actor3D — cognitive loop diagram for the "Meet the Actor" section.
@@ -12,10 +13,6 @@ import * as THREE from "three";
  * lines on a 2.4s cycle, staggered so the loop reads as
  * Perceive → Remember → Reason → Act → repeat.
  */
-
-const CYAN = "#5fe9ee";
-const CYAN_DIM = "#3ccfd6";
-const PRIMARY = "#ff791b";
 
 const RING_R = 1.4;
 const CYCLE = 2.4; // seconds per full loop

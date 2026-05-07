@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { RoundedBox } from "@react-three/drei";
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import * as THREE from "three";
 
 /**
@@ -338,225 +338,18 @@ function ArmAnimated({
   );
 }
 
-/* ─── GAME-STAGE ELEMENTS — pedestal, aura rings, spiraling particles ─── */
-
-function HexPedestal() {
-  const ringRef = useRef<THREE.Mesh>(null);
-  const glowRef = useRef<THREE.Mesh>(null);
-  useFrame(({ clock }) => {
-    const t = clock.elapsedTime;
-    if (ringRef.current) ringRef.current.rotation.z = t * 0.3;
-    if (glowRef.current) {
-      const m = glowRef.current.material as THREE.MeshBasicMaterial;
-      m.opacity = 0.08 + Math.sin(t * 2) * 0.03;
-    }
-  });
-  return (
-    <group position={[0, -1.78, 0]}>
-      {/* solid hex base */}
-      <mesh>
-        <cylinderGeometry args={[1.5, 1.3, 0.18, 6]} />
-        <meshStandardMaterial color="#15110d" metalness={0.7} roughness={0.45} />
-      </mesh>
-      {/* glowing top edge */}
-      <mesh position={[0, 0.095, 0]}>
-        <torusGeometry args={[1.45, 0.022, 16, 64]} />
-        <meshStandardMaterial
-          color={CYAN_HOT}
-          emissive={CYAN_HOT}
-          emissiveIntensity={1.6}
-          toneMapped={false}
-        />
-      </mesh>
-      {/* rotating decorative inscription ring */}
-      <mesh ref={ringRef} position={[0, 0.1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[1.15, 1.32, 6, 1]} />
-        <meshBasicMaterial color="#ff791b" transparent opacity={0.4} side={THREE.DoubleSide} />
-      </mesh>
-      {/* underglow puddle */}
-      <mesh ref={glowRef} position={[0, -0.085, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[1.5, 2.6, 32]} />
-        <meshBasicMaterial color={CYAN_HOT} transparent opacity={0.1} side={THREE.DoubleSide} />
-      </mesh>
-    </group>
-  );
-}
-
-function AuraRings() {
-  const r1 = useRef<THREE.Mesh>(null);
-  const r2 = useRef<THREE.Mesh>(null);
-  const r3 = useRef<THREE.Mesh>(null);
-  useFrame(({ clock }) => {
-    const t = clock.elapsedTime;
-    if (r1.current) r1.current.rotation.z = t * 0.55;
-    if (r2.current) r2.current.rotation.z = -t * 0.35;
-    if (r3.current) r3.current.rotation.z = t * 0.25;
-  });
-  return (
-    <group position={[0, -0.9, 0]}>
-      {/* low waist-height cyan ring */}
-      <mesh ref={r1} rotation={[-Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[1.18, 0.012, 8, 80]} />
-        <meshBasicMaterial color={CYAN_HOT} transparent opacity={0.65} toneMapped={false} />
-      </mesh>
-      {/* mid-height orange ring */}
-      <mesh ref={r2} rotation={[-Math.PI / 2 + 0.18, 0, 0]} position={[0, 0.45, 0]}>
-        <torusGeometry args={[1.0, 0.008, 8, 64]} />
-        <meshBasicMaterial color="#ff791b" transparent opacity={0.5} toneMapped={false} />
-      </mesh>
-      {/* high cyan ring */}
-      <mesh ref={r3} rotation={[-Math.PI / 2 - 0.12, 0, 0]} position={[0, 1.1, 0]}>
-        <torusGeometry args={[0.78, 0.008, 8, 56]} />
-        <meshBasicMaterial color={CYAN_HOT} transparent opacity={0.45} toneMapped={false} />
-      </mesh>
-    </group>
-  );
-}
-
-const PARTICLE_COUNT = 36;
-function Particles() {
-  const ref = useRef<THREE.InstancedMesh>(null);
-  const dummy = useMemo(() => new THREE.Object3D(), []);
-  const seed = useMemo(
-    () =>
-      Array.from({ length: PARTICLE_COUNT }).map(() => ({
-        angle: Math.random() * Math.PI * 2,
-        radius: 0.95 + Math.random() * 0.7,
-        speed: 0.35 + Math.random() * 0.35,
-        ySeed: Math.random() * 3,
-        size: 0.025 + Math.random() * 0.025,
-      })),
-    [],
-  );
-  useFrame(({ clock }) => {
-    if (!ref.current) return;
-    const t = clock.elapsedTime;
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const p = seed[i];
-      const a = p.angle + t * p.speed;
-      const cycle = (p.ySeed + t * 0.6) % 3;
-      const y = -1.7 + cycle; // rises from -1.7 to 1.3 then loops
-      dummy.position.set(Math.cos(a) * p.radius, y, Math.sin(a) * p.radius);
-      dummy.scale.setScalar(p.size);
-      dummy.updateMatrix();
-      ref.current.setMatrixAt(i, dummy.matrix);
-    }
-    ref.current.instanceMatrix.needsUpdate = true;
-  });
-  return (
-    <instancedMesh
-      ref={ref}
-      args={[undefined, undefined, PARTICLE_COUNT]}
-      frustumCulled={false}
-    >
-      <sphereGeometry args={[1, 8, 8]} />
-      <meshBasicMaterial color={CYAN_HOT} toneMapped={false} />
-    </instancedMesh>
-  );
-}
-
-/* ─── HUD CHROME — game-style overlay ─── */
-
-function HUDBar({ label, value, tone }: { label: string; value: number; tone: "cyan" | "orange" }) {
-  const fillColor = tone === "cyan" ? "bg-[#5fe9ee]" : "bg-primary";
-  return (
-    <div className="flex items-center gap-2">
-      <div className="w-8 text-[8px] font-bold uppercase tracking-[0.18em] text-muted">{label}</div>
-      <div className="relative flex-1 h-1.5 bg-white/8 border border-white/10">
-        <div className={`h-full ${fillColor}`} style={{ width: `${value * 100}%` }}></div>
-      </div>
-      <div className="w-8 text-right text-[8px] font-bold tracking-widest text-foreground">
-        {Math.round(value * 100)}
-      </div>
-    </div>
-  );
-}
-
-const SKILLS = [
-  { id: "Q", label: "PRC", glyph: "◎" },
-  { id: "W", label: "MEM", glyph: "↺" },
-  { id: "E", label: "RSN", glyph: "ϟ" },
-  { id: "R", label: "ACT", glyph: "✦" },
-];
-
-function SkillIcon({ skill, ulti, cooldown }: { skill: typeof SKILLS[number]; ulti?: boolean; cooldown?: number }) {
-  return (
-    <div
-      className={`relative flex h-10 w-10 flex-col items-center justify-center border ${
-        ulti ? "border-primary bg-primary/15" : "border-white/30 bg-background/70"
-      } backdrop-blur-sm`}
-    >
-      <div className={`text-[14px] leading-none ${ulti ? "text-primary" : "text-foreground"}`}>{skill.glyph}</div>
-      <div className="text-[7px] mt-0.5 font-bold uppercase tracking-[0.15em] text-muted">{skill.label}</div>
-      <div className="absolute -top-1 -right-1 px-1 text-[7px] font-bold bg-background border border-white/20 text-foreground">
-        {skill.id}
-      </div>
-      {cooldown != null && cooldown > 0 && (
-        <div className="absolute inset-0 bg-background/70 flex items-center justify-center text-[10px] font-black text-primary">
-          {cooldown.toFixed(1)}
-        </div>
-      )}
-    </div>
-  );
-}
-
 export default function ActorDemoRobot() {
   return (
-    <div className="relative w-full aspect-square max-w-md mx-auto select-none">
-      {/* HUD: top-left character banner */}
-      <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
-        <div className="h-6 w-6 border border-primary bg-background/70 flex items-center justify-center text-[10px] font-black text-primary">
-          01
-        </div>
-        <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary leading-none">
-            ACTOR-01
-          </div>
-          <div className="mt-0.5 text-[8px] uppercase tracking-[0.25em] text-muted leading-none">
-            Elite · Lv 99
-          </div>
-        </div>
-      </div>
-
-      {/* HUD: top-right tier badge */}
-      <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 border border-primary/60 bg-background/70 px-2 py-1 backdrop-blur-sm">
-        <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
-        <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-primary">Tier S+</span>
-      </div>
-
-      {/* HUD: cognition + autonomy gauges */}
-      <div className="absolute bottom-16 left-3 right-3 z-10 space-y-1.5 border border-white/10 bg-background/55 px-2 py-1.5 backdrop-blur-sm">
-        <HUDBar label="COG" value={0.84} tone="cyan" />
-        <HUDBar label="AUT" value={0.62} tone="orange" />
-      </div>
-
-      {/* HUD: skill bar */}
-      <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
-        <SkillIcon skill={SKILLS[0]} />
-        <SkillIcon skill={SKILLS[1]} />
-        <SkillIcon skill={SKILLS[2]} cooldown={3.4} />
-        <SkillIcon skill={SKILLS[3]} ulti />
-      </div>
-
+    <div className="relative w-full aspect-square max-w-md mx-auto">
       <Canvas
-        camera={{ position: [0, 0, 7.5], fov: 32 }}
+        camera={{ position: [0, 0.35, 6.4], fov: 32 }}
         dpr={[1, 1.5]}
         gl={{ alpha: true, antialias: true }}
       >
         <ambientLight intensity={0.4} />
         <hemisphereLight args={["#dceaf0", "#1a1410", 0.6]} />
-        {/* key light from upper-front */}
         <directionalLight position={[3, 6, 5]} intensity={1.0} color="#fff8eb" />
-        {/* rim/back light — strong cyan from behind for game champion silhouette */}
-        <pointLight position={[-3, 4, -4]} intensity={2.0} color={CYAN_HOT} distance={12} />
-        {/* secondary rim (orange) from low back-right */}
-        <pointLight position={[4, 0.5, -3]} intensity={1.4} color="#ff791b" distance={10} />
-        {/* fill from bottom — lifts the pedestal glow */}
-        <pointLight position={[0, -1.2, 2]} intensity={0.7} color={CYAN} distance={6} />
-
-        <HexPedestal />
-        <AuraRings />
-        <Particles />
+        <pointLight position={[-3, 4, -4]} intensity={1.0} color={CYAN_HOT} distance={12} />
         <Robot />
       </Canvas>
     </div>

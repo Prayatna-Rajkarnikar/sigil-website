@@ -1,5 +1,7 @@
 "use client";
 
+import { PRIMARY, PRIMARY_RGB } from "@/lib/theme";
+
 /**
  * ActorSigil — animated tactical-occult sigil glyph.
  * Concentric rings with rune ticks, an inscribed hexagram (counter-rotating),
@@ -33,8 +35,7 @@ export default function ActorSigil() {
         viewBox="-110 -110 220 220"
         className="absolute inset-0 w-full h-full overflow-visible"
         style={{
-          filter:
-            "drop-shadow(0 0 18px rgba(255,121,27,0.18)) drop-shadow(0 0 32px rgba(95,233,238,0.06))",
+          filter: `drop-shadow(0 0 18px rgba(${PRIMARY_RGB},0.18)) drop-shadow(0 0 32px rgba(95,233,238,0.06))`,
         }}
       >
         <defs>
@@ -44,9 +45,9 @@ export default function ActorSigil() {
             <stop offset="100%" stopColor="#5fe9ee" stopOpacity="0" />
           </radialGradient>
           <radialGradient id="aura" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0%" stopColor="#ff791b" stopOpacity="0.18" />
-            <stop offset="60%" stopColor="#ff791b" stopOpacity="0.04" />
-            <stop offset="100%" stopColor="#ff791b" stopOpacity="0" />
+            <stop offset="0%" stopColor={PRIMARY} stopOpacity="0.18" />
+            <stop offset="60%" stopColor={PRIMARY} stopOpacity="0.04" />
+            <stop offset="100%" stopColor={PRIMARY} stopOpacity="0" />
           </radialGradient>
         </defs>
 
@@ -65,7 +66,7 @@ export default function ActorSigil() {
             cy="0"
             r="100"
             fill="none"
-            stroke="#ff791b"
+            stroke={PRIMARY}
             strokeOpacity="0.32"
             strokeWidth="0.6"
             strokeDasharray="4 6"
@@ -80,7 +81,7 @@ export default function ActorSigil() {
                 y1={Math.sin(a) * inner}
                 x2={Math.cos(a) * 100}
                 y2={Math.sin(a) * 100}
-                stroke="#ff791b"
+                stroke={PRIMARY}
                 strokeOpacity={i % 3 === 0 ? 0.85 : 0.55}
                 strokeWidth={i % 3 === 0 ? 1.2 : 0.8}
               />
@@ -98,12 +99,12 @@ export default function ActorSigil() {
                   y1={-r.len * 3}
                   x2="0"
                   y2={r.len * 3}
-                  stroke="#ff791b"
+                  stroke={PRIMARY}
                   strokeOpacity="0.55"
                   strokeWidth="0.6"
                 />
                 {r.len > 0.7 && (
-                  <circle cx="0" cy="0" r="0.8" fill="#ff791b" fillOpacity="0.85" />
+                  <circle cx="0" cy="0" r="0.8" fill={PRIMARY} fillOpacity="0.85" />
                 )}
               </g>
             );
@@ -116,7 +117,7 @@ export default function ActorSigil() {
           cy="0"
           r="80"
           fill="none"
-          stroke="#ff791b"
+          stroke={PRIMARY}
           strokeOpacity="0.42"
           strokeWidth="0.6"
         />
@@ -131,14 +132,14 @@ export default function ActorSigil() {
           <polygon
             points="0,-72 62.4,36 -62.4,36"
             fill="none"
-            stroke="#ff791b"
+            stroke={PRIMARY}
             strokeOpacity="0.55"
             strokeWidth="1.1"
           />
           <polygon
             points="0,72 62.4,-36 -62.4,-36"
             fill="none"
-            stroke="#ff791b"
+            stroke={PRIMARY}
             strokeOpacity="0.55"
             strokeWidth="1.1"
           />
@@ -156,7 +157,7 @@ export default function ActorSigil() {
               cx={x}
               cy={y}
               r="2.2"
-              fill="#ff791b"
+              fill={PRIMARY}
               opacity="0.85"
             >
               <animate
@@ -263,7 +264,7 @@ export default function ActorSigil() {
               y1={Math.sin(a) * 42}
               x2={Math.cos(a) * 50}
               y2={Math.sin(a) * 50}
-              stroke="#ff791b"
+              stroke={PRIMARY}
               strokeOpacity="0.4"
               strokeWidth="0.8"
             />

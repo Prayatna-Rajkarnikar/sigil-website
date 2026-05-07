@@ -3,6 +3,7 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
+import { PRIMARY, CYAN, CYAN_DIM } from "@/lib/theme";
 
 /**
  * ActorSim — single agent inside a wireframe simulated environment.
@@ -14,10 +15,6 @@ import * as THREE from "three";
  *   • one ghost path solidifies; actor walks it — agent acting
  *   • loop repeats with a "REHEARSAL N/∞" tick badge top-left
  */
-
-const CYAN = "#5fe9ee";
-const CYAN_DIM = "#3ccfd6";
-const PRIMARY = "#ff791b";
 
 const FIELD = 6;          // half-extent of the terrain
 const POI_COUNT = 6;

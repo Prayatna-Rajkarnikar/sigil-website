@@ -44,8 +44,8 @@ function Hero() {
 
       {/* Layered overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background"></div>
-      <div className="absolute inset-0 bg-tactical-grid opacity-60"></div>
-      <div className="absolute inset-0 bg-spotlight"></div>
+      <div className="absolute inset-0 bg-section-glow pointer-events-none"></div>
+      <div className="absolute inset-0 bg-tactical-grid opacity-50"></div>
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center px-6 pt-6 pb-10 lg:px-10">
         {/* ─────────────────────────────────────────────
@@ -85,7 +85,7 @@ function Hero() {
           <MagneticButton>
             <Link
               href="/use-case"
-              className="btn-tactical group relative inline-flex items-center justify-center gap-3 border border-primary bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90"
+              className="btn-tactical bg-primary-gradient group relative inline-flex items-center justify-center gap-3 border border-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-background transition"
             >
               Read the Use Case
               <span className="transition-transform group-hover:translate-x-1">
@@ -142,8 +142,9 @@ function Mission() {
   return (
     <section
       id="mission"
-      className="relative border-b border-white/5 px-6 py-32 lg:px-10"
+      className="relative overflow-hidden border-b border-white/5 px-6 py-32 lg:px-10"
     >
+      <div className="absolute inset-0 bg-section-glow pointer-events-none"></div>
       <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
       <div className="relative mx-auto max-w-7xl">
         <Reveal>
@@ -253,10 +254,10 @@ function ActorConcept() {
   return (
     <section
       id="actor"
-      className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10"
+      className="relative overflow-hidden border-b border-white/5 px-6 py-32 lg:px-10"
     >
-      <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
-      <div className="absolute inset-0 bg-spotlight"></div>
+      <div className="absolute inset-0 bg-section-glow pointer-events-none"></div>
+      <div className="absolute inset-0 bg-tactical-grid opacity-40 pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
         <Reveal>
@@ -361,9 +362,10 @@ function AIModels() {
   return (
     <section
       id="models"
-      className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10"
+      className="relative overflow-hidden border-b border-white/5 px-6 py-32 lg:px-10"
     >
-      <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-section-glow pointer-events-none"></div>
+      <div className="absolute inset-0 bg-tactical-grid opacity-40 pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
         <Reveal>
@@ -391,7 +393,7 @@ function AIModels() {
               {models.map((m, i) => (
                 <Reveal key={m.codename} delay={200 + i * 90}>
                   <article
-                    className="corner-brackets group relative border border-white/10 bg-white/[0.02] p-6 transition hover:border-primary/50"
+                    className="corner-brackets group relative border border-white/10 bg-white/[0.02] p-6 transition hover:border-primary/50 hover:bg-primary/[0.04]"
                   >
                     <span className="corner-bl"></span>
                     <span className="corner-br"></span>
@@ -443,11 +445,11 @@ function AIModels() {
 function SalesCTA() {
   return (
     <section className="relative overflow-hidden bg-background px-6 py-32 lg:px-10">
-      <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
-      <div className="absolute inset-0 bg-spotlight"></div>
+      <div className="absolute inset-0 bg-section-glow pointer-events-none"></div>
+      <div className="absolute inset-0 bg-tactical-grid opacity-40 pointer-events-none"></div>
 
       <Reveal className="relative mx-auto max-w-5xl">
-        <div className="corner-brackets relative border border-primary/40 bg-background/60 p-10 backdrop-blur-sm sm:p-16">
+        <div className="luminous-card corner-brackets relative overflow-hidden p-10 backdrop-blur-sm sm:p-16">
           <span className="corner-bl"></span>
           <span className="corner-br"></span>
 
@@ -488,7 +490,7 @@ function SalesCTA() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             <Link
               href="/use-case"
-              className="btn-tactical group corner-brackets relative border border-primary bg-primary p-6 transition hover:bg-primary/90"
+              className="btn-tactical bg-primary-gradient group corner-brackets relative border border-primary p-6 transition"
             >
               <span className="corner-bl"></span>
               <span className="corner-br"></span>

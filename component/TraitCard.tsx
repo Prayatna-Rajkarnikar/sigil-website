@@ -23,7 +23,7 @@ export default function TraitCard({
   desc: string;
 }) {
   return (
-    <div className="trait-card group relative border border-white/10 bg-white/[0.02] p-4 transition hover:border-primary/50 hover:bg-primary/5">
+    <div className="trait-card group relative border border-white/10 bg-white/[0.02] p-4 transition hover:border-primary/50 hover:bg-primary/[0.04]">
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           <div className="mb-1 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-primary">
