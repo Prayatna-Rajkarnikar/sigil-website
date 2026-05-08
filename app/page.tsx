@@ -44,8 +44,8 @@ function Hero() {
 
       {/* Layered overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background"></div>
-      <div className="absolute inset-0 bg-section-glow pointer-events-none"></div>
-      <div className="absolute inset-0 bg-tactical-grid opacity-50"></div>
+      <div className="absolute inset-0 bg-tactical-grid opacity-60"></div>
+      <div className="absolute inset-0 bg-spotlight"></div>
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center px-6 pt-6 pb-10 lg:px-10">
         {/* ─────────────────────────────────────────────
@@ -85,7 +85,7 @@ function Hero() {
           <MagneticButton>
             <Link
               href="/use-case"
-              className="btn-tactical bg-primary-gradient group relative inline-flex items-center justify-center gap-3 border border-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-background transition"
+              className="btn-tactical btn-glow group relative inline-flex items-center justify-center gap-3 rounded-lg border border-primary/70 bg-primary/8 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:border-primary hover:bg-primary/18"
             >
               Read the Use Case
               <span className="transition-transform group-hover:translate-x-1">
@@ -96,7 +96,7 @@ function Hero() {
           <MagneticButton>
             <Link
               href="/contact"
-              className="btn-tactical group inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:bg-primary/10"
+              className="btn-tactical group inline-flex items-center justify-center gap-3 rounded-lg border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:bg-primary/10"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
               Contact Us
@@ -144,8 +144,8 @@ function Mission() {
       id="mission"
       className="relative overflow-hidden border-b border-white/5 px-6 py-32 lg:px-10"
     >
-      <div className="absolute inset-0 bg-section-glow pointer-events-none"></div>
-      <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
       <div className="relative mx-auto max-w-7xl">
         <Reveal>
           <SectionLabel index="01" label="Our Mission" />
@@ -254,10 +254,10 @@ function ActorConcept() {
   return (
     <section
       id="actor"
-      className="relative overflow-hidden border-b border-white/5 px-6 py-32 lg:px-10"
+      className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10"
     >
-      <div className="absolute inset-0 bg-section-glow pointer-events-none"></div>
-      <div className="absolute inset-0 bg-tactical-grid opacity-40 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
         <Reveal>
@@ -301,7 +301,7 @@ function ActorConcept() {
             <Reveal delay={620}>
               <Link
                 href="/actors"
-                className="btn-tactical group mt-10 inline-flex items-center gap-3 border border-primary/60 bg-primary/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:bg-primary/10"
+                className="btn-tactical group mt-10 inline-flex items-center gap-3 rounded-lg border border-primary/60 bg-primary/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:bg-primary/10"
               >
                 Inspect the Actor
                 <span className="transition-transform group-hover:translate-x-1">
@@ -362,10 +362,10 @@ function AIModels() {
   return (
     <section
       id="models"
-      className="relative overflow-hidden border-b border-white/5 px-6 py-32 lg:px-10"
+      className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10"
     >
-      <div className="absolute inset-0 bg-section-glow pointer-events-none"></div>
-      <div className="absolute inset-0 bg-tactical-grid opacity-40 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
         <Reveal>
@@ -393,11 +393,8 @@ function AIModels() {
               {models.map((m, i) => (
                 <Reveal key={m.codename} delay={200 + i * 90}>
                   <article
-                    className="corner-brackets group relative border border-white/10 bg-white/[0.02] p-6 transition hover:border-primary/50 hover:bg-primary/[0.04]"
+                    className="group relative rounded-lg border border-white/10 bg-white/[0.02] p-6 transition hover:border-primary/50"
                   >
-                    <span className="corner-bl"></span>
-                    <span className="corner-br"></span>
-
                     <div className="mb-4 flex items-center justify-between">
                       <div
                         className={`${exo.className} text-xl font-black tracking-wider text-primary`}
@@ -445,14 +442,11 @@ function AIModels() {
 function SalesCTA() {
   return (
     <section className="relative overflow-hidden bg-background px-6 py-32 lg:px-10">
-      <div className="absolute inset-0 bg-section-glow pointer-events-none"></div>
-      <div className="absolute inset-0 bg-tactical-grid opacity-40 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 
       <Reveal className="relative mx-auto max-w-5xl">
-        <div className="luminous-card corner-brackets relative overflow-hidden p-10 backdrop-blur-sm sm:p-16">
-          <span className="corner-bl"></span>
-          <span className="corner-br"></span>
-
+        <div className="relative rounded-lg border border-primary/40 bg-background/30 p-10 backdrop-blur-sm sm:p-16">
           <div className="absolute -top-3 left-10 flex items-center gap-2 bg-background px-4 text-[11px] font-bold uppercase tracking-[0.3em] text-primary">
             <span className="h-1.5 w-1.5 bg-primary animate-pulse"></span>
             Get in touch
@@ -490,19 +484,17 @@ function SalesCTA() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             <Link
               href="/use-case"
-              className="btn-tactical bg-primary-gradient group corner-brackets relative border border-primary p-6 transition"
+              className="btn-tactical btn-glow group relative rounded-lg border border-primary/70 bg-primary/8 p-6 transition hover:border-primary hover:bg-primary/18"
             >
-              <span className="corner-bl"></span>
-              <span className="corner-br"></span>
-              <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-background/70">
+              <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/70">
                 Real example · Dynamic Pricing
               </div>
               <div
-                className={`${exo.className} mt-2 text-3xl font-black text-background`}
+                className={`${exo.className} mt-2 text-3xl font-black text-primary`}
               >
                 Read the Use Case
               </div>
-              <div className="mt-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.25em] text-background/80">
+              <div className="mt-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.25em] text-primary/80">
                 Open the brief
                 <span className="transition-transform group-hover:translate-x-1">
                   →
@@ -512,10 +504,8 @@ function SalesCTA() {
 
             <Link
               href="/contact"
-              className="btn-tactical group corner-brackets relative border border-white/20 bg-white/[0.02] p-6 transition hover:border-primary"
+              className="btn-tactical group relative rounded-lg border border-white/20 bg-white/[0.02] p-6 transition hover:border-primary"
             >
-              <span className="corner-bl"></span>
-              <span className="corner-br"></span>
               <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
                 Book a 30-min call
               </div>

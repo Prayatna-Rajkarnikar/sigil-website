@@ -17,7 +17,7 @@ function hexToRgbTriplet(hex: string): string {
 }
 
 /** Brand primary — change this one line to recolor the entire site. */
-export const PRIMARY = "#0356C5";
+export const PRIMARY = "#1FAFFF";
 
 /** Primary as an RGB triplet for use in `rgba(${PRIMARY_RGB}, X)`. */
 export const PRIMARY_RGB = hexToRgbTriplet(PRIMARY);

@@ -292,14 +292,14 @@ function CTA() {
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
           <Link
             href="/contact"
-            className="btn-tactical inline-flex items-center justify-center gap-3 border border-primary bg-primary px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90"
+            className="btn-tactical btn-glow inline-flex items-center justify-center gap-3 rounded-lg border border-primary/70 bg-primary/8 px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:border-primary hover:bg-primary/18"
           >
             Contact Us
             <span>→</span>
           </Link>
           <Link
             href="/"
-            className="btn-tactical inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary"
+            className="btn-tactical inline-flex items-center justify-center gap-3 rounded-lg border border-white/20 bg-white/5 px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:bg-primary/10"
           >
             Back to Home
           </Link>

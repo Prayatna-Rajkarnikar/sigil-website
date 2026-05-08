@@ -186,7 +186,7 @@ export default function ScenarioGenerator() {
                     <button
                       onClick={() => run(scenario)}
                       disabled={streaming || !scenario.trim()}
-                      className="btn-tactical inline-flex items-center gap-2 border border-primary bg-primary px-6 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="btn-tactical btn-glow inline-flex items-center gap-2 rounded-lg border border-primary/70 bg-primary/8 px-6 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-primary transition hover:border-primary hover:bg-primary/18 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {streaming ? "Rehearsing..." : "Run Rehearsal →"}
                     </button>

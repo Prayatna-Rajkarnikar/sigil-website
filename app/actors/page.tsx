@@ -51,7 +51,7 @@ function ActorHero() {
             ].map(([k, v]) => (
               <div
                 key={k}
-                className="border border-white/10 bg-white/[0.02] p-3"
+                className="rounded-lg border border-white/10 bg-white/[0.02] p-3"
               >
                 <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-muted">
                   {k}
@@ -379,7 +379,7 @@ function ActorCTA() {
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             href="/contact"
-            className="btn-tactical group relative inline-flex items-center justify-center gap-3 border border-primary bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90"
+            className="btn-tactical btn-glow group relative inline-flex items-center justify-center gap-3 rounded-lg border border-primary/70 bg-primary/8 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:border-primary hover:bg-primary/18"
           >
             Request Sandbox Access
             <span className="transition-transform group-hover:translate-x-1">
@@ -388,7 +388,7 @@ function ActorCTA() {
           </Link>
           <Link
             href="/#rehearse"
-            className="btn-tactical group inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary"
+            className="btn-tactical group inline-flex items-center justify-center gap-3 rounded-lg border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:bg-primary/10"
           >
             Run a Live Rehearsal
           </Link>

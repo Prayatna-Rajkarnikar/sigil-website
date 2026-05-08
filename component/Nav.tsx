@@ -80,21 +80,8 @@ export default function Nav() {
   return (
     <nav className="sticky top-0 z-50 hairline-b bg-paper/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-baseline justify-between gap-6 px-6 py-5 lg:px-12">
-        <Link href="/" className="group inline-flex items-center gap-3" aria-label="Sigil">
-          <Logo
-            variant="glyph"
-            className="h-8 w-8 text-foreground transition-colors group-hover:text-primary"
-          />
-          <span
-            className="text-2xl uppercase leading-none text-foreground transition-colors group-hover:text-primary"
-            style={{
-              fontFamily: "var(--font-serif-sharp), serif",
-              letterSpacing: "0.18em",
-              fontWeight: 700,
-            }}
-          >
-            SIGIL
-          </span>
+        <Link href="/" className="group inline-flex items-center" aria-label="Sigil">
+          <Logo className="h-9 w-auto text-foreground transition-colors group-hover:text-primary" />
         </Link>
 
         <div className="hidden items-baseline gap-7 md:flex">

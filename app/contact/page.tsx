@@ -143,7 +143,7 @@ function Compliance() {
           {items.map((c) => (
             <div
               key={c.name}
-              className="border border-white/10 bg-white/[0.02] p-5"
+              className="rounded-lg border border-white/10 bg-white/[0.02] p-5"
             >
               <div className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>

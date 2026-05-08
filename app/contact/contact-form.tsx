@@ -98,7 +98,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={isPending}
-          className="btn-tactical inline-flex items-center justify-center gap-3 border border-primary bg-primary px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-background transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-70"
+          className="btn-tactical btn-glow inline-flex items-center justify-center gap-3 rounded-lg border border-primary/70 bg-primary/8 px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:border-primary hover:bg-primary/18 disabled:cursor-not-allowed disabled:opacity-70"
         >
           {isPending ? (
             <>
