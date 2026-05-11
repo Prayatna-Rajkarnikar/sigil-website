@@ -1,9 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import { exo } from "./font";
 import HeroAgent3D from "@/component/HeroAgent3DClient";
 import HeroOrbitLabels from "@/component/HeroOrbitLabels";
 import MissionAgent3D from "@/component/MissionAgent3DClient";
-import ActorDemoRobot from "@/component/ActorDemoRobotClient";
 import CTAAgent3D from "@/component/CTAAgent3DClient";
 import TraitCard, { type TraitKind } from "@/component/TraitCard";
 import Reveal from "@/component/Reveal";
@@ -269,17 +269,35 @@ function ActorConcept() {
           <Reveal
             dir="left"
             delay={160}
-            className="order-2 lg:order-1 lg:col-span-5"
+            className="order-2 lg:order-1 lg:col-span-7"
           >
             <div className="relative">
-              <ActorDemoRobot />
-              {/* faint horizontal podium line under the stage */}
+              {/* tactical bezel around the Debug Panel screenshot */}
+              <div className="relative w-full aspect-[2/1] overflow-hidden rounded-lg border border-primary/40 bg-black/40">
+                <Image
+                  src="/images/debug-panel.png"
+                  alt="Sigil Debug Panel — Actor row detail (AGT-0001)"
+                  fill
+                  sizes="(min-width: 1024px) 40rem, 100vw"
+                  unoptimized
+                  className="object-contain"
+                  priority
+                />
+                {/* status chip — top-left */}
+                <div className="absolute top-2 left-2 flex items-center gap-1.5 rounded border border-primary/50 bg-background/70 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-primary backdrop-blur-sm">
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary animate-ping-slow" aria-hidden />
+                  Actor-01 / Live
+                </div>
+                {/* scanline overlay */}
+                <div className="pointer-events-none absolute inset-0 scanlines opacity-30"></div>
+              </div>
+              {/* faint horizontal podium line under the frame */}
               <div className="mx-auto mt-2 h-px w-2/3 bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
             </div>
           </Reveal>
 
           {/* RIGHT — headline + 2x2 trait matrix + CTA */}
-          <div className="order-1 lg:order-2 lg:col-span-7">
+          <div className="order-1 lg:order-2 lg:col-span-5">
             <Reveal delay={120}>
               <h2
                 className={`${exo.className} text-5xl font-black leading-[0.98] sm:text-6xl lg:text-7xl`}
