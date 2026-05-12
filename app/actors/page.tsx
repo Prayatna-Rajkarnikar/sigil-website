@@ -1,6 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
 import { exo } from "@/app/font";
-import Actor3D from "@/component/Actor3DClient";
 
 export default function ActorsPage() {
   return (
@@ -22,11 +22,7 @@ function ActorHero() {
       <div className="absolute inset-0 bg-spotlight"></div>
 
       <div className="relative z-10 mx-auto grid min-h-[80vh] max-w-7xl gap-16 px-6 pt-32 pb-16 lg:grid-cols-12 lg:items-center lg:px-10">
-        <div className="lg:col-span-7">
-          <div className="mb-6 inline-flex items-center gap-3 border border-primary/40 bg-primary/5 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
-            <span className="h-1.5 w-1.5 bg-primary"></span>
-            Actor.Schema / v4
-          </div>
+        <div className="lg:col-span-5">
           <h1
             className={`${exo.className} text-5xl font-black leading-[0.95] tracking-tight text-foreground sm:text-7xl lg:text-[6rem]`}
           >
@@ -64,8 +60,20 @@ function ActorHero() {
           </div>
         </div>
 
-        <div className="lg:col-span-5">
-          <Actor3D />
+        <div className="lg:col-span-7">
+          <div className="relative w-full aspect-[2/1] overflow-hidden rounded-lg border border-primary/40 bg-black/40">
+            <Image
+              src="/images/debug-panel.png"
+              alt="Sigil Debug Panel — Actor row detail (AGT-0001)"
+              fill
+              sizes="(min-width: 1024px) 50rem, 100vw"
+              unoptimized
+              className="object-contain"
+              priority
+            />
+            {/* scanline overlay */}
+            <div className="pointer-events-none absolute inset-0 scanlines opacity-30"></div>
+          </div>
         </div>
       </div>
     </section>

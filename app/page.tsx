@@ -1,10 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { exo } from "./font";
-import HeroAgent3D from "@/component/HeroAgent3DClient";
-import HeroOrbitLabels from "@/component/HeroOrbitLabels";
-import MissionAgent3D from "@/component/MissionAgent3DClient";
-import CTAAgent3D from "@/component/CTAAgent3DClient";
 import TraitCard, { type TraitKind } from "@/component/TraitCard";
 import Reveal from "@/component/Reveal";
 import MagneticButton from "@/component/MagneticButton";
@@ -31,66 +27,27 @@ export default function Home() {
 function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-background scanlines">
-      {/* ─── HERO BACKDROP — atmospheric video with slow Ken Burns zoom ─── */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="hero-kenburns absolute inset-0 h-full w-full object-cover"
-          style={{
-            objectPosition: "28% center",
-            filter: "saturate(1.15) contrast(1.12) brightness(0.85)",
-            opacity: 1,
-          }}
-          aria-hidden
-        >
-          <source src="/videos/bustling.mp4" type="video/mp4" />
-        </video>
-      </div>
+      {/* Video backdrop */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src="/videos/hero.mp4" type="video/mp4" />
+      </video>
 
-      {/* Brand-color wash pulls the footage toward the brand color */}
-      <div
-        className="pointer-events-none absolute inset-0 mix-blend-soft-light"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 60% at 50% 35%, rgba(var(--primary-rgb), 0.45) 0%, rgba(var(--primary-rgb), 0.18) 50%, transparent 100%)",
-        }}
-        aria-hidden
-      />
+      {/* Layered overlays — moderate fade, slightly darker pass */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/45 to-background"></div>
+      <div className="absolute inset-0 bg-tactical-grid opacity-55"></div>
+      <div className="absolute inset-0 bg-spotlight opacity-70"></div>
 
-      {/* Cinematic edge vignette — softens the rectangular edges */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 120% 110% at 50% 50%, transparent 50%, rgba(5,5,5,0.5) 90%, rgba(5,5,5,0.85) 100%)",
-        }}
-        aria-hidden
-      />
-
-      {/* Heavy bottom-fade so the headline area reads calm */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(5,5,5,0.1) 0%, rgba(5,5,5,0.35) 45%, rgba(5,5,5,0.9) 80%, rgba(5,5,5,1) 100%)",
-        }}
-        aria-hidden
-      />
-
-      {/* Layered tactical grid + radial spotlight on top of the circuit */}
-      <div className="absolute inset-0 bg-tactical-grid opacity-30"></div>
-      <div className="absolute inset-0 bg-spotlight"></div>
-
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 pt-24 pb-10 lg:px-10">
-
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 pt-6 pb-10 lg:px-10">
         {/* ─────────────────────────────────────────────
-            CENTER COPY BLOCK
+            CENTER COPY BLOCK — overlaid on full-bleed cinematic
            ───────────────────────────────────────────── */}
-        <p className="mt-3 text-center text-xs font-bold uppercase tracking-[0.32em] text-muted">
+        <p className="text-center text-xs font-bold uppercase tracking-[0.32em] text-muted">
           Strategic Simulation Systems · Agentic Decision Modeling
         </p>
 
@@ -101,7 +58,10 @@ function Hero() {
           <CycleHeadline className="text-glow-primary text-primary" />
         </h1>
 
-        <p className="mt-4 max-w-2xl text-center text-base leading-relaxed text-muted sm:text-lg">
+        <p
+          className="mt-4 max-w-2xl text-center text-base leading-relaxed text-foreground/90 sm:text-lg"
+          style={{ textShadow: "0 1px 12px rgba(0,0,0,0.85), 0 0 2px rgba(0,0,0,0.7)" }}
+        >
           Sigil sets up autonomous AI{" "}
           <span className="text-foreground">actors</span> in realistic
           simulations, so you can try out plans, train your team, and see
@@ -205,10 +165,23 @@ function Mission() {
             </p>
           </Reveal>
 
-          {/* CENTER — saluting robot, free-floating (no frame, no labels) */}
+          {/* CENTER — analyst-at-workstation footage in a tactical bezel */}
           <Reveal className="lg:col-span-4" delay={200}>
             <div className="relative aspect-square w-full max-w-sm mx-auto">
-              <MissionAgent3D />
+              <div className="relative h-full w-full overflow-hidden rounded-lg border border-primary/40 bg-black/40">
+                <video
+                  src="/videos/mission.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                {/* scanline overlay */}
+                <div className="pointer-events-none absolute inset-0 scanlines opacity-30"></div>
+              </div>
+              {/* faint horizontal podium line under the frame */}
+              <div className="mx-auto mt-2 h-px w-2/3 bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
             </div>
           </Reveal>
 
@@ -498,24 +471,22 @@ function SalesCTA() {
             Get in touch
           </div>
 
-          <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.3em] text-muted">
-            // 06 · Talk to us
-          </p>
+          <div>
+            <h2
+              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-6xl lg:text-7xl`}
+            >
+              Stop guessing.
+              <br />
+              <span className="text-primary">Start practicing.</span>
+            </h2>
 
-          <h2
-            className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-6xl lg:text-7xl`}
-          >
-            Stop guessing.
-            <br />
-            <span className="text-primary">Start practicing.</span>
-          </h2>
-
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
-            Most platforms give you another dashboard. We give you
-            back the time you&apos;d have spent learning the hard
-            way. A 30-minute call with our team is the easiest way
-            to see if it&apos;s a fit.
-          </p>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
+              Most platforms give you another dashboard. We give you
+              back the time you&apos;d have spent learning the hard
+              way. A 30-minute call with our team is the easiest way
+              to see if it&apos;s a fit.
+            </p>
+          </div>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             <Link
