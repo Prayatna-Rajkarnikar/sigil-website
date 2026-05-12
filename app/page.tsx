@@ -31,33 +31,61 @@ export default function Home() {
 function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-background scanlines">
-      {/* Video backdrop */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 h-full w-full object-cover opacity-20"
-      >
-        <source src="/video.mp4" type="video/mp4" />
-      </video>
+      {/* ─── HERO BACKDROP — atmospheric video with slow Ken Burns zoom ─── */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="hero-kenburns absolute inset-0 h-full w-full object-cover"
+          style={{
+            objectPosition: "28% center",
+            filter: "saturate(1.15) contrast(1.12) brightness(0.85)",
+            opacity: 1,
+          }}
+          aria-hidden
+        >
+          <source src="/videos/bustling.mp4" type="video/mp4" />
+        </video>
+      </div>
 
-      {/* Layered overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background"></div>
-      <div className="absolute inset-0 bg-tactical-grid opacity-60"></div>
+      {/* Brand-color wash pulls the footage toward the brand color */}
+      <div
+        className="pointer-events-none absolute inset-0 mix-blend-soft-light"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% 35%, rgba(var(--primary-rgb), 0.45) 0%, rgba(var(--primary-rgb), 0.18) 50%, transparent 100%)",
+        }}
+        aria-hidden
+      />
+
+      {/* Cinematic edge vignette — softens the rectangular edges */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 120% 110% at 50% 50%, transparent 50%, rgba(5,5,5,0.5) 90%, rgba(5,5,5,0.85) 100%)",
+        }}
+        aria-hidden
+      />
+
+      {/* Heavy bottom-fade so the headline area reads calm */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(5,5,5,0.1) 0%, rgba(5,5,5,0.35) 45%, rgba(5,5,5,0.9) 80%, rgba(5,5,5,1) 100%)",
+        }}
+        aria-hidden
+      />
+
+      {/* Layered tactical grid + radial spotlight on top of the circuit */}
+      <div className="absolute inset-0 bg-tactical-grid opacity-30"></div>
       <div className="absolute inset-0 bg-spotlight"></div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center px-6 pt-6 pb-10 lg:px-10">
-        {/* ─────────────────────────────────────────────
-            3D AGENT + ORBITAL LABELS
-           ───────────────────────────────────────────── */}
-        <div className="relative w-full max-w-3xl mx-auto mt-0 h-[22vh] sm:h-[26vh] lg:h-[30vh]">
-          {/* the 3D head canvas */}
-          <HeroAgent3D />
-
-          {/* labels orbit the head along an elliptical ring */}
-          <HeroOrbitLabels />
-        </div>
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 pt-24 pb-10 lg:px-10">
 
         {/* ─────────────────────────────────────────────
             CENTER COPY BLOCK
@@ -474,30 +502,20 @@ function SalesCTA() {
             // 06 · Talk to us
           </p>
 
-          <div className="grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-10">
-            {/* LEFT — title + paragraph */}
-            <div className="lg:col-span-8">
-              <h2
-                className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-6xl lg:text-7xl`}
-              >
-                Stop guessing.
-                <br />
-                <span className="text-primary">Start practicing.</span>
-              </h2>
+          <h2
+            className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-6xl lg:text-7xl`}
+          >
+            Stop guessing.
+            <br />
+            <span className="text-primary">Start practicing.</span>
+          </h2>
 
-              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
-                Most platforms give you another dashboard. We give you
-                back the time you&apos;d have spent learning the hard
-                way. A 30-minute call with our team is the easiest way
-                to see if it&apos;s a fit.
-              </p>
-            </div>
-
-            {/* RIGHT — waving robot, signaling "let's chat" */}
-            <div className="relative aspect-square w-full max-w-[280px] mx-auto lg:col-span-4 lg:max-w-none">
-              <CTAAgent3D />
-            </div>
-          </div>
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
+            Most platforms give you another dashboard. We give you
+            back the time you&apos;d have spent learning the hard
+            way. A 30-minute call with our team is the easiest way
+            to see if it&apos;s a fit.
+          </p>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             <Link
