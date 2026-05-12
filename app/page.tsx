@@ -35,7 +35,7 @@ function Hero() {
         playsInline
         className="absolute inset-0 h-full w-full object-cover"
       >
-        <source src="/videos/bs.mp4" type="video/mp4" />
+        <source src="/videos/hero.mp4" type="video/mp4" />
       </video>
 
       {/* Layered overlays — moderate fade, slightly darker pass */}
@@ -170,7 +170,7 @@ function Mission() {
             <div className="relative aspect-square w-full max-w-sm mx-auto">
               <div className="relative h-full w-full overflow-hidden rounded-lg border border-primary/40 bg-black/40">
                 <video
-                  src="/videos/istockphoto-1198724824-640_adpp_is.mp4"
+                  src="/videos/mission.mp4"
                   autoPlay
                   muted
                   loop
