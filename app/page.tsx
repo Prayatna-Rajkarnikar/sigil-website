@@ -7,6 +7,7 @@ import Reveal from "@/component/Reveal";
 import MagneticButton from "@/component/MagneticButton";
 import CycleHeadline from "@/component/CycleHeadline";
 import CountUp from "@/component/CountUp";
+import AuroraPortal from "@/component/AuroraPortal";
 
 export default function Home() {
   return (
@@ -262,6 +263,10 @@ function ActorConcept() {
       <WireframePolyhedron />
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
+
+      {/* Lakera-style aurora portal — vertical light beams rising from a
+          glowing stage at the bottom, with concentric floor rings. */}
+      <AuroraPortal />
 
       <div className="relative mx-auto max-w-7xl">
         <Reveal>
