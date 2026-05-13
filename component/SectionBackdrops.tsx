@@ -256,3 +256,111 @@ export function DataDashes() {
     </div>
   );
 }
+
+/* ─── 5. CIRCUIT FLOW — Mission section ──────────────────────────
+   Faint circuit-board traces with subtle glowing pulses traveling
+   along each path. Light, modern, doesn't compete with foreground
+   text — matches the senior's "really light in the background, fills
+   the gap, doesn't clutter" spec.
+   ───────────────────────────────────────────────────────────── */
+export function CircuitFlow() {
+  // Circuit traces RADIATE OUT FROM the video's position in the section's
+  // center column. The Mission section has text content in the left and
+  // right columns (headline+paragraph on left, stats on right), so paths
+  // are routed through the TOP and BOTTOM padding strips of the section
+  // (y < 130 or y > 770 in the viewBox) — never through the middle band
+  // where the text lives.
+  const paths = [
+    // ─── TOP zone (above all text) — paths going up from video ───
+    { d: "M 660 290 L 660 80 L 380 80",          dur: 9,    delay: 0   },
+    { d: "M 720 290 L 720 40",                    dur: 7.5,  delay: 1.4 },
+    { d: "M 780 290 L 780 80 L 1060 80",         dur: 10,   delay: 2.8 },
+    // ─── TOP corner routes ───
+    { d: "M 580 290 L 580 110 L 180 110",        dur: 9.5,  delay: 0.6 },
+    { d: "M 860 290 L 860 110 L 1260 110",       dur: 8.5,  delay: 3.2 },
+    // ─── BOTTOM zone (below all text) — paths going down from video ───
+    { d: "M 660 610 L 660 820 L 380 820",        dur: 9,    delay: 1.8 },
+    { d: "M 720 610 L 720 860",                   dur: 7.5,  delay: 4.2 },
+    { d: "M 780 610 L 780 820 L 1060 820",       dur: 10,   delay: 2.4 },
+    // ─── BOTTOM corner routes ───
+    { d: "M 580 610 L 580 790 L 180 790",        dur: 9.5,  delay: 5.5 },
+    { d: "M 860 610 L 860 790 L 1260 790",       dur: 8.5,  delay: 6.8 },
+    // ─── SIDEWAYS — paths emerge HORIZONTALLY from the video's side
+    //     edges first (so the pulse visibly exits the side, not the top
+    //     or bottom). Then they route through the column gutters and
+    //     padding strips to reach the section corners — never crossing
+    //     the text band. ───
+    { d: "M 900 420 L 945 420 L 945 100 L 1380 100",   dur: 11,   delay: 2.0 },  // right → up
+    { d: "M 900 480 L 945 480 L 945 820 L 1380 820",   dur: 11,   delay: 4.6 },  // right → down
+    { d: "M 540 420 L 495 420 L 495 100 L 60 100",     dur: 11,   delay: 3.8 },  // left → up
+    { d: "M 540 480 L 495 480 L 495 820 L 60 820",     dur: 11,   delay: 7.0 },  // left → down
+  ];
+
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+    >
+      <svg
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 1440 900"
+        preserveAspectRatio="xMidYMid slice"
+      >
+        {/* Tiny solder dots at each path endpoint — sells the "circuit" feel */}
+        {paths.flatMap((p, i) => {
+          const matches = Array.from(p.d.matchAll(/([ML])\s+([\d.]+)\s+([\d.]+)/g));
+          return matches.map((m, j) => (
+            <circle
+              key={`dot-${i}-${j}`}
+              cx={m[2]}
+              cy={m[3]}
+              r={1.8}
+              fill="rgb(var(--primary-rgb))"
+              fillOpacity={0.25}
+            />
+          ));
+        })}
+        {/* Base traces — very faint so they read as the wire layout */}
+        {paths.map((p, i) => (
+          <path
+            key={`base-${i}`}
+            d={p.d}
+            stroke="rgb(var(--primary-rgb))"
+            strokeOpacity={0.14}
+            strokeWidth={0.8}
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ))}
+        {/* Bright pulses traveling along each path. Dash is 80px long
+            in absolute pixel units (more reliable than pathLength
+            normalization across browsers); the keyframe animates
+            stroke-dashoffset from +80 → −1000 so the pulse enters at
+            the start of the trace, travels its full length, exits the
+            end. The 2000px gap ensures only one dash is visible. */}
+        {paths.map((p, i) => (
+          <path
+            key={`pulse-${i}`}
+            d={p.d}
+            stroke="rgb(var(--primary-rgb))"
+            strokeOpacity={1}
+            strokeWidth={2.4}
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray="100 2000"
+            className="circuit-flow"
+            style={{
+              animationDuration: `${p.dur}s`,
+              animationDelay: `${p.delay}s`,
+              // Single drop-shadow (was 3 stacked) — three layered blur
+              // filters per path × 14 paths choked video playback
+              filter: "drop-shadow(0 0 6px rgba(var(--primary-rgb), 0.85))",
+            }}
+          />
+        ))}
+      </svg>
+    </div>
+  );
+}

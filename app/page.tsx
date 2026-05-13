@@ -2,8 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { exo } from "./font";
 import TraitCard, { type TraitKind } from "@/component/TraitCard";
-import { WireframePolyhedron, HexLatticePulse, DataDashes } from "@/component/SectionBackdrops";
-import ParticleSigil from "@/component/ParticleSigil";
+import { WireframePolyhedron, HexLatticePulse, DataDashes, CircuitFlow } from "@/component/SectionBackdrops";
 import Reveal from "@/component/Reveal";
 import MagneticButton from "@/component/MagneticButton";
 import CycleHeadline from "@/component/CycleHeadline";
@@ -134,7 +133,7 @@ function Mission() {
       id="mission"
       className="relative overflow-hidden border-b border-white/5 px-6 py-32 lg:px-10"
     >
-      <ParticleSigil />
+      <CircuitFlow />
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
       <div className="relative mx-auto max-w-7xl">
