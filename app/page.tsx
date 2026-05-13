@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { exo } from "./font";
 import TraitCard, { type TraitKind } from "@/component/TraitCard";
+import { WireframePolyhedron, HexLatticePulse, DataDashes } from "@/component/SectionBackdrops";
+import ParticleSigil from "@/component/ParticleSigil";
 import Reveal from "@/component/Reveal";
 import MagneticButton from "@/component/MagneticButton";
 import CycleHeadline from "@/component/CycleHeadline";
@@ -132,6 +134,7 @@ function Mission() {
       id="mission"
       className="relative overflow-hidden border-b border-white/5 px-6 py-32 lg:px-10"
     >
+      <ParticleSigil />
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
       <div className="relative mx-auto max-w-7xl">
@@ -257,6 +260,7 @@ function ActorConcept() {
       id="actor"
       className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10"
     >
+      <WireframePolyhedron />
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 
@@ -383,6 +387,7 @@ function AIModels() {
       id="models"
       className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10"
     >
+      <DataDashes />
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 
@@ -412,7 +417,7 @@ function AIModels() {
               {models.map((m, i) => (
                 <Reveal key={m.codename} delay={200 + i * 90}>
                   <article
-                    className="group relative rounded-lg border border-white/10 bg-white/[0.02] p-6 transition hover:border-primary/50"
+                    className="group relative rounded-lg border border-white/10 bg-background/85 backdrop-blur-sm p-6 transition hover:border-primary/50"
                   >
                     <div className="mb-4 flex items-center justify-between">
                       <div
@@ -461,6 +466,7 @@ function AIModels() {
 function SalesCTA() {
   return (
     <section className="relative overflow-hidden bg-background px-6 py-32 lg:px-10">
+      <HexLatticePulse />
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 

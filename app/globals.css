@@ -78,6 +78,61 @@ html, body {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   WIREFRAME POLYHEDRON — concentric polygons rotating at different
+   speeds + a slow center-dot pulse. Backs the Actor section.
+   ───────────────────────────────────────────────────────────── */
+@keyframes wireframe-spin-cw  { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
+@keyframes wireframe-spin-ccw { from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
+@keyframes wireframe-pulse {
+  0%, 100% { r: 2; opacity: 0.6; }
+  50%      { r: 4; opacity: 1; }
+}
+.wireframe-spin-cw-slow  { animation: wireframe-spin-cw  60s linear infinite; transform-origin: center; transform-box: fill-box; }
+.wireframe-spin-ccw-med  { animation: wireframe-spin-ccw 40s linear infinite; transform-origin: center; transform-box: fill-box; }
+.wireframe-spin-cw-fast  { animation: wireframe-spin-cw  22s linear infinite; transform-origin: center; transform-box: fill-box; }
+.wireframe-pulse         { animation: wireframe-pulse 2.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .wireframe-spin-cw-slow, .wireframe-spin-ccw-med, .wireframe-spin-cw-fast, .wireframe-pulse {
+    animation: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   HEX LATTICE PULSE — honeycomb cells lighting up in slow waves.
+   Backs the Sales-CTA section.
+   ───────────────────────────────────────────────────────────── */
+@keyframes hex-cell {
+  0%, 100% { fill-opacity: 0;     stroke-opacity: 0.08; }
+  50%      { fill-opacity: 0.06;  stroke-opacity: 0.35; }
+}
+.hex-cell {
+  animation: hex-cell 5.5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hex-cell { animation: none; fill-opacity: 0; stroke-opacity: 0.15; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DATA DASHES — short horizontal bars that fade in, hold, fade
+   out on staggered cycles. Backs the AI Models section.
+   ───────────────────────────────────────────────────────────── */
+@keyframes data-dash {
+  0%   { transform: translateX(-40px); opacity: 0; }
+  20%  { opacity: 0.9; }
+  80%  { opacity: 0.9; }
+  100% { transform: translateX(160px); opacity: 0; }
+}
+.data-dash {
+  animation-name: data-dash;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .data-dash { animation: none; opacity: 0.3; }
+}
+
+/* ─────────────────────────────────────────────────────────────
    TRAIT-CARD ANIMATIONS — used by TraitCard.tsx inline SVG icons
    ───────────────────────────────────────────────────────────── */
 @keyframes trait-spin {
