@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { exo } from "./font";
 import TraitCard, { type TraitKind } from "@/component/TraitCard";
-import { WireframePolyhedron, HexLatticePulse, DataDashes, CircuitFlow } from "@/component/SectionBackdrops";
+import { HexLatticePulse, DataDashes, CircuitFlow } from "@/component/SectionBackdrops";
 import Reveal from "@/component/Reveal";
 import MagneticButton from "@/component/MagneticButton";
 import CycleHeadline from "@/component/CycleHeadline";
@@ -260,7 +260,6 @@ function ActorConcept() {
       id="actor"
       className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10"
     >
-      <WireframePolyhedron />
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 

@@ -33,24 +33,6 @@ html, body {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   CONCENTRIC FRAMES — Zenity-style nested rounded-rectangle "energy
-   field" behind the hero headline. The stroke gradient is broken into
-   long dashes; animating stroke-dashoffset makes them appear to flow
-   around the perimeter, giving a quiet, continuous motion.
-   ───────────────────────────────────────────────────────────── */
-@keyframes concentric-frame-flow {
-  0%   { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: -1200; }
-}
-.concentric-frame {
-  animation: concentric-frame-flow 18s linear infinite;
-  will-change: stroke-dashoffset;
-}
-@media (prefers-reduced-motion: reduce) {
-  .concentric-frame { animation: none; }
-}
-
-/* ─────────────────────────────────────────────────────────────
    HERO KEN BURNS — slow continuous zoom/pan on the hero video so a
    static stock clip feels cinematic and alive.
    ───────────────────────────────────────────────────────────── */
@@ -92,26 +74,6 @@ html, body {
     animation: none;
     stroke-dashoffset: 0;
     opacity: 0.25;
-  }
-}
-
-/* ─────────────────────────────────────────────────────────────
-   WIREFRAME POLYHEDRON — concentric polygons rotating at different
-   speeds + a slow center-dot pulse. Backs the Actor section.
-   ───────────────────────────────────────────────────────────── */
-@keyframes wireframe-spin-cw  { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
-@keyframes wireframe-spin-ccw { from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
-@keyframes wireframe-pulse {
-  0%, 100% { r: 2; opacity: 0.6; }
-  50%      { r: 4; opacity: 1; }
-}
-.wireframe-spin-cw-slow  { animation: wireframe-spin-cw  60s linear infinite; transform-origin: center; transform-box: fill-box; }
-.wireframe-spin-ccw-med  { animation: wireframe-spin-ccw 40s linear infinite; transform-origin: center; transform-box: fill-box; }
-.wireframe-spin-cw-fast  { animation: wireframe-spin-cw  22s linear infinite; transform-origin: center; transform-box: fill-box; }
-.wireframe-pulse         { animation: wireframe-pulse 2.4s ease-in-out infinite; }
-@media (prefers-reduced-motion: reduce) {
-  .wireframe-spin-cw-slow, .wireframe-spin-ccw-med, .wireframe-spin-cw-fast, .wireframe-pulse {
-    animation: none;
   }
 }
 

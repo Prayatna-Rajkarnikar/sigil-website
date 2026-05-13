@@ -1,8 +1,8 @@
 /**
  * SectionBackdrops — animated background components, one per section.
  *
- *   ForecastFan         → Mission       (parallel scenario rollouts)
- *   WireframePolyhedron → Actor         (single agent / "mind")
+ *   CircuitFlow         → Mission       (glowing pulses on circuit traces)
+ *   AuroraPortal        → Actor         (handled by component/AuroraPortal.tsx)
  *   DataDashes          → AI Models     (signal blips / data ticks)
  *   HexLatticePulse     → Sales-CTA     (tactical grid coming online)
  *
@@ -54,103 +54,6 @@ export function ForecastFan() {
             </g>
           ))}
         </g>
-      </svg>
-    </div>
-  );
-}
-
-/* ─── 2. WIREFRAME POLYHEDRON — Actor section ────────────────────
-   Three nested polygons rotating at different speeds. Reads as an
-   abstract "agent mind" — crystalline, deliberate.
-   ───────────────────────────────────────────────────────────── */
-export function WireframePolyhedron() {
-  // Hexagon vertex helper
-  const hexPoints = (r: number) =>
-    Array.from({ length: 6 }, (_, i) => {
-      const a = (Math.PI / 3) * i;
-      return `${(r * Math.cos(a)).toFixed(2)},${(r * Math.sin(a)).toFixed(2)}`;
-    }).join(" ");
-
-  // Triangle vertex helper (3-pointed)
-  const triPoints = (r: number) =>
-    Array.from({ length: 3 }, (_, i) => {
-      const a = (Math.PI * 2 * i) / 3 - Math.PI / 2;
-      return `${(r * Math.cos(a)).toFixed(2)},${(r * Math.sin(a)).toFixed(2)}`;
-    }).join(" ");
-
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
-    >
-      <svg
-        viewBox="-150 -150 300 300"
-        className="h-[60vh] w-auto opacity-50"
-      >
-        {/* Outer hex — slow clockwise */}
-        <g className="wireframe-spin-cw-slow">
-          <polygon
-            points={hexPoints(130)}
-            stroke="rgb(var(--primary-rgb))"
-            strokeOpacity={0.45}
-            strokeWidth={0.6}
-            fill="none"
-          />
-          <polygon
-            points={hexPoints(120)}
-            stroke="rgb(var(--primary-rgb))"
-            strokeOpacity={0.2}
-            strokeWidth={0.4}
-            fill="none"
-          />
-        </g>
-
-        {/* Middle hex — medium counter-clockwise */}
-        <g className="wireframe-spin-ccw-med">
-          <polygon
-            points={hexPoints(90)}
-            stroke="rgb(var(--primary-rgb))"
-            strokeOpacity={0.55}
-            strokeWidth={0.7}
-            fill="none"
-          />
-          {/* connecting diagonals inside the middle hex */}
-          {Array.from({ length: 6 }, (_, i) => {
-            const a = (Math.PI / 3) * i;
-            return (
-              <line
-                key={i}
-                x1={0}
-                y1={0}
-                x2={(90 * Math.cos(a)).toFixed(2)}
-                y2={(90 * Math.sin(a)).toFixed(2)}
-                stroke="rgb(var(--primary-rgb))"
-                strokeOpacity={0.18}
-                strokeWidth={0.4}
-              />
-            );
-          })}
-        </g>
-
-        {/* Inner triangle — fast clockwise */}
-        <g className="wireframe-spin-cw-fast">
-          <polygon
-            points={triPoints(50)}
-            stroke="rgb(var(--primary-rgb))"
-            strokeOpacity={0.7}
-            strokeWidth={0.8}
-            fill="none"
-          />
-        </g>
-
-        {/* Center pulse dot */}
-        <circle
-          cx={0}
-          cy={0}
-          r={2}
-          fill="rgb(var(--primary-rgb))"
-          className="wireframe-pulse"
-        />
       </svg>
     </div>
   );
