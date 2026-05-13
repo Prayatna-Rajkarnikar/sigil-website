@@ -33,6 +33,24 @@ html, body {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   CONCENTRIC FRAMES — Zenity-style nested rounded-rectangle "energy
+   field" behind the hero headline. The stroke gradient is broken into
+   long dashes; animating stroke-dashoffset makes them appear to flow
+   around the perimeter, giving a quiet, continuous motion.
+   ───────────────────────────────────────────────────────────── */
+@keyframes concentric-frame-flow {
+  0%   { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -1200; }
+}
+.concentric-frame {
+  animation: concentric-frame-flow 18s linear infinite;
+  will-change: stroke-dashoffset;
+}
+@media (prefers-reduced-motion: reduce) {
+  .concentric-frame { animation: none; }
+}
+
+/* ─────────────────────────────────────────────────────────────
    HERO KEN BURNS — slow continuous zoom/pan on the hero video so a
    static stock clip feels cinematic and alive.
    ───────────────────────────────────────────────────────────── */
@@ -120,11 +138,23 @@ html, body {
 }
 
 /* Tactical grid background */
+/* Tactical grid — slow drift gives every page a subtle "alive" feel.
+   The grid itself is barely visible (4% alpha) so the drift is felt
+   more than seen. Disabled for reduce-motion. */
+@keyframes tactical-grid-drift {
+  0%   { background-position: 0 0, 0 0; }
+  100% { background-position: 48px 0, 0 48px; }
+}
 .bg-tactical-grid {
   background-image:
     linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 48px 48px;
+  animation: tactical-grid-drift 36s linear infinite;
+  will-change: background-position;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bg-tactical-grid { animation: none; }
 }
 
 .bg-tactical-grid-fine {
@@ -135,8 +165,225 @@ html, body {
 }
 
 /* Radial spotlight */
+/* Radial spotlight — slow breathe so the ambient glow is never static.
+   Scales/opacity-pulses over ~10s. Disabled for reduce-motion. */
+@keyframes spotlight-breathe {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.04); }
+}
 .bg-spotlight {
   background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(var(--primary-rgb), 0.18) 0%, transparent 70%);
+  animation: spotlight-breathe 10s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bg-spotlight { animation: none; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   AURORA PORTAL — Lakera-style "stargate": vertical light beams
+   rising from a glowing horizontal stage at the bottom of a section,
+   with concentric elliptical floor rings. Continuous ambient loop —
+   beams flow upward forever, stage pulses, rings breathe.
+
+   Beam variables (set per-element via inline style):
+     --beam-color : core color
+     --beam-w     : beam width in px
+     --beam-dur   : flow duration (one upward pass)
+     --beam-op    : peak opacity
+   ───────────────────────────────────────────────────────────── */
+.aurora-portal {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+@keyframes aurora-stage-pulse {
+  0%, 100% { opacity: 0.45; transform: translateX(-50%) scale(1); }
+  50%      { opacity: 0.6;  transform: translateX(-50%) scale(1.04); }
+}
+.aurora-stage {
+  position: absolute;
+  left: 50%;
+  bottom: -45%;
+  width: 70%;
+  height: 70%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse 50% 42% at center,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(180, 230, 255, 0.4) 10%,
+    rgba(var(--primary-rgb), 0.35) 25%,
+    rgba(var(--primary-rgb), 0.12) 45%,
+    transparent 68%
+  );
+  filter: blur(10px);
+  animation: aurora-stage-pulse 14s ease-in-out infinite;
+}
+
+/* Beam flow — taller-than-element gradient scrolls upward so bright
+   bands visibly travel up each beam (aurora shimmer). Opacity also
+   eases in/out so the field breathes without harsh on/off. */
+@keyframes aurora-beam-flow {
+  0%   { background-position: 50% 100%; opacity: calc(var(--beam-op, 0.35) * 0.5); }
+  50%  { opacity: var(--beam-op, 0.35); }
+  100% { background-position: 50% -120%; opacity: calc(var(--beam-op, 0.35) * 0.5); }
+}
+.aurora-beam {
+  position: absolute;
+  bottom: 0;
+  width: var(--beam-w, 60px);
+  height: 100%;
+  margin-left: calc(var(--beam-w, 60px) / -2);
+  background:
+    linear-gradient(
+      to top,
+      var(--beam-color, rgba(var(--primary-rgb), 0.45)) 0%,
+      rgba(var(--primary-rgb), 0.3) 8%,
+      var(--beam-color, rgba(var(--primary-rgb), 0.45)) 18%,
+      rgba(var(--primary-rgb), 0.18) 28%,
+      var(--beam-color, rgba(var(--primary-rgb), 0.45)) 38%,
+      rgba(var(--primary-rgb), 0.08) 52%,
+      transparent 72%
+    );
+  background-size: 100% 240%;
+  background-repeat: no-repeat;
+  filter: blur(8px);
+  transform-origin: bottom center;
+  animation: aurora-beam-flow var(--beam-dur, 5s) linear infinite;
+  will-change: background-position, opacity;
+}
+
+@keyframes aurora-ring-breathe {
+  0%, 100% { opacity: 0.45; transform: translateX(-50%) scaleX(1); }
+  50%      { opacity: 0.7;  transform: translateX(-50%) scaleX(1.03); }
+}
+.aurora-ring {
+  position: absolute;
+  left: 50%;
+  height: 70px;
+  border: 1px solid rgba(140, 220, 255, 0.6);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow:
+    0 0 18px rgba(var(--primary-rgb), 0.45),
+    inset 0 0 12px rgba(var(--primary-rgb), 0.25);
+  animation: aurora-ring-breathe 11s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-stage,
+  .aurora-beam,
+  .aurora-ring { animation: none !important; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   AMBIENT BACKGROUND — wrapper for cycling between visual variants.
+   The wrapper sits absolute inside its parent section and renders
+   N layers, each containing a variant. The active layer is opacity 1,
+   others fade to 0; the cycler component swaps `is-current` every
+   ~60s to crossfade between variants. Reads `--ambient-fade-ms` for
+   custom timing.
+   ───────────────────────────────────────────────────────────── */
+.ambient-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.ambient-bg-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--ambient-fade-ms, 3000ms) ease-in-out;
+  pointer-events: none;
+}
+.ambient-bg-layer.is-current { opacity: 1; }
+
+/* ─────────────────────────────────────────────────────────────
+   ORBS VARIANT — 3 soft, blurred gradient blobs that slowly drift
+   and scale. Kept at very low opacity so the eye reads them as
+   "depth in the dark" rather than as foreground elements.
+   ───────────────────────────────────────────────────────────── */
+.orbs-variant {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+@keyframes orbs-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33%      { transform: translate3d(8%, -5%, 0) scale(1.08); }
+  66%      { transform: translate3d(-6%, 4%, 0) scale(0.94); }
+}
+@keyframes orbs-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33%      { transform: translate3d(-9%, 5%, 0) scale(0.92); }
+  66%      { transform: translate3d(7%, -7%, 0) scale(1.1); }
+}
+@keyframes orbs-drift-c {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(5%, 8%, 0) scale(1.05); }
+}
+.orbs-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.5;
+  pointer-events: none;
+  will-change: transform;
+}
+.orbs-orb-a {
+  left: -6%; top: 12%;
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, rgba(var(--primary-rgb), 0.75) 0%, transparent 70%);
+  animation: orbs-drift-a 38s ease-in-out infinite;
+}
+.orbs-orb-b {
+  right: -8%; top: 28%;
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(140, 220, 255, 0.65) 0%, transparent 70%);
+  animation: orbs-drift-b 46s ease-in-out infinite;
+}
+.orbs-orb-c {
+  left: 28%; bottom: -16%;
+  width: 540px; height: 540px;
+  background: radial-gradient(circle, rgba(var(--primary-rgb), 0.55) 0%, transparent 70%);
+  animation: orbs-drift-c 54s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbs-orb { animation: none !important; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MESH VARIANT — multi-stop radial-gradient mesh that slowly
+   rotates + scales. Renders as a single div with the gradient
+   baked into background. Heavy blur keeps colors as washes,
+   never as discrete blobs.
+   ───────────────────────────────────────────────────────────── */
+@keyframes mesh-shift {
+  0%   { transform: rotate(0deg)   scale(1.25); }
+  50%  { transform: rotate(180deg) scale(1.35); }
+  100% { transform: rotate(360deg) scale(1.25); }
+}
+.mesh-variant {
+  position: absolute;
+  inset: -12%;
+  background:
+    radial-gradient(at 22% 30%, rgba(var(--primary-rgb), 0.32) 0%, transparent 45%),
+    radial-gradient(at 78% 60%, rgba(140, 200, 255, 0.28) 0%, transparent 50%),
+    radial-gradient(at 50% 85%, rgba(var(--primary-rgb), 0.25) 0%, transparent 45%),
+    radial-gradient(at 75% 18%, rgba(190, 150, 255, 0.2) 0%, transparent 40%);
+  filter: blur(36px);
+  opacity: 0.75;
+  animation: mesh-shift 72s linear infinite;
+  pointer-events: none;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mesh-variant { animation: none !important; }
 }
 
 /* Scanline overlay */
