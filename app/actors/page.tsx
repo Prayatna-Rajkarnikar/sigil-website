@@ -23,10 +23,10 @@ function ActorHero() {
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 
-      <div className="relative z-10 mx-auto grid min-h-[80vh] max-w-7xl gap-16 px-6 pt-32 pb-16 lg:grid-cols-12 lg:items-center lg:px-10">
+      <div className="relative z-10 mx-auto grid min-h-[80vh] max-w-7xl gap-12 px-6 pt-28 pb-16 sm:gap-16 sm:pt-32 lg:grid-cols-12 lg:items-center lg:px-10">
         <div className="lg:col-span-5">
           <h1
-            className={`${exo.className} text-5xl font-black leading-[0.95] tracking-tight text-foreground sm:text-7xl lg:text-[6rem]`}
+            className={`${exo.className} text-3xl font-black leading-[0.95] tracking-tight text-foreground sm:text-6xl lg:text-[6rem]`}
           >
             One Actor.
             <br />
@@ -34,13 +34,13 @@ function ActorHero() {
             <br />
             outcomes.
           </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted">
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:mt-8 sm:text-lg">
             The atomic unit of the Sigil platform. An autonomous AI agent
             with goals, memory, sensory input, and a policy for action — drop
             it into any environment and it pursues an objective.
           </p>
 
-          <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:grid-cols-4">
             {[
               ["Goals", "Hierarchical"],
               ["Memory", "Episodic + Semantic"],
@@ -112,23 +112,23 @@ function ActorAnatomy() {
   ];
 
   return (
-    <section className="relative overflow-hidden border-b border-white/5 px-6 py-32 lg:px-10">
+    <section className="relative overflow-hidden border-b border-white/5 px-6 py-20 sm:py-24 lg:px-10 lg:py-32">
       <BlobBackdrop />
       <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
         <SectionLabel index="01" label="Anatomy of an Actor" />
 
-        <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="mt-10 grid gap-10 sm:mt-12 sm:gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
             <h2
-              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
+              className={`${exo.className} text-3xl font-black leading-[1.05] sm:text-5xl`}
             >
               Five subsystems.
               <br />
               <span className="text-primary">One operator.</span>
             </h2>
-            <p className="mt-8 text-base leading-relaxed text-muted">
+            <p className="mt-6 text-base leading-relaxed text-muted sm:mt-8">
               Every Sigil actor is built from five composable subsystems.
               Replace any one of them with your own model — or drop in ours
               and start running cycles in minutes.
@@ -139,24 +139,22 @@ function ActorAnatomy() {
             {blocks.map((b, i) => (
               <article
                 key={b.tag}
-                className="group corner-brackets relative border border-white/10 bg-white/[0.02] p-6 transition hover:border-primary/50 hover:bg-primary/[0.04]"
+                className="group corner-brackets relative border border-white/10 bg-white/[0.02] p-5 transition hover:border-primary/50 hover:bg-primary/[0.04] sm:p-6"
               >
                 <span className="corner-bl"></span>
                 <span className="corner-br"></span>
-                <div className="grid grid-cols-12 items-start gap-6">
-                  <div className="col-span-2">
-                    <div
-                      className={`${exo.className} text-4xl font-black text-primary/30 group-hover:text-primary/60 transition`}
-                    >
-                      0{i + 1}
-                    </div>
+                <div className="flex items-start gap-4 sm:gap-6">
+                  <div
+                    className={`${exo.className} flex-none text-3xl font-black text-primary/30 group-hover:text-primary/60 transition sm:text-4xl`}
+                  >
+                    0{i + 1}
                   </div>
-                  <div className="col-span-10">
+                  <div className="flex-1 min-w-0">
                     <div className="mb-2 inline-block border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-primary">
                       {b.tag}
                     </div>
                     <h3
-                      className={`${exo.className} text-xl font-black leading-tight text-foreground`}
+                      className={`${exo.className} text-lg font-black leading-tight text-foreground sm:text-xl`}
                     >
                       {b.title}
                     </h3>
@@ -204,7 +202,7 @@ function DecisionLoop() {
   ];
 
   return (
-    <section className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10">
+    <section className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-20 sm:py-24 lg:px-10 lg:py-32">
       <BlobBackdrop />
       <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
@@ -212,9 +210,9 @@ function DecisionLoop() {
       <div className="relative mx-auto max-w-7xl">
         <SectionLabel index="02" label="The Decision Loop" />
 
-        <div className="mt-12 max-w-3xl">
+        <div className="mt-10 max-w-3xl sm:mt-12">
           <h2
-            className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
+            className={`${exo.className} text-3xl font-black leading-[1.05] sm:text-5xl`}
           >
             One second.
             <br />
@@ -222,11 +220,11 @@ function DecisionLoop() {
           </h2>
         </div>
 
-        <div className="mt-16 grid gap-4 lg:grid-cols-5">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-5">
           {steps.map((s, i) => (
             <div
               key={s.label}
-              className="corner-brackets relative border border-white/10 bg-white/[0.02] p-6"
+              className="corner-brackets relative border border-white/10 bg-white/[0.02] p-5 sm:p-6"
             >
               <span className="corner-bl"></span>
               <span className="corner-br"></span>
@@ -280,18 +278,18 @@ function Capabilities() {
   ];
 
   return (
-    <section className="relative overflow-hidden border-b border-white/5 px-6 py-32 lg:px-10">
+    <section className="relative overflow-hidden border-b border-white/5 px-6 py-20 sm:py-24 lg:px-10 lg:py-32">
       <BlobBackdrop />
       <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
         <SectionLabel index="03" label="Core Capabilities" />
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2">
+        <div className="mt-10 grid gap-4 sm:mt-12 sm:grid-cols-2">
           {caps.map((c) => (
             <article
               key={c.tag}
-              className="corner-brackets relative border border-white/10 bg-white/[0.02] p-8 transition hover:border-primary/50"
+              className="corner-brackets relative border border-white/10 bg-white/[0.02] p-6 transition hover:border-primary/50 sm:p-8"
             >
               <span className="corner-bl"></span>
               <span className="corner-br"></span>
@@ -299,7 +297,7 @@ function Capabilities() {
                 {c.tag}
               </div>
               <h3
-                className={`${exo.className} text-2xl font-black leading-tight text-foreground`}
+                className={`${exo.className} text-xl font-black leading-tight text-foreground sm:text-2xl`}
               >
                 {c.title}
               </h3>
@@ -327,16 +325,16 @@ function Variants() {
   ];
 
   return (
-    <section className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10">
+    <section className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-20 sm:py-24 lg:px-10 lg:py-32">
       <BlobBackdrop />
       <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
         <SectionLabel index="04" label="Actor Variants" />
 
-        <div className="mt-12 max-w-3xl">
+        <div className="mt-10 max-w-3xl sm:mt-12">
           <h2
-            className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
+            className={`${exo.className} text-3xl font-black leading-[1.05] sm:text-5xl`}
           >
             Drop-in roles.
             <br />
@@ -349,7 +347,7 @@ function Variants() {
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:grid-cols-4">
           {v.map((x) => (
             <div
               key={x.name}
@@ -376,25 +374,25 @@ function Variants() {
 
 function ActorCTA() {
   return (
-    <section className="relative overflow-hidden px-6 py-32 lg:px-10">
+    <section className="relative overflow-hidden px-6 py-20 sm:py-24 lg:px-10 lg:py-32">
       <BlobBackdrop />
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
       <div className="relative mx-auto max-w-4xl text-center">
         <h2
-          className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-6xl`}
+          className={`${exo.className} text-3xl font-black leading-[1.05] sm:text-5xl lg:text-6xl`}
         >
           Inspect the Actor.
           <br />
           <span className="text-primary">Then deploy a thousand.</span>
         </h2>
-        <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-muted">
+        <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted sm:mt-8 sm:text-lg">
           Spin up a sandbox in your environment. We&apos;ll seed it with the
           base actor library and a starter scenario.
         </p>
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
           <Link
             href="/contact"
-            className="btn-tactical btn-glow group relative inline-flex items-center justify-center gap-3 rounded-lg border border-primary/70 bg-primary/8 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:border-primary hover:bg-primary/18"
+            className="btn-tactical btn-glow group relative inline-flex items-center justify-center gap-3 rounded-lg border border-primary/70 bg-primary/8 px-6 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-primary transition hover:border-primary hover:bg-primary/18 sm:px-8 sm:py-4 sm:text-sm sm:tracking-[0.2em]"
           >
             Request Sandbox Access
             <span className="transition-transform group-hover:translate-x-1">
@@ -403,7 +401,7 @@ function ActorCTA() {
           </Link>
           <Link
             href="/#rehearse"
-            className="btn-tactical group inline-flex items-center justify-center gap-3 rounded-lg border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:bg-primary/10"
+            className="btn-tactical group inline-flex items-center justify-center gap-3 rounded-lg border border-white/20 bg-white/5 px-6 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-foreground transition hover:border-primary hover:bg-primary/10 sm:px-8 sm:py-4 sm:text-sm sm:tracking-[0.2em]"
           >
             Run a Live Rehearsal
           </Link>

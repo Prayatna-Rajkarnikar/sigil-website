@@ -30,27 +30,27 @@ export default function UseCasePage() {
   return (
     <>
       <UseHero />
-      <main className="relative overflow-hidden px-6 py-24 lg:px-10">
+      <main className="relative overflow-hidden px-6 py-16 sm:py-20 lg:px-10 lg:py-24">
         <BlobBackdrop />
         <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
 
         <div className="relative mx-auto max-w-5xl">
           {/* Use case card header */}
-          <div className="corner-brackets relative border border-primary/40 bg-background/60 p-8 backdrop-blur-sm sm:p-10">
+          <div className="corner-brackets relative border border-primary/40 bg-background/60 p-6 backdrop-blur-sm sm:p-8 lg:p-10">
             <span className="corner-bl"></span>
             <span className="corner-br"></span>
 
-            <div className="absolute -top-2.5 left-6 flex items-center gap-2 bg-background px-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+            <div className="absolute -top-2.5 left-4 flex items-center gap-2 bg-background px-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary sm:left-6">
               <span className="h-1.5 w-1.5 bg-primary"></span>
               Case File · Dynamic Pricing
             </div>
 
             <h2
-              className={`${exo.className} text-3xl font-black text-foreground sm:text-4xl`}
+              className={`${exo.className} text-2xl font-black text-foreground sm:text-3xl lg:text-4xl`}
             >
               Use Case: Dynamic Pricing Agent
             </h2>
-            <p className="mt-2 text-base text-muted">
+            <p className="mt-2 text-sm text-muted sm:text-base">
               E-commerce checkout optimization
             </p>
           </div>
@@ -75,13 +75,13 @@ export default function UseCasePage() {
           </div>
 
           {/* Closing note */}
-          <div className="corner-brackets relative mt-12 border border-primary/30 bg-white/[0.02] p-8">
+          <div className="corner-brackets relative mt-10 border border-primary/30 bg-white/[0.02] p-6 sm:mt-12 sm:p-8">
             <span className="corner-bl"></span>
             <span className="corner-br"></span>
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary mb-3">
               Continuous Learning
             </div>
-            <p className="text-base leading-relaxed text-muted">
+            <p className="text-sm leading-relaxed text-muted sm:text-base">
               The agent continuously learns from each decision outcome,
               refining its pricing strategy to maximize both conversion rates
               and revenue over time.
@@ -104,19 +104,19 @@ function UseHero() {
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-32 pb-16 lg:px-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-28 pb-12 sm:pt-32 sm:pb-16 lg:px-10">
         <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
           <span className="h-1.5 w-1.5 bg-primary"></span>
           Use Case
         </div>
         <h1
-          className={`${exo.className} mt-6 text-5xl font-black leading-[0.95] tracking-tight text-foreground sm:text-7xl`}
+          className={`${exo.className} mt-5 text-3xl font-black leading-[1] tracking-tight text-foreground sm:mt-6 sm:text-5xl lg:text-7xl`}
         >
           Agentic Decision
           <br />
           <span className="text-glow-primary text-primary">Modeling.</span>
         </h1>
-        <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:mt-6 sm:text-lg">
           A real-world demonstration of how a Sigil actor perceives, decides,
           and acts inside a live commercial environment.
         </p>
@@ -140,21 +140,21 @@ function Step({
   children?: React.ReactNode;
 }) {
   return (
-    <article className="corner-brackets relative border border-white/10 bg-white/[0.02] p-6 sm:p-8">
+    <article className="corner-brackets relative border border-white/10 bg-white/[0.02] p-5 sm:p-6 lg:p-8">
       <span className="corner-bl"></span>
       <span className="corner-br"></span>
 
-      <div className="flex items-start gap-5">
-        <div className="flex h-12 w-12 flex-none items-center justify-center border-2 border-primary bg-primary/10">
+      <div className="flex items-start gap-4 sm:gap-5">
+        <div className="flex h-10 w-10 flex-none items-center justify-center border-2 border-primary bg-primary/10 sm:h-12 sm:w-12">
           <span
-            className={`${exo.className} text-xl font-black text-primary`}
+            className={`${exo.className} text-base font-black text-primary sm:text-xl`}
           >
             {String(index).padStart(2, "0")}
           </span>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <h3
-            className={`${exo.className} text-xl font-black leading-tight text-foreground sm:text-2xl`}
+            className={`${exo.className} text-lg font-black leading-tight text-foreground sm:text-xl lg:text-2xl`}
           >
             {title}
           </h3>
@@ -282,28 +282,28 @@ function Metrics() {
    ───────────────────────────────────────────────────────────── */
 function CTA() {
   return (
-    <section className="relative overflow-hidden px-6 py-24 lg:px-10">
+    <section className="relative overflow-hidden px-6 py-20 sm:py-24 lg:px-10">
       <BlobBackdrop />
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
       <div className="relative mx-auto max-w-3xl">
         <h2
-          className={`${exo.className} text-3xl font-black leading-tight text-foreground sm:text-5xl`}
+          className={`${exo.className} text-2xl font-black leading-tight text-foreground sm:text-4xl lg:text-5xl`}
         >
           Different scenario?
           <br />
           <span className="text-primary">Tell us about it.</span>
         </h2>
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+        <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4">
           <Link
             href="/contact"
-            className="btn-tactical btn-glow inline-flex items-center justify-center gap-3 rounded-lg border border-primary/70 bg-primary/8 px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:border-primary hover:bg-primary/18"
+            className="btn-tactical btn-glow inline-flex items-center justify-center gap-3 rounded-lg border border-primary/70 bg-primary/8 px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] text-primary transition hover:border-primary hover:bg-primary/18 sm:px-7 sm:text-sm sm:tracking-[0.2em]"
           >
             Contact Us
             <span>→</span>
           </Link>
           <Link
             href="/"
-            className="btn-tactical inline-flex items-center justify-center gap-3 rounded-lg border border-white/20 bg-white/5 px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:bg-primary/10"
+            className="btn-tactical inline-flex items-center justify-center gap-3 rounded-lg border border-white/20 bg-white/5 px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] text-foreground transition hover:border-primary hover:bg-primary/10 sm:px-7 sm:text-sm sm:tracking-[0.2em]"
           >
             Back to Home
           </Link>

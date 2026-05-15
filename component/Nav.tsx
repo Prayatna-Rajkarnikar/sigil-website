@@ -57,6 +57,7 @@ export default function Nav() {
   const pathname = usePathname();
   const activeSection = useActiveSection(["mission", "actor", "models"]);
   const onHome = pathname === "/";
+  const [menuOpen, setMenuOpen] = useState(false);
 
   type NavItem = { href: string; label: string; section?: string };
   const links: NavItem[] = [
@@ -77,11 +78,31 @@ export default function Nav() {
     return false;
   }
 
+  // Close drawer when route changes and lock body scroll while open
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
+
   return (
-    <nav className="sticky top-0 z-50 hairline-b bg-paper/85 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-baseline justify-between gap-6 px-6 py-5 lg:px-12">
+    <>
+    <nav className="sticky top-0 z-50 border-b border-white/5 bg-background/85 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 sm:py-5 lg:px-12">
         <Link href="/" className="group inline-flex items-center" aria-label="Sigil">
-          <Logo className="h-9 w-auto text-foreground transition-colors group-hover:text-primary" />
+          <Logo className="h-7 w-auto text-foreground transition-colors group-hover:text-primary sm:h-9" />
         </Link>
 
         <div className="hidden items-baseline gap-7 md:flex">
@@ -94,23 +115,104 @@ export default function Nav() {
 
         <Link
           href="/contact"
-          className="hidden md:inline-flex items-baseline gap-2 font-display italic text-base text-ink link-editorial"
+          className="hidden md:inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:text-foreground"
         >
-          <span className="dot-live mr-1 self-center" aria-hidden />
+          <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" aria-hidden />
           Request Briefing
-          <span className="text-seal">→</span>
+          <span aria-hidden>→</span>
         </Link>
 
         <button
-          aria-label="Open menu"
-          className="md:hidden flex flex-col gap-1.5 p-1"
+          type="button"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav-drawer"
+          onClick={() => setMenuOpen((v) => !v)}
+          className="md:hidden relative z-60 flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded border border-white/15 bg-white/5 p-1 text-foreground transition hover:border-primary/60 hover:bg-primary/10"
         >
-          <span className="h-px w-6 bg-ink"></span>
-          <span className="h-px w-6 bg-ink"></span>
-          <span className="h-px w-4 bg-seal ml-auto"></span>
+          <span
+            className={`block h-0.5 w-5 rounded-full bg-foreground transition-transform duration-300 ${
+              menuOpen ? "translate-y-[7px] rotate-45" : ""
+            }`}
+          />
+          <span
+            className={`block h-0.5 w-5 rounded-full bg-foreground transition-opacity duration-200 ${
+              menuOpen ? "opacity-0" : "opacity-100"
+            }`}
+          />
+          <span
+            className={`block h-0.5 w-5 rounded-full bg-primary transition-transform duration-300 ${
+              menuOpen ? "-translate-y-[7px] -rotate-45 bg-foreground" : ""
+            }`}
+          />
         </button>
       </div>
     </nav>
+
+      {/* Mobile drawer — rendered outside <nav> so backdrop-blur on the nav
+          doesn't trap the fixed-position drawer in the nav's containing block. */}
+      {menuOpen && (
+        <div
+          id="mobile-nav-drawer"
+          role="dialog"
+          aria-modal="true"
+          style={{ background: "#050505" }}
+          className="md:hidden fixed inset-x-0 bottom-0 top-[57px] z-50 overflow-y-auto px-6 pt-6 pb-12"
+        >
+          <ul className="flex flex-col gap-1">
+            {links.map((link) => {
+              const active = isActive(link);
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={`group flex items-center justify-between border-b border-white/10 py-2.5 text-[11px] font-bold uppercase tracking-[0.22em] transition ${
+                      active
+                        ? "text-primary"
+                        : "text-foreground hover:text-primary"
+                    }`}
+                    style={
+                      active
+                        ? { textShadow: `0 0 12px rgba(${PRIMARY_RGB}, 0.35)` }
+                        : undefined
+                    }
+                  >
+                    <span className="flex items-center gap-3">
+                      {active && (
+                        <span
+                          aria-hidden
+                          className="h-1 w-1 rounded-full bg-primary"
+                        />
+                      )}
+                      {link.label}
+                    </span>
+                    <span
+                      aria-hidden
+                      className="text-muted transition-transform group-hover:translate-x-1 group-hover:text-primary"
+                    >
+                      →
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="mt-6 border-t border-white/10 pt-6">
+            <Link
+              href="/contact"
+              onClick={() => setMenuOpen(false)}
+              className="inline-flex items-center gap-2 rounded-lg border border-primary/70 bg-primary/8 px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.22em] text-primary transition hover:border-primary hover:bg-primary/18"
+            >
+              <span className="h-1 w-1 rounded-full bg-primary animate-pulse" aria-hidden />
+              Request Briefing
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -126,8 +228,8 @@ function NavLink({
   return (
     <Link
       href={href}
-      className={`relative font-display text-base transition-colors duration-300 ${
-        active ? "text-seal" : "text-ink-soft hover:text-ink link-editorial"
+      className={`relative text-sm font-bold uppercase tracking-[0.18em] transition-colors duration-300 ${
+        active ? "text-primary" : "text-muted hover:text-foreground"
       }`}
     >
       <span className="relative">
@@ -135,7 +237,7 @@ function NavLink({
         {active && (
           <span
             aria-hidden
-            className="absolute -bottom-1.5 left-0 right-0 h-px bg-seal"
+            className="absolute -bottom-1.5 left-0 right-0 h-px bg-primary"
             style={{ boxShadow: `0 0 6px rgba(${PRIMARY_RGB}, 0.5)` }}
           />
         )}

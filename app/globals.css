@@ -150,9 +150,28 @@ html, body {
   0%, 100% { transform: translate(0%, 0%) scale(1); }
   50%      { transform: translate(18%, -22%) scale(1.22); }
 }
-.blob-drift-1 { animation: blob-drift-1 32s ease-in-out infinite; }
-.blob-drift-2 { animation: blob-drift-2 40s ease-in-out infinite; }
-.blob-drift-3 { animation: blob-drift-3 48s ease-in-out infinite; }
+/* Mobile-first: gentler drift + slower cycle so heavy blurred elements
+   don't cost too much paint on phones. */
+@keyframes blob-drift-1-sm {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  50%      { transform: translate(8%, 10%) scale(1.08); }
+}
+@keyframes blob-drift-2-sm {
+  0%, 100% { transform: translate(0%, 0%) scale(1.05); }
+  50%      { transform: translate(-9%, 7%) scale(0.96); }
+}
+@keyframes blob-drift-3-sm {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  50%      { transform: translate(7%, -9%) scale(1.1); }
+}
+.blob-drift-1 { animation: blob-drift-1-sm 44s ease-in-out infinite; }
+.blob-drift-2 { animation: blob-drift-2-sm 52s ease-in-out infinite; }
+.blob-drift-3 { animation: blob-drift-3-sm 60s ease-in-out infinite; }
+@media (min-width: 1024px) {
+  .blob-drift-1 { animation: blob-drift-1 32s ease-in-out infinite; }
+  .blob-drift-2 { animation: blob-drift-2 40s ease-in-out infinite; }
+  .blob-drift-3 { animation: blob-drift-3 48s ease-in-out infinite; }
+}
 @media (prefers-reduced-motion: reduce) {
   .blob-drift-1, .blob-drift-2, .blob-drift-3 { animation: none; }
 }

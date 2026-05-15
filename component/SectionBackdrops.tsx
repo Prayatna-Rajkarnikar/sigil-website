@@ -280,36 +280,36 @@ export function BlobBackdrop() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 overflow-hidden"
+      className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
     >
       <div
-        className="blob-drift-1 absolute h-[34rem] w-[34rem] rounded-full mix-blend-screen will-change-transform"
+        className="blob-drift-1 absolute h-[18rem] w-[18rem] rounded-full will-change-transform sm:h-[26rem] sm:w-[26rem] lg:h-[34rem] lg:w-[34rem] lg:mix-blend-screen"
         style={{
-          top: "-10%",
-          left: "-8%",
+          top: "-20%",
+          left: "-30%",
           background:
-            "radial-gradient(circle, rgba(var(--primary-rgb), 0.42) 0%, rgba(var(--primary-rgb), 0.18) 35%, transparent 65%)",
+            "radial-gradient(circle, rgba(var(--primary-rgb), 0.14) 0%, rgba(var(--primary-rgb), 0.07) 35%, transparent 65%)",
           filter: "blur(28px)",
         }}
       />
       <div
-        className="blob-drift-2 absolute h-[36rem] w-[36rem] rounded-full mix-blend-screen will-change-transform"
+        className="blob-drift-2 absolute h-[20rem] w-[20rem] rounded-full will-change-transform sm:h-[28rem] sm:w-[28rem] lg:h-[36rem] lg:w-[36rem] lg:mix-blend-screen"
         style={{
-          top: "15%",
-          right: "-12%",
+          top: "10%",
+          right: "-35%",
           background:
-            "radial-gradient(circle, rgba(var(--primary-rgb), 0.36) 0%, rgba(var(--primary-rgb), 0.14) 35%, transparent 65%)",
-          filter: "blur(32px)",
+            "radial-gradient(circle, rgba(var(--primary-rgb), 0.12) 0%, rgba(var(--primary-rgb), 0.06) 35%, transparent 65%)",
+          filter: "blur(30px)",
         }}
       />
       <div
-        className="blob-drift-3 absolute h-[38rem] w-[38rem] rounded-full mix-blend-screen will-change-transform"
+        className="blob-drift-3 absolute h-[22rem] w-[22rem] rounded-full will-change-transform sm:h-[30rem] sm:w-[30rem] lg:h-[38rem] lg:w-[38rem] lg:mix-blend-screen"
         style={{
-          bottom: "-18%",
-          left: "30%",
+          bottom: "-30%",
+          left: "-10%",
           background:
-            "radial-gradient(circle, rgba(var(--primary-rgb), 0.32) 0%, rgba(var(--primary-rgb), 0.12) 35%, transparent 65%)",
-          filter: "blur(36px)",
+            "radial-gradient(circle, rgba(var(--primary-rgb), 0.1) 0%, rgba(var(--primary-rgb), 0.05) 35%, transparent 65%)",
+          filter: "blur(32px)",
         }}
       />
     </div>

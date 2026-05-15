@@ -49,19 +49,19 @@ function Hero() {
         {/* ─────────────────────────────────────────────
             CENTER COPY BLOCK — overlaid on full-bleed cinematic
            ───────────────────────────────────────────── */}
-        <p className="text-center text-xs font-bold uppercase tracking-[0.32em] text-muted">
+        <p className="text-center text-[10px] font-bold uppercase tracking-[0.28em] text-muted sm:text-xs sm:tracking-[0.32em]">
           Strategic Simulation Systems · Agentic Decision Modeling
         </p>
 
         <h1
-          className={`${exo.className} mt-3 text-center text-5xl font-black leading-[0.98] tracking-tight text-foreground sm:text-6xl lg:text-7xl xl:text-[5.5rem] max-w-5xl`}
+          className={`${exo.className} mt-3 max-w-5xl text-center text-3xl font-black leading-[1] tracking-tight text-foreground sm:text-5xl lg:text-7xl xl:text-[5.5rem]`}
         >
           Rehearse{" "}
           <CycleHeadline className="text-glow-primary text-primary" />
         </h1>
 
         <p
-          className="mt-4 max-w-2xl text-center text-base leading-relaxed text-foreground/90 sm:text-lg"
+          className="mt-4 max-w-2xl text-center text-sm leading-relaxed text-foreground/90 sm:text-lg"
           style={{ textShadow: "0 1px 12px rgba(0,0,0,0.85), 0 0 2px rgba(0,0,0,0.7)" }}
         >
           Sigil sets up autonomous AI{" "}
@@ -71,11 +71,11 @@ function Hero() {
           <span className="text-foreground">before</span> it really matters.
         </p>
 
-        <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row">
+        <div className="mt-6 flex w-full max-w-md flex-col items-stretch gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:gap-4">
           <MagneticButton>
             <Link
               href="/use-case"
-              className="btn-tactical btn-glow group relative inline-flex items-center justify-center gap-3 rounded-lg border border-primary/70 bg-primary/8 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-primary transition hover:border-primary hover:bg-primary/18"
+              className="btn-tactical btn-glow group relative inline-flex w-full items-center justify-center gap-3 rounded-lg border border-primary/70 bg-primary/8 px-6 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-primary transition hover:border-primary hover:bg-primary/18 sm:w-auto sm:px-8 sm:py-4 sm:text-sm sm:tracking-[0.2em]"
             >
               Read the Use Case
               <span className="transition-transform group-hover:translate-x-1">
@@ -86,7 +86,7 @@ function Hero() {
           <MagneticButton>
             <Link
               href="/contact"
-              className="btn-tactical group inline-flex items-center justify-center gap-3 rounded-lg border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-foreground transition hover:border-primary hover:bg-primary/10"
+              className="btn-tactical group inline-flex w-full items-center justify-center gap-3 rounded-lg border border-white/20 bg-white/5 px-6 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-foreground transition hover:border-primary hover:bg-primary/10 sm:w-auto sm:px-8 sm:py-4 sm:text-sm sm:tracking-[0.2em]"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
               Contact Us
@@ -132,7 +132,7 @@ function Mission() {
   return (
     <section
       id="mission"
-      className="relative overflow-hidden border-b border-white/5 px-6 py-32 lg:px-10"
+      className="relative overflow-hidden border-b border-white/5 px-6 py-20 sm:py-24 lg:px-10 lg:py-32"
     >
       <CircuitFlow />
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
@@ -146,7 +146,7 @@ function Mission() {
           {/* LEFT — headline + paragraph */}
           <Reveal className="lg:col-span-4" delay={120}>
             <h2
-              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
+              className={`${exo.className} text-3xl font-black leading-[1.05] sm:text-5xl`}
             >
               We don&apos;t try to predict
               <br />
@@ -154,7 +154,7 @@ function Mission() {
               <br />
               <span className="text-primary">We help you practice it.</span>
             </h2>
-            <p className="mt-8 text-base leading-relaxed text-muted">
+            <p className="mt-6 text-base leading-relaxed text-muted sm:mt-8">
               Things move fast now. Strategy, supply chains, even the
               systems we depend on every day change quicker than any team
               can keep up with. Sigil turns months of planning into hours
@@ -258,7 +258,7 @@ function ActorConcept() {
   return (
     <section
       id="actor"
-      className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10"
+      className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-20 sm:py-24 lg:px-10 lg:py-32"
     >
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
@@ -308,7 +308,7 @@ function ActorConcept() {
           <div className="order-1 lg:order-2 lg:col-span-5">
             <Reveal delay={120}>
               <h2
-                className={`${exo.className} text-5xl font-black leading-[0.98] sm:text-6xl lg:text-7xl`}
+                className={`${exo.className} text-3xl font-black leading-[0.98] sm:text-5xl lg:text-7xl`}
               >
                 Meet the
                 <br />
@@ -388,7 +388,7 @@ function AIModels() {
   return (
     <section
       id="models"
-      className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10"
+      className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-20 sm:py-24 lg:px-10 lg:py-32"
     >
       <DataDashes />
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
@@ -402,13 +402,13 @@ function AIModels() {
         <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16">
           <Reveal className="lg:col-span-4" delay={120}>
             <h2
-              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-5xl`}
+              className={`${exo.className} text-3xl font-black leading-[1.05] sm:text-5xl`}
             >
               Built
               <br />
               <span className="text-primary">for the job.</span>
             </h2>
-            <p className="mt-8 text-base leading-relaxed text-muted">
+            <p className="mt-6 text-base leading-relaxed text-muted sm:mt-8">
               Sigil comes with a small set of foundation models, each
               tuned for a role inside the actor stack. Mix them, swap
               them, or train your own on top.
@@ -468,28 +468,28 @@ function AIModels() {
    ───────────────────────────────────────────────────────────── */
 function SalesCTA() {
   return (
-    <section className="relative overflow-hidden bg-background px-6 py-32 lg:px-10">
+    <section className="relative overflow-hidden bg-background px-6 py-20 sm:py-24 lg:px-10 lg:py-32">
       <HexLatticePulse />
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 
       <Reveal className="relative mx-auto max-w-5xl">
-        <div className="relative rounded-lg border border-primary/40 bg-background/30 p-10 backdrop-blur-sm sm:p-16">
-          <div className="absolute -top-3 left-10 flex items-center gap-2 bg-background px-4 text-[11px] font-bold uppercase tracking-[0.3em] text-primary">
+        <div className="relative rounded-lg border border-primary/40 bg-background/30 p-6 backdrop-blur-sm sm:p-10 lg:p-16">
+          <div className="absolute -top-3 left-6 flex items-center gap-2 bg-background px-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary sm:left-10 sm:px-4 sm:text-[11px]">
             <span className="h-1.5 w-1.5 bg-primary animate-pulse"></span>
             Get in touch
           </div>
 
           <div>
             <h2
-              className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-6xl lg:text-7xl`}
+              className={`${exo.className} text-3xl font-black leading-[1.05] sm:text-6xl lg:text-7xl`}
             >
               Stop guessing.
               <br />
               <span className="text-primary">Start practicing.</span>
             </h2>
 
-            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:mt-8 sm:text-lg">
               Most platforms give you another dashboard. We give you
               back the time you&apos;d have spent learning the hard
               way. A 30-minute call with our team is the easiest way
@@ -497,7 +497,7 @@ function SalesCTA() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2">
+          <div className="mt-10 grid gap-4 sm:mt-12 sm:gap-6 sm:grid-cols-2">
             <Link
               href="/use-case"
               className="btn-tactical btn-glow group relative rounded-lg border border-primary/70 bg-primary/8 p-6 transition hover:border-primary hover:bg-primary/18"
@@ -506,7 +506,7 @@ function SalesCTA() {
                 Real example · Dynamic Pricing
               </div>
               <div
-                className={`${exo.className} mt-2 text-3xl font-black text-primary`}
+                className={`${exo.className} mt-2 text-2xl font-black text-primary sm:text-3xl`}
               >
                 Read the Use Case
               </div>
@@ -526,7 +526,7 @@ function SalesCTA() {
                 Book a 30-min call
               </div>
               <div
-                className={`${exo.className} mt-2 text-3xl font-black text-foreground`}
+                className={`${exo.className} mt-2 text-2xl font-black text-foreground sm:text-3xl`}
               >
                 Talk to a human
               </div>

@@ -18,19 +18,19 @@ function ContactHero() {
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-32 pb-12 lg:px-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-28 pb-10 sm:pt-32 sm:pb-12 lg:px-10">
         <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
           <span className="h-1.5 w-1.5 bg-primary animate-pulse"></span>
           Contact
         </div>
         <h1
-          className={`${exo.className} mt-6 text-5xl font-black leading-[0.95] tracking-tight text-foreground sm:text-7xl`}
+          className={`${exo.className} mt-5 text-3xl font-black leading-none tracking-tight text-foreground sm:mt-6 sm:text-5xl lg:text-7xl`}
         >
           Get in
           <br />
           <span className="text-glow-primary text-primary">touch.</span>
         </h1>
-        <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:mt-8 sm:text-lg">
           Demos, questions, partnerships — drop us a note and we&apos;ll route
           it to the right person.
         </p>
@@ -41,19 +41,19 @@ function ContactHero() {
 
 function ContactGrid() {
   return (
-    <section className="relative overflow-hidden border-b border-white/5 px-6 py-24 lg:px-10">
+    <section className="relative overflow-hidden border-b border-white/5 px-6 py-16 sm:py-20 lg:px-10 lg:py-24">
       <BlobBackdrop />
       <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Form */}
           <div className="lg:col-span-7">
-            <div className="corner-brackets relative border border-primary/40 bg-background/60 p-8 backdrop-blur-sm sm:p-10">
+            <div className="corner-brackets relative border border-primary/40 bg-background/60 p-6 backdrop-blur-sm sm:p-8 lg:p-10">
               <span className="corner-bl"></span>
               <span className="corner-br"></span>
 
-              <div className="absolute -top-2.5 left-6 flex items-center gap-2 bg-background px-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+              <div className="absolute -top-2.5 left-4 flex items-center gap-2 bg-background px-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary sm:left-6">
                 <span className="h-1.5 w-1.5 bg-primary animate-pulse"></span>
                 Send a message
               </div>
@@ -63,7 +63,7 @@ function ContactGrid() {
           </div>
 
           {/* Direct channels */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 space-y-4 sm:space-y-6">
             <Channel
               tag="General"
               email="hello@sigil.ai"
@@ -101,7 +101,7 @@ function Channel({
   desc: string;
 }) {
   return (
-    <div className="corner-brackets relative border border-white/10 bg-white/[0.02] p-6 transition hover:border-primary/50">
+    <div className="corner-brackets relative border border-white/10 bg-white/[0.02] p-5 transition hover:border-primary/50 sm:p-6">
       <span className="corner-bl"></span>
       <span className="corner-br"></span>
       <div className="mb-2 inline-block border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-primary">
@@ -109,7 +109,7 @@ function Channel({
       </div>
       <a
         href={`mailto:${email}`}
-        className={`${exo.className} block text-xl font-black text-foreground hover:text-primary transition`}
+        className={`${exo.className} block break-all text-lg font-black text-foreground hover:text-primary transition sm:text-xl`}
       >
         {email}
       </a>
