@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { exo } from "@/app/font";
+import { BlobBackdrop } from "@/component/SectionBackdrops";
 
 export default function ActorsPage() {
   return (
@@ -18,8 +19,9 @@ export default function ActorsPage() {
 function ActorHero() {
   return (
     <section className="relative min-h-[80vh] overflow-hidden border-b border-white/5 bg-background scanlines">
-      <div className="absolute inset-0 bg-tactical-grid opacity-60"></div>
-      <div className="absolute inset-0 bg-spotlight"></div>
+      <BlobBackdrop />
+      <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 
       <div className="relative z-10 mx-auto grid min-h-[80vh] max-w-7xl gap-16 px-6 pt-32 pb-16 lg:grid-cols-12 lg:items-center lg:px-10">
         <div className="lg:col-span-5">
@@ -110,7 +112,8 @@ function ActorAnatomy() {
   ];
 
   return (
-    <section className="relative border-b border-white/5 px-6 py-32 lg:px-10">
+    <section className="relative overflow-hidden border-b border-white/5 px-6 py-32 lg:px-10">
+      <BlobBackdrop />
       <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
@@ -202,8 +205,9 @@ function DecisionLoop() {
 
   return (
     <section className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10">
+      <BlobBackdrop />
       <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
-      <div className="absolute inset-0 bg-spotlight"></div>
+      <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
         <SectionLabel index="02" label="The Decision Loop" />
@@ -276,7 +280,8 @@ function Capabilities() {
   ];
 
   return (
-    <section className="relative border-b border-white/5 px-6 py-32 lg:px-10">
+    <section className="relative overflow-hidden border-b border-white/5 px-6 py-32 lg:px-10">
+      <BlobBackdrop />
       <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
@@ -323,6 +328,7 @@ function Variants() {
 
   return (
     <section className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-32 lg:px-10">
+      <BlobBackdrop />
       <div className="absolute inset-0 bg-tactical-grid opacity-50 pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
@@ -370,8 +376,9 @@ function Variants() {
 
 function ActorCTA() {
   return (
-    <section className="relative px-6 py-32 lg:px-10">
-      <div className="absolute inset-0 bg-spotlight"></div>
+    <section className="relative overflow-hidden px-6 py-32 lg:px-10">
+      <BlobBackdrop />
+      <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
       <div className="relative mx-auto max-w-4xl text-center">
         <h2
           className={`${exo.className} text-4xl font-black leading-[1.05] sm:text-6xl`}

@@ -134,6 +134,30 @@ html, body {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   BLOB BACKDROP — three soft brand-tinted blobs drifting slowly
+   on independent cycles. Used on sub-pages (actors / use-case /
+   contact). Light, atmospheric, no narrative — just fills the gap.
+   ───────────────────────────────────────────────────────────── */
+@keyframes blob-drift-1 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  50%      { transform: translate(20%, 25%) scale(1.18); }
+}
+@keyframes blob-drift-2 {
+  0%, 100% { transform: translate(0%, 0%) scale(1.1); }
+  50%      { transform: translate(-22%, 18%) scale(0.92); }
+}
+@keyframes blob-drift-3 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  50%      { transform: translate(18%, -22%) scale(1.22); }
+}
+.blob-drift-1 { animation: blob-drift-1 32s ease-in-out infinite; }
+.blob-drift-2 { animation: blob-drift-2 40s ease-in-out infinite; }
+.blob-drift-3 { animation: blob-drift-3 48s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .blob-drift-1, .blob-drift-2, .blob-drift-3 { animation: none; }
+}
+
+/* ─────────────────────────────────────────────────────────────
    TRAIT-CARD ANIMATIONS — used by TraitCard.tsx inline SVG icons
    ───────────────────────────────────────────────────────────── */
 @keyframes trait-spin {

@@ -1,10 +1,12 @@
 /**
- * SectionBackdrops — animated background components, one per section.
+ * SectionBackdrops — animated background components.
  *
- *   CircuitFlow         → Mission       (glowing pulses on circuit traces)
- *   AuroraPortal        → Actor         (handled by component/AuroraPortal.tsx)
- *   DataDashes          → AI Models     (signal blips / data ticks)
- *   HexLatticePulse     → Sales-CTA     (tactical grid coming online)
+ *   CircuitFlow         → Homepage Mission       (glowing pulses on circuit traces)
+ *   AuroraPortal        → Homepage Actor         (handled by component/AuroraPortal.tsx)
+ *   DataDashes          → Homepage AI Models     (signal blips / data ticks)
+ *   HexLatticePulse     → Homepage Sales-CTA     (tactical grid coming online)
+ *   BlobBackdrop        → Sub-pages (actors / use-case / contact) — soft drifting
+ *                         brand-tinted blobs, intentionally light and uncluttered.
  *
  * All are pointer-events:none, deeply backgrounded, and respect
  * prefers-reduced-motion via their CSS keyframes.
@@ -264,6 +266,52 @@ export function CircuitFlow() {
           />
         ))}
       </svg>
+    </div>
+  );
+}
+
+/* ─── 5. BLOB BACKDROP — sub-pages (actors / use-case / contact) ─
+   Three soft brand-tinted radial-gradient blobs drifting slowly on
+   independent cycles. Intentionally light and unobtrusive — no hard
+   shapes, no text-readability risk, no per-section narrative — just
+   ambient fill behind the content.
+   ───────────────────────────────────────────────────────────── */
+export function BlobBackdrop() {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+    >
+      <div
+        className="blob-drift-1 absolute h-[34rem] w-[34rem] rounded-full mix-blend-screen will-change-transform"
+        style={{
+          top: "-10%",
+          left: "-8%",
+          background:
+            "radial-gradient(circle, rgba(var(--primary-rgb), 0.42) 0%, rgba(var(--primary-rgb), 0.18) 35%, transparent 65%)",
+          filter: "blur(28px)",
+        }}
+      />
+      <div
+        className="blob-drift-2 absolute h-[36rem] w-[36rem] rounded-full mix-blend-screen will-change-transform"
+        style={{
+          top: "15%",
+          right: "-12%",
+          background:
+            "radial-gradient(circle, rgba(var(--primary-rgb), 0.36) 0%, rgba(var(--primary-rgb), 0.14) 35%, transparent 65%)",
+          filter: "blur(32px)",
+        }}
+      />
+      <div
+        className="blob-drift-3 absolute h-[38rem] w-[38rem] rounded-full mix-blend-screen will-change-transform"
+        style={{
+          bottom: "-18%",
+          left: "30%",
+          background:
+            "radial-gradient(circle, rgba(var(--primary-rgb), 0.32) 0%, rgba(var(--primary-rgb), 0.12) 35%, transparent 65%)",
+          filter: "blur(36px)",
+        }}
+      />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { exo } from "@/app/font";
+import { BlobBackdrop } from "@/component/SectionBackdrops";
 
 export default function UseCasePage() {
   const steps = [
@@ -29,7 +30,8 @@ export default function UseCasePage() {
   return (
     <>
       <UseHero />
-      <main className="relative px-6 py-24 lg:px-10">
+      <main className="relative overflow-hidden px-6 py-24 lg:px-10">
+        <BlobBackdrop />
         <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
 
         <div className="relative mx-auto max-w-5xl">
@@ -98,8 +100,9 @@ export default function UseCasePage() {
 function UseHero() {
   return (
     <section className="relative overflow-hidden border-b border-white/5 bg-background scanlines">
-      <div className="absolute inset-0 bg-tactical-grid opacity-60"></div>
-      <div className="absolute inset-0 bg-spotlight"></div>
+      <BlobBackdrop />
+      <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-32 pb-16 lg:px-10">
         <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
@@ -279,8 +282,9 @@ function Metrics() {
    ───────────────────────────────────────────────────────────── */
 function CTA() {
   return (
-    <section className="relative px-6 py-24 lg:px-10">
-      <div className="absolute inset-0 bg-spotlight"></div>
+    <section className="relative overflow-hidden px-6 py-24 lg:px-10">
+      <BlobBackdrop />
+      <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
       <div className="relative mx-auto max-w-3xl">
         <h2
           className={`${exo.className} text-3xl font-black leading-tight text-foreground sm:text-5xl`}

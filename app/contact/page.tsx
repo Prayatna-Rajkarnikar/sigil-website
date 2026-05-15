@@ -1,5 +1,6 @@
 import { exo } from "@/app/font";
 import ContactForm from "./contact-form";
+import { BlobBackdrop } from "@/component/SectionBackdrops";
 
 export default function ContactPage() {
   return (
@@ -13,8 +14,9 @@ export default function ContactPage() {
 function ContactHero() {
   return (
     <section className="relative min-h-[40vh] overflow-hidden border-b border-white/5 bg-background scanlines">
-      <div className="absolute inset-0 bg-tactical-grid opacity-60"></div>
-      <div className="absolute inset-0 bg-spotlight"></div>
+      <BlobBackdrop />
+      <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-32 pb-12 lg:px-10">
         <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
@@ -39,7 +41,8 @@ function ContactHero() {
 
 function ContactGrid() {
   return (
-    <section className="relative border-b border-white/5 px-6 py-24 lg:px-10">
+    <section className="relative overflow-hidden border-b border-white/5 px-6 py-24 lg:px-10">
+      <BlobBackdrop />
       <div className="absolute inset-0 bg-tactical-grid-fine opacity-30 pointer-events-none"></div>
 
       <div className="relative mx-auto max-w-7xl">
