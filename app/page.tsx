@@ -255,10 +255,13 @@ function ActorConcept() {
     { kind: "act",      name: "Acts",      desc: "Tool use and multi-actor coordination across domains." },
   ] as { kind: TraitKind; name: string; desc: string }[];
 
+  /* Extra bottom padding on stacked layouts (pb-60) opens a clear band
+     below the debug panel for the aurora to live in, so the rings never
+     overlap the image. lg: resets to the symmetric py-32. */
   return (
     <section
       id="actor"
-      className="relative overflow-hidden border-b border-white/5 bg-black px-6 py-20 sm:py-24 lg:px-10 lg:py-32"
+      className="relative overflow-hidden border-b border-white/5 bg-black px-6 pt-20 pb-60 sm:pt-24 sm:pb-60 lg:px-10 lg:pt-32 lg:pb-32"
     >
       <div className="absolute inset-0 bg-tactical-grid opacity-60 pointer-events-none"></div>
       <div className="absolute inset-0 bg-spotlight pointer-events-none"></div>

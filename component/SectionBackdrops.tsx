@@ -140,7 +140,7 @@ export function DataDashes() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 overflow-hidden"
+      className="data-dashes pointer-events-none absolute inset-0 overflow-hidden"
     >
       {dashes.map((d, i) => (
         <span
@@ -204,7 +204,7 @@ export function CircuitFlow() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 overflow-hidden"
+      className="circuit-backdrop pointer-events-none absolute inset-0 overflow-hidden"
     >
       <svg
         className="absolute inset-0 h-full w-full"

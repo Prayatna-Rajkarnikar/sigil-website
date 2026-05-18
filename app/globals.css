@@ -359,6 +359,28 @@ html, body {
   .aurora-ring { animation: none !important; }
 }
 
+/* Stacked layouts (tablet + mobile, below the lg breakpoint) — the
+   section backdrops keep the SAME animation as desktop (same type,
+   same scattered layout); they're just dimmed so that where they fall
+   behind the stacked copy they read as a faint background shimmer
+   instead of irritating the eye / hurting contrast. The aurora is also
+   dropped to the lower part of its section. */
+@media (max-width: 1023px) {
+  /* Aurora lives in a fixed 15rem band anchored to the section bottom,
+     which sits inside the extra pb-60 padding below the debug panel —
+     so the beams + rings never overlap the image. */
+  .aurora-portal   { top: auto; height: 15rem; }
+  .data-dashes     { opacity: 0.4; }
+  /* CircuitFlow's SVG paths are hard-routed for the desktop 3-column
+     layout; on stacked layouts they cross the copy, so the Mission
+     circuit is removed entirely below lg. The section keeps its
+     tactical-grid drift + spotlight for motion. */
+  .circuit-backdrop { display: none; }
+}
+@media (max-width: 639px) {
+  .data-dashes     { opacity: 0.28; }
+}
+
 /* ─────────────────────────────────────────────────────────────
    AMBIENT BACKGROUND — wrapper for cycling between visual variants.
    The wrapper sits absolute inside its parent section and renders
