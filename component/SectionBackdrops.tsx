@@ -2,66 +2,18 @@
  * SectionBackdrops — animated background components.
  *
  *   CircuitFlow         → Homepage Mission       (glowing pulses on circuit traces)
- *   AuroraPortal        → Homepage Actor         (handled by component/AuroraPortal.tsx)
  *   DataDashes          → Homepage AI Models     (signal blips / data ticks)
  *   HexLatticePulse     → Homepage Sales-CTA     (tactical grid coming online)
  *   BlobBackdrop        → Sub-pages (actors / use-case / contact) — soft drifting
  *                         brand-tinted blobs, intentionally light and uncluttered.
  *
- * All are pointer-events:none, deeply backgrounded, and respect
- * prefers-reduced-motion via their CSS keyframes.
+ * The Actor section uses component/AuroraPortal.tsx separately.
+ *
+ * All components are pointer-events:none, sit at z-0, and respect
+ * prefers-reduced-motion via their CSS keyframes in globals.css.
  */
 
-/* ─── 1. FORECAST FAN — Mission section ──────────────────────────
-   Many thin curved lines drawing inward from above, fading, redrawing
-   with staggered delays — reads as "thousands of possible futures
-   being simulated in parallel." Reuses the existing .forecast-line
-   keyframes already in globals.css.
-   ───────────────────────────────────────────────────────────── */
-export function ForecastFan() {
-  const N = 26;
-  const lines = Array.from({ length: N }, (_, i) => ({
-    angle: -65 + (130 * i) / (N - 1),
-    delay: (i * 0.6) % 11,
-    dur: 9 + (i % 5) * 1.4,
-  }));
-
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-0 overflow-hidden"
-    >
-      <svg
-        className="absolute inset-0 h-full w-full opacity-50"
-        viewBox="0 0 1000 600"
-        preserveAspectRatio="xMidYMid slice"
-        style={{ ["--forecast-max" as string]: "0.35" }}
-      >
-        <g transform="translate(500, 620)">
-          {lines.map((l, i) => (
-            <g key={i} transform={`rotate(${l.angle})`}>
-              <path
-                d="M 0 0 L 0 -780"
-                pathLength={1}
-                className="forecast-line"
-                stroke="rgb(var(--primary-rgb))"
-                strokeWidth={0.8}
-                fill="none"
-                strokeLinecap="round"
-                style={{
-                  animationDelay: `${l.delay}s`,
-                  animationDuration: `${l.dur}s`,
-                }}
-              />
-            </g>
-          ))}
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-/* ─── 3. HEX LATTICE PULSE — Sales-CTA section ───────────────────
+/* ─── HEX LATTICE PULSE — Sales-CTA section ───────────────────────
    Honeycomb grid where individual cells light up in slow waves.
    Defense-tactical feel — "systems coming online."
    ───────────────────────────────────────────────────────────── */

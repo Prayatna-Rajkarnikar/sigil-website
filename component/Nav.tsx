@@ -7,6 +7,22 @@ import Logo from "./Logo";
 import { PRIMARY_RGB } from "@/lib/theme";
 
 /**
+ * Nav — sticky top bar with desktop horizontal links and a mobile drawer.
+ *
+ * Two non-obvious decisions:
+ *
+ *   1. The mobile drawer is rendered as a SIBLING of <nav>, not a child.
+ *      The <nav> uses backdrop-blur for its frosted look, and per CSS spec
+ *      `backdrop-filter` creates a containing block for fixed descendants.
+ *      A drawer inside the nav would be clipped to the nav bar's tiny
+ *      height (~57px). Returning <>nav, drawer</> escapes that.
+ *
+ *   2. Active section detection uses IntersectionObserver on the homepage
+ *      so the underlined link tracks the section currently in view. On
+ *      other pages it falls back to URL matching.
+ */
+
+/**
  * useActiveSection — observes a list of section IDs in the DOM and returns
  * the one whose intersection ratio is highest. Re-runs when the route
  * changes so it picks up sections on the freshly-mounted page.
